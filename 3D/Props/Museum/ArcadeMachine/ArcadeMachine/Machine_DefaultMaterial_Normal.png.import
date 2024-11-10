@@ -2,13 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b12bhuefaakps"
+uid="uid://cxrrrbs2tq3h3"
 path.s3tc="res://.godot/imported/Machine_DefaultMaterial_Normal.png-4ec9feee68c0c0e49cccac881a2251a4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 
@@ -26,7 +25,7 @@ compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=1
-roughness/src_normal="res://3D/Props/Museum/ArcadeMachine/Machine_DefaultMaterial_Normal.png"
+roughness/src_normal="res://3D/Props/Museum/ArcadeMachine/ArcadeMachine/Machine_DefaultMaterial_Normal.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

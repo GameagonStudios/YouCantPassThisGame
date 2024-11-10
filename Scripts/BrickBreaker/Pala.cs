@@ -17,7 +17,8 @@ public partial class Pala : AnimatableBody2D
   ColorRect player;
 
 
-
+/*La pala debe ser un trigger para cuando la pelota interactue con el trigger la pala debe añadir su velocidad a la de la pelota pero la pelota debe tener una velocidad maxima
+para que no se vaya de madre y que la pelota vaya siempre a su velocidad limite(coger velocidad pelota + velocidad en x de la pala en y normalizas y lo multiplicas por la velocidad limite)*/
 
 float maxRight;
 float maxLeft;
@@ -26,8 +27,6 @@ float maxLeft;
     Direction = ((float)state.strength);
     maxRight = background.Position.X + background.Size.X - player.Size.X - 0.01f;
     maxLeft = background.Position.X;
-    GD.Print("maxright" + maxRight);
-    GD.Print("maxleft" + maxRight);
 
   }
   public override void _PhysicsProcess(double delta)
