@@ -2,63 +2,71 @@ using Godot;
 using System;
 using System.Drawing;
 
-public partial class ball : RigidBody2D
+public partial class Ball : RigidBody2D
 {
 	[Export]
-	float multiplyVel;
-	
+	float minVelocity = 5;
+
 	[Export]
-	float limitVel;
-	
-	[Export]
-	float Vel = 1f;
-	Vector2 Direction = Vector2.Zero;
+	float maxVelocity = 15;
+
+	public float CurrentVelocity;
+
 	Vector2 Start_Position;
-	float floor;
 
 	[Export]
 	ColorRect Background;
 	[Export]
-	ColorRect Ball;
+	ColorRect rect;
 
-
+	float floor => Background.Position.Y + Background.Size.Y + rect.Size.Y;
+	float ceiling => Background.Position.Y;
+	float MaxWall => Background.Position.X + Background.Size.X - rect.Size.X;
+	float MinWall => Background.Position.X;
 	public override void _Ready()
 	{
 		Start_Position = Position;
 		start_ball();
-		floor = Background.Position.Y + Background.Size.Y + Ball.Size.Y;
-
 		//this.LinearVelocity = new Vector2(this.LinearVelocity.X, Vel);
 	}
 
 	public void start_ball()
 	{
+		CurrentVelocity = minVelocity;
 		Position = Start_Position;
 		RandomNumberGenerator rand = new RandomNumberGenerator();
-		LinearVelocity = new Vector2(rand.RandfRange(1,-1), rand.RandfRange(1,-1));
+		LinearVelocity = new Vector2(rand.RandfRange(-1, 1), -1).Normalized() * CurrentVelocity;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		KinematicCollision2D collission = MoveAndCollide(LinearVelocity.Normalized() * (float)(Vel * delta));
-		if(collission != null)
+		Vector2 lv = LinearVelocity;
+		KinematicCollision2D collission = MoveAndCollide(LinearVelocity * (float)delta);
+		if (collission != null)
 		{
-			LinearVelocity = LinearVelocity.Bounce(collission.GetNormal());
+			GD.Print(collission.GetCollider());
+			LinearVelocity = lv.Bounce(collission.GetNormal());
+
+
+			if (collission.GetCollider() is ColissionReciver b)
+			{
+				GD.Print(collission.GetCollider() + " - 2");
+				b.HandleCollision(this);
+			}
 		}
 
-		if(Position.Y > floor)
+		LinearVelocity = new(Position.X <= MinWall || Position.X >= MaxWall ? -LinearVelocity.X : LinearVelocity.X,
+			Position.Y <= ceiling ? -LinearVelocity.Y : LinearVelocity.Y);
+		if (Position.Y > floor)
 		{
 			start_ball();
 		}
 
-		if(collission.GetCollider() is ColissionReciver b)
-        {
-            b.HandleCollision(this);
-        }
+
 
 	}
 
 	//public override void 
-	
+
 }

@@ -28,6 +28,8 @@ public partial class BrickBreakerBrick : StaticBody2D, ColissionReciver
 		if(livePoints <= 0)
 		{
 			this.Visible = false;
+			this.ProcessMode = ProcessModeEnum.Disabled;
+
 		}
     }
 
