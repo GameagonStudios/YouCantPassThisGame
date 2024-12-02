@@ -204,6 +204,42 @@ script = ExtResource("3_hyyl2")
 [node name="Look" type="Node" parent="Player/InputEventHandler/Player"]
 script = ExtResource("3_hyyl2")
 
+[node name="Node" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node2" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node3" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node4" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node5" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node6" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node7" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node8" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node9" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node10" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node11" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node12" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
 [node name="UI" type="Node" parent="Player/InputEventHandler"]
 
 [node name="Pause" type="Node" parent="Player/InputEventHandler/UI"]

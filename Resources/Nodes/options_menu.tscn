@@ -16,6 +16,7 @@
 
 [sub_resource type="SystemFont" id="SystemFont_4ihvp"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -152,7 +153,7 @@ text = "MENU_LANGUAGE"
 [node name="LanguageSelector" type="OptionButton" parent="TabContainer/SOUND/SoundContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-selected = 1
+selected = 0
 item_count = 3
 popup/item_0/text = "English"
 popup/item_1/text = "Español"

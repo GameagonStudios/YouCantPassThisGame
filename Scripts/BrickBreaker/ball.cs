@@ -10,14 +10,15 @@ public partial class Ball : RigidBody2D
 	[Export]
 	float maxVelocity = 15;
 
-	public float CurrentVelocity;
-
-	Vector2 Start_Position;
-
 	[Export]
 	ColorRect Background;
+	
 	[Export]
 	ColorRect rect;
+	public float CurrentVelocity;
+
+	bool Start = false;
+	Vector2 Start_Position;
 
 	float floor => Background.Position.Y + Background.Size.Y + rect.Size.Y;
 	float ceiling => Background.Position.Y;
@@ -32,36 +33,40 @@ public partial class Ball : RigidBody2D
 
 	public void start_ball()
 	{
-		CurrentVelocity = minVelocity;
-		Position = Start_Position;
-		RandomNumberGenerator rand = new RandomNumberGenerator();
-		LinearVelocity = new Vector2(rand.RandfRange(-1, 1), -1).Normalized() * CurrentVelocity;
+		//CurrentVelocity = minVelocity;
+		//Position = Start_Position;
+		/*RandomNumberGenerator rand = new RandomNumberGenerator();
+		LinearVelocity = new Vector2(rand.RandfRange(-1, 1), -1).Normalized() * CurrentVelocity;*/
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		Vector2 lv = LinearVelocity;
-		KinematicCollision2D collission = MoveAndCollide(LinearVelocity * (float)delta);
-		if (collission != null)
+		if (Start == true)
 		{
-			GD.Print(collission.GetCollider());
-			LinearVelocity = lv.Bounce(collission.GetNormal());
-
-
-			if (collission.GetCollider() is ColissionReciver b)
+			Vector2 lv = LinearVelocity;
+			KinematicCollision2D collission = MoveAndCollide(LinearVelocity * (float)delta, false, 0, true);
+			if (collission != null)
 			{
-				GD.Print(collission.GetCollider() + " - 2");
-				b.HandleCollision(this);
+				GD.Print(collission.GetCollider());
+				LinearVelocity = lv.Bounce(collission.GetNormal());
+
+
+				if (collission.GetCollider() is ColissionReciver b)
+				{
+					GD.Print(collission.GetCollider() + " - 2");
+					b.HandleCollision(this);
+				}
+			}
+
+			LinearVelocity = new(Position.X <= MinWall || Position.X >= MaxWall ? -LinearVelocity.X : LinearVelocity.X,
+				Position.Y <= ceiling ? -LinearVelocity.Y : LinearVelocity.Y);
+			if (Position.Y > floor)
+			{
+				start_ball();
 			}
 		}
 
-		LinearVelocity = new(Position.X <= MinWall || Position.X >= MaxWall ? -LinearVelocity.X : LinearVelocity.X,
-			Position.Y <= ceiling ? -LinearVelocity.Y : LinearVelocity.Y);
-		if (Position.Y > floor)
-		{
-			start_ball();
-		}
 
 
 

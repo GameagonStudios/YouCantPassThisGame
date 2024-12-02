@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="4_ykrfl"]
 [ext_resource type="Script" path="res://Scripts/Utils/EventActuator.cs" id="5_0h3tu"]
 [ext_resource type="Script" path="res://Scripts/BrickBreaker/PaddleController.cs" id="6_1uf5h"]
-[ext_resource type="Script" path="res://Scripts/BrickBreaker/Ball.cs" id="7_353f0"]
+[ext_resource type="Script" path="res://Scripts/BrickBreaker/Ball.cs" id="7_vhdvm"]
 [ext_resource type="Script" path="res://Scripts/BrickBreaker/BrickBreakerGenerator.cs" id="8_dmfm0"]
 [ext_resource type="PackedScene" uid="uid://c7ew7dgxqm7nt" path="res://Resources/MiniGames/BrickBreaker/Brick.tscn" id="9_4ieu4"]
 
@@ -91,14 +91,14 @@ position = Vector2(15, 19)
 zoom = Vector2(26.62, 26.62)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("Background", "rect")]
-position = Vector2(17, 22)
-disable_mode = 2
+position = Vector2(17, 32)
+disable_mode = 1
 physics_material_override = SubResource("PhysicsMaterial_vd0mw")
 gravity_scale = 0.0
 lock_rotation = true
 linear_velocity = Vector2(0, -10)
 linear_damp_mode = 1
-script = ExtResource("7_353f0")
+script = ExtResource("7_vhdvm")
 Background = NodePath("../BackGround")
 rect = NodePath("ColorRect")
 
