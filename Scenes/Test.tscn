@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bf44tejcvwkx8"]
+[gd_scene load_steps=32 format=3 uid="uid://bf44tejcvwkx8"]
 
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_bg54p"]
 [ext_resource type="Material" uid="uid://c2rlcwx53fo57" path="res://Materials/PlaceHolders/Grass.material" id="1_s0cw8"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/InteractionSystem/Interactors/RayInteractor3D.cs" id="5_xlhib"]
 [ext_resource type="Script" path="res://Scripts/Controllers/WalkingController.cs" id="6_irl46"]
 [ext_resource type="PackedScene" uid="uid://cwddhbjrf4qxi" path="res://3D/Characters/Kyorinrin/Kyōrinrin.glb" id="11_shnh5"]
+[ext_resource type="PackedScene" uid="uid://drhanb7cc2lyj" path="res://3D/Characters/Dummy/Dummy.glb" id="11_yk3wi"]
 [ext_resource type="PackedScene" uid="uid://k6m7a22pajvr" path="res://3D/Props/Museum/ArcadeMachine/ArcadeMachine/TheLastOfFruitsArcade.tscn" id="12_kfvpf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw65n"]
@@ -230,6 +231,9 @@ script = ExtResource("5_xlhib")
 
 [node name="Kyōrinrin" parent="." instance=ExtResource("11_shnh5")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.59722, 0, -7.02092)
+
+[node name="Dummy" parent="." instance=ExtResource("11_yk3wi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.90836, 0, -2.94028)
 
 [connection signal="onInvoke" from="Player/InputEventHandler/Player/Jump" to="Player" method="Jump"]
 [connection signal="onInvoke" from="Player/InputEventHandler/Player/Interact" to="Player/Camera3D/RayCast3D" method="Interact"]
