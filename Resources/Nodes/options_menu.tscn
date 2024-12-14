@@ -153,7 +153,7 @@ text = "MENU_LANGUAGE"
 [node name="LanguageSelector" type="OptionButton" parent="TabContainer/SOUND/SoundContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-selected = 0
+selected = 1
 item_count = 3
 popup/item_0/text = "English"
 popup/item_1/text = "Español"

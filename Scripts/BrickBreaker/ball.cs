@@ -1,7 +1,8 @@
 using Godot;
 using System;
 using System.Drawing;
-
+using System.Threading;
+using InputSystem;
 public partial class Ball : RigidBody2D
 {
 	[Export]
@@ -15,6 +16,9 @@ public partial class Ball : RigidBody2D
 	
 	[Export]
 	ColorRect rect;
+
+	[Export]
+	ColorRect Paddle;
 	public float CurrentVelocity;
 
 	bool Start = false;
@@ -26,17 +30,23 @@ public partial class Ball : RigidBody2D
 	float MinWall => Background.Position.X;
 	public override void _Ready()
 	{
-		Start_Position = Position;
-		start_ball();
+		//start_ball();
 		//this.LinearVelocity = new Vector2(this.LinearVelocity.X, Vel);
 	}
 
-	public void start_ball()
+	public void LaunchBall(InputActionState state = null)
 	{
-		//CurrentVelocity = minVelocity;
-		//Position = Start_Position;
-		/*RandomNumberGenerator rand = new RandomNumberGenerator();
-		LinearVelocity = new Vector2(rand.RandfRange(-1, 1), -1).Normalized() * CurrentVelocity;*/
+		if(state?.state == InputActionState.PressState.JustPressed)
+		{
+			GD.Print("Si");
+			Start = true;
+			CurrentVelocity = minVelocity;
+			//Position = Start_Position;
+			RandomNumberGenerator rand = new RandomNumberGenerator();
+			LinearVelocity = new Vector2(rand.RandfRange(-1, 1), -1).Normalized() * CurrentVelocity;
+
+		}
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -63,15 +73,21 @@ public partial class Ball : RigidBody2D
 				Position.Y <= ceiling ? -LinearVelocity.Y : LinearVelocity.Y);
 			if (Position.Y > floor)
 			{
-				start_ball();
+				GD.Print(Position.Y);
+				GD.Print(floor);
+				GD.Print("No");
+				Start = false;
 			}
+		}
+		else
+		{
+			Position = new Vector2(Paddle.GlobalPosition.X + Paddle.Size.X / 2 - rect.Size.X / 2, Paddle.GlobalPosition.Y - rect.Size.Y);
 		}
 
 
 
 
 	}
-
 	//public override void 
 
 }

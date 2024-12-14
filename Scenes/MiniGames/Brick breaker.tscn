@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cl0u60qn21slw"]
+[gd_scene load_steps=18 format=3 uid="uid://cl0u60qn21slw"]
 
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_gqs2s"]
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector1InputAction.cs" id="2_x3idu"]
+[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="3_mdqhg"]
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="3_nwx1a"]
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="4_ykrfl"]
 [ext_resource type="Script" path="res://Scripts/Utils/EventActuator.cs" id="5_0h3tu"]
@@ -22,11 +23,20 @@ Name = "Movment"
 DeadZone = 0.25
 Sleeping = false
 
+[sub_resource type="Resource" id="Resource_mu3rl"]
+resource_name = "Launchball"
+script = ExtResource("3_mdqhg")
+MouseInput = 0
+Events = ["Key Space", "JoyButton A"]
+Name = "Launchball"
+DeadZone = 0.25
+Sleeping = false
+
 [sub_resource type="Resource" id="Resource_qi3i8"]
 resource_name = "Paddle"
 script = ExtResource("3_nwx1a")
 Name = "Paddle"
-Actions = [SubResource("Resource_ie6o7")]
+Actions = [SubResource("Resource_ie6o7"), SubResource("Resource_mu3rl")]
 Sleeping = false
 
 [sub_resource type="Resource" id="Resource_wyh2x"]
@@ -56,6 +66,9 @@ MouseMode = 1
 [node name="Paddle" type="Node" parent="InputEventHandler"]
 
 [node name="Movment" type="Node" parent="InputEventHandler/Paddle"]
+script = ExtResource("5_0h3tu")
+
+[node name="Launchball" type="Node" parent="InputEventHandler/Paddle"]
 script = ExtResource("5_0h3tu")
 
 [node name="BackGround" type="ColorRect" parent="."]
@@ -90,7 +103,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(15, 19)
 zoom = Vector2(26.62, 26.62)
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("Background", "rect")]
+[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("Background", "rect", "Paddle")]
 position = Vector2(17, 32)
 disable_mode = 1
 physics_material_override = SubResource("PhysicsMaterial_vd0mw")
@@ -101,6 +114,7 @@ linear_damp_mode = 1
 script = ExtResource("7_vhdvm")
 Background = NodePath("../BackGround")
 rect = NodePath("ColorRect")
+Paddle = NodePath("../Area2D/ColorRect")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(0.5, 0.5)
@@ -124,3 +138,4 @@ colorPalette = [Color(0.627451, 0, 1, 1), Color(0.610279, 0.500843, 0.403241, 1)
 metadata/_edit_use_anchors_ = true
 
 [connection signal="onInvoke" from="InputEventHandler/Paddle/Movment" to="Area2D" method="Move"]
+[connection signal="onInvoke" from="InputEventHandler/Paddle/Launchball" to="RigidBody2D" method="LaunchBall"]
