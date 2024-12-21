@@ -21,25 +21,28 @@ public partial class Ball : RigidBody2D
 	ColorRect Paddle;
 	public float CurrentVelocity;
 
-	bool Start = false;
-	Vector2 Start_Position;
+	bool isLaunched = false;
+
 
 	float floor => Background.Position.Y + Background.Size.Y + rect.Size.Y;
 	float ceiling => Background.Position.Y;
 	float MaxWall => Background.Position.X + Background.Size.X - rect.Size.X;
 	float MinWall => Background.Position.X;
+	Vector2 InitialPosition => new Vector2(Paddle.GlobalPosition.X + Paddle.Size.X / 2 - rect.Size.X / 2, Paddle.GlobalPosition.Y - rect.Size.Y);
 	public override void _Ready()
 	{
-		//start_ball();
-		//this.LinearVelocity = new Vector2(this.LinearVelocity.X, Vel);
+		
+		Position = InitialPosition;  // Asegúrate de que la pelota esté en la pala al inicio
+    	LinearVelocity = Vector2.Zero;
 	}
 
 	public void LaunchBall(InputActionState state = null)
 	{
-		if(state?.state == InputActionState.PressState.JustPressed)
+		if(state?.state == InputActionState.PressState.JustPressed && isLaunched == false)
 		{
+			Position = InitialPosition;
 			GD.Print("Si");
-			Start = true;
+			isLaunched = true;
 			CurrentVelocity = minVelocity;
 			//Position = Start_Position;
 			RandomNumberGenerator rand = new RandomNumberGenerator();
@@ -52,7 +55,7 @@ public partial class Ball : RigidBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
-		if (Start == true)
+		if (isLaunched == true)
 		{
 			Vector2 lv = LinearVelocity;
 			KinematicCollision2D collission = MoveAndCollide(LinearVelocity * (float)delta, false, 0, true);
@@ -71,20 +74,21 @@ public partial class Ball : RigidBody2D
 
 			LinearVelocity = new(Position.X <= MinWall || Position.X >= MaxWall ? -LinearVelocity.X : LinearVelocity.X,
 				Position.Y <= ceiling ? -LinearVelocity.Y : LinearVelocity.Y);
-			if (Position.Y > floor)
+			if (Position.Y >= floor)
 			{
 				GD.Print(Position.Y);
 				GD.Print(floor);
 				GD.Print("No");
-				Start = false;
+				isLaunched = false;
 			}
 		}
 		else
 		{
-			Position = new Vector2(Paddle.GlobalPosition.X + Paddle.Size.X / 2 - rect.Size.X / 2, Paddle.GlobalPosition.Y - rect.Size.Y);
+			//LinearVelocity = Vector2.Zero;
+			Position = InitialPosition;
+			LinearVelocity = Vector2.Zero;
+			GD.Print("velocidad" + LinearVelocity);
 		}
-
-
 
 
 	}
