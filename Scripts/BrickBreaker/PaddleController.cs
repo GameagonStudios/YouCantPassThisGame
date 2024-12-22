@@ -6,7 +6,7 @@ using Godot.NativeInterop;
 
 public partial class PaddleController : Area2D
 {
-  float Direction;
+  public float Direction;
   [Export]
   float speed = 1.0f;
 

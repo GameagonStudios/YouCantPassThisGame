@@ -19,6 +19,10 @@ public partial class Ball : RigidBody2D
 
 	[Export]
 	ColorRect Paddle;
+
+	Area2D ControllerPaddle;
+
+	float diirectionPaddle;
 	public float CurrentVelocity;
 
 	bool isLaunched = false;
@@ -31,7 +35,7 @@ public partial class Ball : RigidBody2D
 	Vector2 InitialPosition => new Vector2(Paddle.GlobalPosition.X + Paddle.Size.X / 2 - rect.Size.X / 2, Paddle.GlobalPosition.Y - rect.Size.Y);
 	public override void _Ready()
 	{
-		
+		ControllerPaddle = Paddle.GetParent() as Area2D;
 		Position = InitialPosition;  // Asegúrate de que la pelota esté en la pala al inicio
     	LinearVelocity = Vector2.Zero;
 	}
@@ -46,7 +50,7 @@ public partial class Ball : RigidBody2D
 			CurrentVelocity = minVelocity;
 			//Position = Start_Position;
 			RandomNumberGenerator rand = new RandomNumberGenerator();
-			LinearVelocity = new Vector2(rand.RandfRange(-1, 1), -1).Normalized() * CurrentVelocity;
+			LinearVelocity = new Vector2(diirectionPaddle, -1).Normalized() * CurrentVelocity;
 
 		}
 
@@ -55,10 +59,15 @@ public partial class Ball : RigidBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _PhysicsProcess(double delta)
 	{
+		if (ControllerPaddle is PaddleController controllerP)
+		{
+			diirectionPaddle = controllerP.Direction;
+		}
+		GD.Print(diirectionPaddle);
+		Vector2 lv = LinearVelocity;
+		KinematicCollision2D collission = MoveAndCollide(LinearVelocity * (float)delta, false, 0, true);
 		if (isLaunched == true)
 		{
-			Vector2 lv = LinearVelocity;
-			KinematicCollision2D collission = MoveAndCollide(LinearVelocity * (float)delta, false, 0, true);
 			if (collission != null)
 			{
 				GD.Print(collission.GetCollider());
@@ -76,18 +85,14 @@ public partial class Ball : RigidBody2D
 				Position.Y <= ceiling ? -LinearVelocity.Y : LinearVelocity.Y);
 			if (Position.Y >= floor)
 			{
-				GD.Print(Position.Y);
-				GD.Print(floor);
-				GD.Print("No");
 				isLaunched = false;
 			}
+
 		}
 		else
 		{
 			//LinearVelocity = Vector2.Zero;
 			Position = InitialPosition;
-			LinearVelocity = Vector2.Zero;
-			GD.Print("velocidad" + LinearVelocity);
 		}
 
 
