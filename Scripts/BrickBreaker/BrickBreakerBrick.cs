@@ -20,7 +20,6 @@ public partial class BrickBreakerBrick : StaticBody2D, ColissionReciver
 	}
     public void HandleCollision(Node node)
     {
-		GD.Print("choque");
 		if(livePoints > 0)
 		{
 			livePoints--;

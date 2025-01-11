@@ -22,6 +22,9 @@ public partial class Ball : RigidBody2D
 
 	Area2D ControllerPaddle;
 
+	[Export]
+	BrickBreakerGenerator BrickBreakerController;
+
 	float diirectionPaddle;
 	public float CurrentVelocity;
 
@@ -45,10 +48,8 @@ public partial class Ball : RigidBody2D
 		if(state?.state == InputActionState.PressState.JustPressed && isLaunched == false)
 		{
 			Position = InitialPosition;
-			GD.Print("Si");
 			isLaunched = true;
 			CurrentVelocity = minVelocity;
-			//Position = Start_Position;
 			RandomNumberGenerator rand = new RandomNumberGenerator();
 			LinearVelocity = new Vector2(diirectionPaddle, -1).Normalized() * CurrentVelocity;
 
@@ -63,20 +64,17 @@ public partial class Ball : RigidBody2D
 		{
 			diirectionPaddle = controllerP.Direction;
 		}
-		GD.Print(diirectionPaddle);
 		Vector2 lv = LinearVelocity;
 		KinematicCollision2D collission = MoveAndCollide(LinearVelocity * (float)delta, false, 0, true);
 		if (isLaunched == true)
 		{
 			if (collission != null)
 			{
-				GD.Print(collission.GetCollider());
 				LinearVelocity = lv.Bounce(collission.GetNormal());
 
 
 				if (collission.GetCollider() is ColissionReciver b)
 				{
-					GD.Print(collission.GetCollider() + " - 2");
 					b.HandleCollision(this);
 				}
 			}
@@ -86,6 +84,7 @@ public partial class Ball : RigidBody2D
 			if (Position.Y >= floor)
 			{
 				isLaunched = false;
+				BrickBreakerController.RestartLine();
 			}
 
 		}

@@ -41,7 +41,7 @@ public partial class PaddleController : Area2D
 
   public void BounceBall(Node2D node)
   {
-    if(node is Ball ball)
+    if (node is Ball ball)
     {
       ball.LinearVelocity = new Vector2(ball.LinearVelocity.X + Velocity, -ball.LinearVelocity.Y).Normalized() * ball.CurrentVelocity;
     }

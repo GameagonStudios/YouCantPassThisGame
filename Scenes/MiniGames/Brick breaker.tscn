@@ -103,7 +103,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(15, 19)
 zoom = Vector2(26.62, 26.62)
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("Background", "rect", "Paddle")]
+[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("Background", "rect", "Paddle", "BrickBreakerController")]
 position = Vector2(17, 32)
 disable_mode = 1
 physics_material_override = SubResource("PhysicsMaterial_vd0mw")
@@ -115,6 +115,7 @@ script = ExtResource("7_vhdvm")
 Background = NodePath("../BackGround")
 rect = NodePath("ColorRect")
 Paddle = NodePath("../Area2D/ColorRect")
+BrickBreakerController = NodePath("../Container")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 position = Vector2(0.5, 0.5)
