@@ -4,8 +4,12 @@ using System;
 
 public partial class WalkingController : CharacterBody3D
 {
+	[ExportGroup("Head")]
 	[Export]
 	public Node3D head;
+
+	[Export(PropertyHint.Range, "0,180")]
+	public float minY = 90, maxY = 90;
 
 	[ExportGroup("Movement")]
 	[Export]
@@ -106,7 +110,7 @@ public partial class WalkingController : CharacterBody3D
 
 	public override void _Process(double delta)
 	{
-		UpdateRotation(delta);
+		if(LookDelta != Vector2.Zero) UpdateRotation(delta);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -116,8 +120,8 @@ public partial class WalkingController : CharacterBody3D
 
 	void UpdateRotation(double delta)
 	{
-		head.RotationDegrees = Vector3.Right * Math.Clamp(head.RotationDegrees.X + LookDelta.Y * (float)delta, -90, 90);
-		RotationDegrees -= Vector3.Up * LookDelta.X * (float)delta;
+		head.RotationDegrees = new (Math.Clamp(head.RotationDegrees.X - LookDelta.Y * (float)delta, -maxY, minY),0,0);
+		RotationDegrees = new (0,RotationDegrees.Y - LookDelta.X * (float)delta,0);
 	}
 
 	PhysicsBody3D GetLastMoveAndSlideFloor() 
@@ -125,7 +129,7 @@ public partial class WalkingController : CharacterBody3D
 		KinematicCollision3D collision = GetLastSlideCollision();
 		PhysicsBody3D body = collision?.GetCollider() as PhysicsBody3D;
 
-		collision.Dispose();
+		//collision.Dispose();
 
 		return body;
 	}
@@ -134,12 +138,9 @@ public partial class WalkingController : CharacterBody3D
 	{
 		Vector3 velocity = Velocity;
 
-
 		bool onFloor = IsOnFloor();
 
-		Vector2 rotatedDir = MovementDir.Rotated(Rotation.Y);
-
-		Vector3 dir3d = new Vector3(rotatedDir.X, 0, -rotatedDir.Y);
+		Vector3 dir3d = Basis.Z * MovementDir.Y + Basis.X * -MovementDir.X;
 
 		if (!onFloor)
 		{
