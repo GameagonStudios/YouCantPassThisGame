@@ -34,6 +34,9 @@ script = ExtResource("4_sbhk7")
 [node name="Look" type="Node" parent="InputEventHandler/Player"]
 script = ExtResource("4_sbhk7")
 
+[node name="Run" type="Node" parent="InputEventHandler/Player"]
+script = ExtResource("4_sbhk7")
+
 [node name="UI" type="Node" parent="InputEventHandler"]
 
 [node name="Pause" type="Node" parent="InputEventHandler/UI"]

@@ -5,7 +5,7 @@ public partial class CheckboxController : CheckBox
 {
 	// Called when the node enters the scene tree for the first time.
 	[Export]
-	public string VolumeKey;
+	public StringName VolumeKey;
 
     [Signal]
     public delegate void OnOnEventHandler();

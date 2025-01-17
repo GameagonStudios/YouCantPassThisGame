@@ -4,143 +4,179 @@ using System;
 
 public partial class WalkingController : CharacterBody3D
 {
-    [Export]
-    public Camera3D camera;
+	[Export]
+	public Node3D head;
 
-    [ExportGroup("Movement")]
-    [Export]
-    public float Speed = 5.0f;
+	[ExportGroup("Movement")]
+	[Export]
+	public float walkSpeed = 5.0f;
 
-    [Export]
-    public float Acceleration = 10f;
+	[Export]
+	public float runSpeed = 10.0f;
 
-    [Export]
-    public float JumpVelocity = 4.5f;
+	[Export]
+	public float Acceleration = 10f;
 
-    public float RotationSensitivity = 1; 
+	[Export]
+	public float JumpVelocity = 4.5f;
 
-    [Export(PropertyHint.Range, "0,1")]
-    public float AirFrictioin = 0.1f;
+	public float RotationSensitivity = 1;
 
-    [Export]
-    private string sensivilityKey;
+	[Export(PropertyHint.Range, "0,1")]
+	public float AirFrictioin = 0.1f;
 
-    public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
+	[Export]
+	private StringName sensivilityKey;
 
-    Vector2 MovementDir;
+	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
-    Vector2 LookDelta;
+	Vector2 MovementDir;
 
-    bool Jumping = false;
+	bool Running;
 
-    Rect2 rect;
+	float Speed => Running ? runSpeed : walkSpeed;
+
+	Vector2 LookDelta;
+
+	bool Jumping = false;
+
+	Rect2 rect;
+
+	PhysicsBody3D lastFloor;
+	PhysicsMaterial floorMaterial = null;
+
+	public override void _EnterTree()
+	{
+		base._EnterTree();
+
+		RotationSensitivity = OptionsSavesHandler.Current.GetValue(sensivilityKey)?.As<float>() ?? 1;
+		OptionsSavesHandler.Current.onOptionsChanged += SetSensivility;
+		rect = GetViewport().GetVisibleRect();
+	}
+
+	public void SetSensivility(StringName key, Variant value)
+	{
+		if (key == sensivilityKey)
+			RotationSensitivity = value.As<float>();
+	}
+	public void Move(InputActionState state)
+	{
+		MovementDir = ((Vector2)state.strength).Normalized();
+	}
+	public void Run(InputActionState state)
+	{
+		if (state.state == InputActionState.PressState.JustPressed)
+		{
+			Running = true;
+		}
+		else if (state.state == InputActionState.PressState.Released)
+		{
+			Running = false;
+		}
+	}
+
+	public void Look(InputActionState state)
+	{
+		if (state.inputEvent is InputEventMouseMotion)
+		{
+			LookDelta = (Vector2)state.strength * RotationSensitivity * 360;
+			LookDelta = new(LookDelta.X, -LookDelta.Y);
+
+			UpdateRotation(GetProcessDeltaTime());
+
+			LookDelta = Vector2.Zero;
+		}
+		else
+		{
+			LookDelta = (Vector2)state.strength * RotationSensitivity * 360;
+		}
+	}
+
+	public void Jump(InputActionState state)
+	{
+		if (state.state == InputActionState.PressState.JustPressed)
+		{
+			Jumping = true;
+		}
+		else if (state.state == InputActionState.PressState.Released)
+		{
+			Jumping = false;
+		}
+	}
+
+	public override void _Process(double delta)
+	{
+		UpdateRotation(delta);
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		Updatemovement(delta);
+	}
+
+	void UpdateRotation(double delta)
+	{
+		head.RotationDegrees = Vector3.Right * Math.Clamp(head.RotationDegrees.X + LookDelta.Y * (float)delta, -90, 90);
+		RotationDegrees -= Vector3.Up * LookDelta.X * (float)delta;
+	}
+
+	PhysicsBody3D GetLastMoveAndSlideFloor() 
+	{
+		KinematicCollision3D collision = GetLastSlideCollision();
+		PhysicsBody3D body = collision?.GetCollider() as PhysicsBody3D;
+
+		collision.Dispose();
+
+		return body;
+	}
+
+	void Updatemovement(double delta)
+	{
+		Vector3 velocity = Velocity;
 
 
-    PhysicsBody3D lastFloor;
-    PhysicsMaterial floorMaterial = null;
+		bool onFloor = IsOnFloor();
 
-    public override void _EnterTree()
-    {
-        base._EnterTree();
+		Vector2 rotatedDir = MovementDir.Rotated(Rotation.Y);
 
-        RotationSensitivity = OptionsSavesHandler.Current.GetValue(sensivilityKey)?.As<float>() ?? 1;
-        OptionsSavesHandler.Current.onOptionsChanged += SetSensivility;
-        rect = GetViewport().GetVisibleRect();
-    }
+		Vector3 dir3d = new Vector3(rotatedDir.X, 0, -rotatedDir.Y);
 
-    public void SetSensivility(string key, Variant value)
-    {
-        if(key == sensivilityKey)
-            RotationSensitivity = value.As<float>();
-    }
-    public void Move(InputActionState state)
-    {
-        MovementDir = ((Vector2)state.strength).Normalized();
-    }
+		if (!onFloor)
+		{
+			floorMaterial = null;
+			lastFloor = null;
 
-    public void Look(InputActionState state)
-    {
-        if (state.inputEvent is InputEventMouseMotion)
-        {
-            LookDelta = Vector2.Zero;
-            Vector2 l = (Vector2)state.strength * RotationSensitivity;
+			Vector3 ungravidVel = new Vector3(velocity.X, 0, velocity.Z).CalulateVelocity(dir3d, Acceleration, Speed, AirFrictioin);
 
-            camera.RotationDegrees = Vector3.Right * Math.Clamp(camera.RotationDegrees.X - l.Y, -90, 90);
-            RotationDegrees -= Vector3.Up * l.X;
-        }
-        else
-        {
-            LookDelta = (Vector2)state.strength * RotationSensitivity * 360;
-        }
-    }
+			Velocity = new(ungravidVel.X, velocity.Y - gravity * (float)delta, ungravidVel.Z);
+		}
+		else
+		{
+			PhysicsBody3D currentFloor = GetLastMoveAndSlideFloor();
 
-    public void Jump(InputActionState state)
-    {
-        if (state.state == InputActionState.PressState.JustPressed)
-        {
-            Jumping = true;
-        }
-        else if (state.state == InputActionState.PressState.Released)
-        {
-            Jumping = false;
-        }
-    }
+			Vector3 florNormal = GetFloorNormal();
 
-    public override void _PhysicsProcess(double delta)
-    {
-        Updatemovement(delta);
-    }
+			if (currentFloor != null && currentFloor != lastFloor)
+			{
+				floorMaterial = (PhysicsMaterial)currentFloor?.GetType().GetProperty("PhysicsMaterialOverride")?.GetValue(currentFloor);
 
-    public override void _Process(double delta)
-    {
-        UpdateRotation(delta);
-        MoveAndSlide();
-    }
+				lastFloor = currentFloor;
+			}
 
+			float friction = MathF.Max(floorMaterial != null ? floorMaterial.Friction : AirFrictioin, AirFrictioin);
 
-    void UpdateRotation(double delta)
-    {
-        camera.RotationDegrees = Vector3.Right * Math.Clamp(camera.RotationDegrees.X + LookDelta.Y * (float)delta, -90, 90);
-        RotationDegrees -= Vector3.Up * LookDelta.X * (float)delta;
-    }
+			float maxVel = friction > 1 ? Speed * friction : Speed;
 
-    void Updatemovement(double delta)
-    {
-        Vector3 velocity = Velocity;
+			velocity = velocity.CalulateVelocity(dir3d.ProjectToNormal(florNormal), Acceleration, maxVel, friction);
 
-        PhysicsBody3D currentFloor = GetLastSlideCollision()?.GetCollider() as PhysicsBody3D;
+			if (Jumping)
+			{
+				velocity.Y = JumpVelocity;
+			}
 
-        bool onFloor = IsOnFloor();
+			Velocity = velocity;
+		}
 
-        if (!onFloor)
-        {
-            velocity.Y -= gravity * (float)delta;
-            floorMaterial = null;
-            lastFloor = null;
-        }
-        else
-        {
-            if (currentFloor != lastFloor)
-            {
-                floorMaterial = (PhysicsMaterial)currentFloor?.GetType().GetProperty("PhysicsMaterialOverride")?.GetValue(currentFloor);
-            }
-
-            lastFloor = currentFloor;
-
-            if (Jumping)
-            {
-                velocity.Y = JumpVelocity;
-            }
-        }
-
-        float friction = floorMaterial != null ? MathF.Max(floorMaterial.Friction, AirFrictioin) : AirFrictioin;
-
-        
-
-        Vector2 rotatedDir = MovementDir.Rotated(Rotation.Y);
-
-        float maxVel = MathF.Max(friction > 1 ? Speed * friction : Speed, new Vector3(velocity.X, 0 , velocity.Y).Length());
-
-        Velocity = velocity.CalulateVelocity(new Vector3(rotatedDir.X, 0, -rotatedDir.Y), Acceleration, maxVel, friction);
-    }
+		MoveAndSlide();
+	}
 }

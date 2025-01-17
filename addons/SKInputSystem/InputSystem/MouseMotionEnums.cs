@@ -6,8 +6,10 @@ namespace Godot
     public enum MouseMotion
     {
         None,
-        Velocity,
-        Delta,
+        PixelVelocity,
+        ScreenVelocity,
+        PixelDelta,
+        ScreenDelta,
         Position,
         Pressure,
         Tilt,

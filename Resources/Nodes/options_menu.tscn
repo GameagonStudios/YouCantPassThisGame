@@ -16,6 +16,7 @@
 
 [sub_resource type="SystemFont" id="SystemFont_4ihvp"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -81,9 +82,12 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.04, 1.08)
+current_tab = 1
 
 [node name="CONTROLS" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="ControlsContainer" type="GridContainer" parent="TabContainer/CONTROLS"]
 layout_mode = 1
@@ -111,7 +115,7 @@ text = "SENSIVILITY"
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_wes0x")
-key = "SENSIVILITY"
+key = &"SENSIBILITY"
 defaultValue = 1.0
 spinBox = NodePath("SensibilitySpinBox")
 slider = NodePath("SensibilityHSlider")
@@ -130,8 +134,8 @@ max_value = 2.0
 step = 0.01
 
 [node name="SOUND" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="SoundContainer" type="GridContainer" parent="TabContainer/SOUND"]
 layout_mode = 1
@@ -149,10 +153,9 @@ text = "MENU_LANGUAGE"
 [node name="LanguageSelector" type="OptionButton" parent="TabContainer/SOUND/SoundContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 3
 selected = 1
+item_count = 3
 popup/item_0/text = "English"
-popup/item_0/id = 0
 popup/item_1/text = "Español"
 popup/item_1/id = 1
 popup/item_2/text = "Français"
@@ -172,7 +175,7 @@ text = "MUSIC"
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_wes0x")
-key = "VOLUME"
+key = &"MUSIC_VOLUME"
 defaultValue = 1.0
 spinBox = NodePath("MusicSpinBox")
 slider = NodePath("MusicHSlider")
@@ -203,7 +206,7 @@ text = "VOICES"
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_wes0x")
-key = "VOICES"
+key = &"VOICES_VOLUME"
 defaultValue = 1.0
 spinBox = NodePath("VoicesSpinBox")
 slider = NodePath("VoicesHSlider")
@@ -233,6 +236,7 @@ size_flags_horizontal = 0
 [node name="VIDEO" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="VideoContainer" type="GridContainer" parent="TabContainer/VIDEO"]
 layout_mode = 0
@@ -250,10 +254,9 @@ script = ExtResource("5_bae45")
 [node name="ResolutionSelection" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 7
 selected = 3
+item_count = 7
 popup/item_0/text = "640x480"
-popup/item_0/id = 0
 popup/item_1/text = "960x540 "
 popup/item_1/id = 1
 popup/item_2/text = "1280x720"
@@ -267,7 +270,6 @@ popup/item_5/id = 5
 popup/item_6/text = "7680x4320"
 popup/item_6/id = 6
 script = ExtResource("5_8j1jd")
-key = "RESOLUTION"
 resolutionDefault = "1280x720"
 
 [node name="WindowsMode" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
@@ -280,10 +282,9 @@ text = "WINDOWS_MODE"
 [node name="Windowsmodeselector" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 3
 selected = 1
+item_count = 3
 popup/item_0/text = "WINDOW"
-popup/item_0/id = 0
 popup/item_1/text = "FULLSCREEN"
 popup/item_1/id = 3
 popup/item_2/text = "WITHOUT BORDERS"
@@ -298,7 +299,7 @@ script = ExtResource("7_24uu5")
 [node name="OcclussionCullingCheck" type="CheckBox" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
 script = ExtResource("8_xgwao")
-VolumeKey = "OclussionCulling"
+VolumeKey = &"OclussionCulling"
 
 [node name="Shadowsquality" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
@@ -307,8 +308,8 @@ text = "SOFT_SHADOWS"
 [node name="Shadowqualityselector" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 4
 selected = 1
+item_count = 4
 popup/item_0/text = "LOW"
 popup/item_0/id = 3
 popup/item_1/text = "MIDDLE"
@@ -327,10 +328,9 @@ script = ExtResource("11_akee7")
 [node name="ResolutionShadowsSelection2" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 4
 selected = 2
+item_count = 4
 popup/item_0/text = "512x512"
-popup/item_0/id = 0
 popup/item_1/text = "1024x1024"
 popup/item_1/id = 1
 popup/item_2/text = "4096x4096"
@@ -338,7 +338,6 @@ popup/item_2/id = 2
 popup/item_3/text = "8192x8192"
 popup/item_3/id = 3
 script = ExtResource("5_8j1jd")
-key = "RESOLUTIONSHADOWS"
 resolutionDefault = "4096x4096"
 
 [node name="ImageScaleContainer" type="MarginContainer" parent="TabContainer/VIDEO/VideoContainer"]
@@ -353,14 +352,13 @@ clip_contents = true
 layout_mode = 2
 text = "IMAGE_SCALE"
 script = ExtResource("12_jj2dr")
-sensivilityKey = "ImageScale"
 
 [node name="VBoxImageScale" type="VBoxContainer" parent="TabContainer/VIDEO/VideoContainer" node_paths=PackedStringArray("spinBox", "slider")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 15.85
 script = ExtResource("4_wes0x")
-key = "ImageScale"
+key = &"IMAGE_SCALE"
 defaultValue = 1.0
 spinBox = NodePath("ImageScaleSpinBox")
 slider = NodePath("ImageScaleHSlider")
@@ -395,7 +393,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 15.85
 script = ExtResource("4_wes0x")
-key = "Brightness"
+key = &"BRIGHTNESS"
 defaultValue = 1.0
 spinBox = NodePath("BrightnessSpinBox")
 slider = NodePath("BrightnessHSlider")

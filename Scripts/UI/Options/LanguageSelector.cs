@@ -3,7 +3,7 @@ using Godot;
 [GlobalClass, Tool]
 public partial class LanguageSelector : OptionButton
 {
-	string key = "LANGUAGE";
+	StringName key = "LANGUAGE";
 
 	public override void _EnterTree()
 	{

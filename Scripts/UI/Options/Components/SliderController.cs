@@ -7,7 +7,7 @@ namespace Options
     public partial class SliderController : Control
     {
         [Export]
-        public string key;
+        public StringName key;
 
         [Export]
         public float defaultValue;

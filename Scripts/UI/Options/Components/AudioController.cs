@@ -9,7 +9,7 @@ public partial class AudioController : AudioStreamPlayer
     public string BusName;
 
     [Export]
-    public string VolumeKey;
+    public StringName VolumeKey;
 
     [Export]
     public int DefaultVolume;
@@ -23,7 +23,7 @@ public partial class AudioController : AudioStreamPlayer
         AudioServer.SetBusVolumeDb(AudioIndex, Mathf.LinearToDb(OptionsSavesHandler.Current.GetValue(VolumeKey)?.As<float>() ?? Mathf.DbToLinear(DefaultVolume)));
         OptionsSavesHandler.Current.onOptionsChanged += SetVolume;
     }
-    public void SetVolume(string key, Variant value)
+    public void SetVolume(StringName key, Variant value)
     {
         if (key == VolumeKey)
         {

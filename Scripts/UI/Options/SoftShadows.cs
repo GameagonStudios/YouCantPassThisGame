@@ -5,7 +5,7 @@ using System.Diagnostics;
 public partial class SoftShadows : OptionButton
 {
 	// Called when the node enters the scene tree for the first time.
-	string key = "Softshadows";
+	StringName key = "Softshadows";
 	// Called when the node enters the scene tree for the first time.
 	public override void _EnterTree()
 	{

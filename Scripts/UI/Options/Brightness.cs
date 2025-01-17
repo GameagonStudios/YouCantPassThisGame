@@ -6,7 +6,7 @@ public partial class Brightness : WorldEnvironment
 	// Called when the node enters the scene tree for the first time.
 
 	[Export]
-	private string sensivilityKey; 
+	private StringName sensivilityKey; 
 	public override void _EnterTree()
 	{
 		base._EnterTree();
@@ -14,7 +14,7 @@ public partial class Brightness : WorldEnvironment
 		Environment.AdjustmentBrightness = OptionsSavesHandler.Current.GetValue(sensivilityKey)?.As<float>() ?? 1;
 		OptionsSavesHandler.Current.onOptionsChanged += OnChangeBreightness;
 	}
-	public void OnChangeBreightness(string key, Variant value)
+	public void OnChangeBreightness(StringName key, Variant value)
 	{
 		if(key == sensivilityKey)
 			Environment.AdjustmentBrightness = value.As<float>();

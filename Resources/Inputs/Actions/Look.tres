@@ -5,7 +5,7 @@
 [resource]
 resource_name = "Look"
 script = ExtResource("1_bst2j")
-MouseInput = 2
+MouseInput = 4
 AxisXNegative = ["JoyAxis RightX"]
 AxisXPositive = ["JoyAxis RightX"]
 AxisYNegative = ["JoyAxis RightY"]

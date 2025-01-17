@@ -5,7 +5,7 @@ public partial class ResolutionSelector : OptionButton
 {
     // Called when the node enters the scene tree for the first time.
     [Export] 
-    public string key = "";
+    public StringName key = "RESOLUTION";
 
     [Export]
     public string resolutionDefault;
