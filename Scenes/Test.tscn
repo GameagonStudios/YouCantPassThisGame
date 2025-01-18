@@ -214,7 +214,7 @@ mesh = SubResource("BoxMesh_j0fuq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00676, 0, -8.46303)
 
 [node name="AnimatableBody3D" type="AnimatableBody3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.4234, 3.8, 10.08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.9, 3.8, 0)
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="World/AnimatableBody3D"]
 shape = SubResource("BoxShape3D_4w2ob")
@@ -238,6 +238,7 @@ anim_player = NodePath("..")
 [node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("head")]
 script = ExtResource("6_irl46")
 head = NodePath("CameraMountTemp")
+minY = 75.0
 Acceleration = 1.0
 sensivilityKey = &"SENSIBILITY"
 
