@@ -86,6 +86,7 @@ disable_mode = 2
 monitorable = false
 script = ExtResource("6_1uf5h")
 speed = 15.0
+speedBallMultiplier = 1.7
 background = NodePath("../BackGround")
 rect = NodePath("ColorRect")
 

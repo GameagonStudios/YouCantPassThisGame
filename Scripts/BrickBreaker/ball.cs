@@ -9,7 +9,7 @@ public partial class Ball : RigidBody2D
 	float minVelocity = 5;
 
 	[Export]
-	float maxVelocity = 15;
+	float maxVelocity = 12;
 
 	[Export]
 	ColorRect Background;
@@ -93,8 +93,11 @@ public partial class Ball : RigidBody2D
 			//LinearVelocity = Vector2.Zero;
 			Position = InitialPosition;
 		}
+ 		float speedLength = LinearVelocity.Length(); // Magnitud actual de la velocidad
+        float speedFactor = Mathf.Min(1, maxVelocity / speedLength); // Si la velocidad es mayor que maxVelocity, reducimos la magnitud
 
-
+        // Aplicamos el factor de reducción si es necesario
+        LinearVelocity = LinearVelocity * speedFactor;
 	}
 	//public override void 
 

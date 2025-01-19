@@ -17,10 +17,15 @@ public partial class BrickBreakerGenerator : Container
 
     List<BrickBreakerBrick> Bricks = new List<BrickBreakerBrick>();
 
+	
+    private bool _visible;
 	float width => this.Size.X;
 	float height => this.Size.Y;
 	bool lineFits => width % brickWidth == 0;
 	int bricksPerLine => (int)MathF.Floor(width / brickWidth);
+
+	[Signal]
+	public delegate void WinGameEventHandler();
 	
 
 	private void RestartBrick()
@@ -35,44 +40,79 @@ public partial class BrickBreakerGenerator : Container
 
 			for(int x = 0; x < BricksThisLine; x++)
 			{
-				var newBrick = GetBrick();
+				BrickBreakerBrick newBrick = GetBrick();
 				newBrick.Position = new Vector2((x * brickWidth) + (oddNumber == 0 ? 0 : MathF.Floor(brickWidth / 2)), y);
 			}
 		}
 
 	}
+	public void Win()
+	{
+		if(Bricks.All(b => !b.Visible))
+		{
+			GD.Print(" me voy a cargar a tu abuela");
+		}
+	}
 
 	public void RestartLine()
 	{
-		int BricksThisLine = 0;
-		int oddNumber = 0; 
+		// Paso 1: Encuentra el primer bloque invisible
 		int firstInvisible = Bricks.FindIndex(b => !b.Visible);
 
-		
 
-		int lineIndex =(int)Math.Round((double)firstInvisible / bricksPerLine, 0, MidpointRounding.AwayFromZero);;
-		oddNumber = lineIndex % 2;
-		BricksThisLine = bricksPerLine - (lineFits ? oddNumber : 0);
-		lineIndex =(int)Math.Round((double)firstInvisible / BricksThisLine, 0, MidpointRounding.AwayFromZero);;
+		// Paso 2: Variables de cálculo
+		int accumulatedBlocks = 0;
+		int lineIndex = 0;
+		int bricksInThisLine = 0;
 
-		// Calcular el rango de índices de la línea
-		int endIndex = Math.Min((lineIndex + 1) * BricksThisLine, Bricks.Count);
-		GD.Print("linea " + lineIndex);
-		GD.Print(lineFits);
-		GD.Print(BricksThisLine);
-		GD.Print(firstInvisible);
-		GD.Print(endIndex);
-		GD.Print(Bricks.Count);
-
-		for (int i = firstInvisible; i < endIndex; i++)
+		// Paso 3: Encontrar la fila que contiene el primer bloque invisible
+		while (true)
 		{
-			Bricks[i].Visible = true;
-			Bricks[i].ProcessMode = ProcessModeEnum.Always;
+			// Calculamos cuántos bloques hay en la fila actual (considerando filas impares)
+			bricksInThisLine = bricksPerLine - ((lineIndex % 2 == 1) ? 1 : 0);
+
+			// Si el primer bloque invisible cae dentro de esta fila, la encontramos
+			if (accumulatedBlocks + bricksInThisLine > firstInvisible)
+			{
+				break;
+			}
+
+			// Continuamos acumulando bloques hasta llegar a la fila donde está el primer bloque invisible
+			accumulatedBlocks += bricksInThisLine;
+			lineIndex++;
 		}
 
 
+		// Paso 4: Calcular el rango de índices de la fila
+		int startIndex = accumulatedBlocks;
+		int endIndex = startIndex + bricksInThisLine;
+
+		// Asegurarse de no superar el número de bloques disponibles
+		endIndex = Mathf.Min(endIndex, Bricks.Count);
+
+		// Paso 5: Restaurar los bloques visibles en esa fila
+		for (int i = startIndex; i < endIndex; i++)
+		{
+			// Si encontramos un bloque invisible, lo hacemos visible
+			if (!Bricks[i].Visible)
+			{
+				Bricks[i].Visible = true;
+				Bricks[i].ProcessMode = ProcessModeEnum.Always; // Asegura que los bloques sean procesados constantemente
+			}
+		}
+
 
 	}
+
+	private void UpdateVisibleBlocksCount()
+    {
+        bool visibleBlocksCount = Bricks.All(b => !b.Visible); // Contamos cuántos bloques siguen siendo visibles
+
+        if (visibleBlocksCount)
+        {
+            EmitSignal("WinGame"); // Emitir la señal de victoria
+        }
+    }
 
 	public BrickBreakerBrick GetBrick()
 	{

@@ -11,6 +11,8 @@ public partial class PaddleController : Area2D
   float speed = 1.0f;
 
   [Export]
+  float speedBallMultiplier = 1.05f;
+  [Export]
   ColorRect background;
 
   [Export]
@@ -34,16 +36,21 @@ public partial class PaddleController : Area2D
 
   }
   public override void _PhysicsProcess(double delta)
-  {
+{
+    // Calculamos la velocidad de la pala
     Velocity = Direction * speed * (float)delta;
     this.Position = new Vector2(Mathf.Clamp(Velocity + Position.X, Min, Max), Position.Y);
-  }
+}
 
-  public void BounceBall(Node2D node)
-  {
+public void BounceBall(Node2D node)
+{
     if (node is Ball ball)
     {
-      ball.LinearVelocity = new Vector2(ball.LinearVelocity.X + Velocity, -ball.LinearVelocity.Y).Normalized() * ball.CurrentVelocity;
+      // Usamos la fórmula que ajusta la dirección y magnitud 
+      ball.LinearVelocity = new Vector2(
+          ball.LinearVelocity.X + Velocity,     // Sumar la velocidad de la pala en X
+          -ball.LinearVelocity.Y                // Reflejar la velocidad en Y
+      ).Normalized() * ball.LinearVelocity.Length() * (1 + (speedBallMultiplier - 1) * Math.Abs(Velocity));
     }
   }
 

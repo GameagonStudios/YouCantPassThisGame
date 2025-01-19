@@ -9,6 +9,8 @@ public partial class BrickBreakerBrick : StaticBody2D, ColissionReciver
 	[Export]
 	ColorRect color;
 
+	[Signal]
+	public delegate void WinGameEventHandler();
 	public void setColor(Color col)
 	{
 		color.Color = col;
