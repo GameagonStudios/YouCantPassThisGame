@@ -9,8 +9,6 @@ public partial class BrickBreakerBrick : StaticBody2D, ColissionReciver
 	[Export]
 	ColorRect color;
 
-	[Signal]
-	public delegate void WinGameEventHandler();
 	public void setColor(Color col)
 	{
 		color.Color = col;
@@ -20,6 +18,7 @@ public partial class BrickBreakerBrick : StaticBody2D, ColissionReciver
 	{
 		livePoints = lives;
 	}
+
     public void HandleCollision(Node node)
     {
 		if(livePoints > 0)
@@ -30,6 +29,11 @@ public partial class BrickBreakerBrick : StaticBody2D, ColissionReciver
 		{
 			this.Visible = false;
 			this.ProcessMode = ProcessModeEnum.Disabled;
+			var generator = GetParent<BrickBreakerGenerator>();
+            if (generator != null)
+            {
+                generator.OnBrickVisibilityChanged();  // Llamamos al método del generador
+            }
 
 		}
     }

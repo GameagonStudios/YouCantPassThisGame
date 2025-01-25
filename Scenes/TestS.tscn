@@ -721,6 +721,24 @@ script = ExtResource("10_gvm4v")
 [node name="Node150" type="Node" parent="Player/InputEventHandler/Player"]
 script = ExtResource("10_gvm4v")
 
+[node name="Node151" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node152" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node153" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node154" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node155" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node156" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
 [node name="UI" type="Node" parent="Player/InputEventHandler"]
 
 [node name="Pause" type="Node" parent="Player/InputEventHandler/UI"]
