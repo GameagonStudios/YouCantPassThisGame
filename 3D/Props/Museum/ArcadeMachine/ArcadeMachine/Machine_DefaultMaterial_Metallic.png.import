@@ -2,13 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmm5i0k76k844"
+uid="uid://d2mwvtl750ce2"
 path.s3tc="res://.godot/imported/Machine_DefaultMaterial_Metallic.png-0f221c66b7fe1688e8b25d5eeaf48784.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 
