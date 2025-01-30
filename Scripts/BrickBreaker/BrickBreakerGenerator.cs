@@ -9,12 +9,6 @@ public partial class BrickBreakerGenerator : Container
 	[Export]
 	PackedScene BrickPrefab;
 	[Export]
-	ColorRect ball;
-	
-	[Export]
-	Node2D TextWin;
-
-	[Export]
 	int initialLines = 10;
 	[Export]
 	int brickWidth = 2;
@@ -24,6 +18,7 @@ public partial class BrickBreakerGenerator : Container
     List<BrickBreakerBrick> Bricks = new List<BrickBreakerBrick>();
 
 	
+    private bool _visible;
 	float width => this.Size.X;
 	float height => this.Size.Y;
 	bool lineFits => width % brickWidth == 0;
@@ -32,7 +27,7 @@ public partial class BrickBreakerGenerator : Container
 	[Signal]
 	public delegate void WinGameEventHandler();
 	
-	bool winGame;
+
 	private void RestartBrick()
 	{
 		int BricksThisLine = 0;
@@ -51,14 +46,11 @@ public partial class BrickBreakerGenerator : Container
 		}
 
 	}
-
 	public void Win()
 	{
 		if(Bricks.All(b => !b.Visible))
 		{
-			ball.QueueFree();
-			TextWin.Visible = true;
-			
+			GD.Print(" me voy a cargar a tu abuela");
 		}
 	}
 
@@ -68,7 +60,7 @@ public partial class BrickBreakerGenerator : Container
 		int firstInvisible = Bricks.FindIndex(b => !b.Visible);
 
 
-		// Paso 2: Variables de cálculo 
+		// Paso 2: Variables de cálculo
 		int accumulatedBlocks = 0;
 		int lineIndex = 0;
 		int bricksInThisLine = 0;
@@ -112,6 +104,16 @@ public partial class BrickBreakerGenerator : Container
 
 	}
 
+	private void UpdateVisibleBlocksCount()
+    {
+        bool visibleBlocksCount = Bricks.All(b => !b.Visible); // Contamos cuántos bloques siguen siendo visibles
+
+        if (visibleBlocksCount)
+        {
+            EmitSignal("WinGame"); // Emitir la señal de victoria
+        }
+    }
+
 	public BrickBreakerBrick GetBrick()
 	{
 		BrickBreakerBrick newBrick = Bricks.FirstOrDefault(b => !b.Visible);
@@ -127,14 +129,7 @@ public partial class BrickBreakerGenerator : Container
 		newBrick.setHealth(1);
 		newBrick.setColor(colorPalette.PickRandom());
 		newBrick.Visible = true;
-
 		return newBrick;
-	}
-
-	public void OnBrickVisibilityChanged()
-	{
-		EmitSignal(nameof(WinGame)); // Emitimos la señal de victoria
-		
 	}
 
 	public override void _Ready() 
