@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="InputMap" load_steps=12 format=3 uid="uid://bovdny6kjjej2"]
+[gd_resource type="Resource" script_class="InputMap" load_steps=14 format=3 uid="uid://bovdny6kjjej2"]
 
 [ext_resource type="Resource" uid="uid://bts4hgwllyavp" path="res://Resources/Inputs/Actions/Jump.tres" id="1_fthub"]
 [ext_resource type="Resource" uid="uid://dw1f6c4qf325r" path="res://Resources/Inputs/Actions/Interact.tres" id="2_y5d0v"]
@@ -8,13 +8,25 @@
 [ext_resource type="Resource" uid="uid://h8jt2gqqs8qg" path="res://Resources/Inputs/Actions/Fly.tres" id="5_dt2ne"]
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="5_r2ep5"]
 [ext_resource type="Resource" uid="uid://j3g0wqycbpe6" path="res://Resources/Inputs/Actions/Look.tres" id="6_u7sdq"]
+[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector1InputAction.cs" id="7_fl51x"]
 [ext_resource type="Resource" uid="uid://bkf6fqu2milak" path="res://Resources/Inputs/Actions/Pause.tres" id="8_g75ei"]
+
+[sub_resource type="Resource" id="Resource_cw0cd"]
+script = ExtResource("7_fl51x")
+MouseInput = 0
+Negative = []
+Positive = []
+NegativeName = "Negative"
+PositiveName = "Positive"
+Name = ""
+DeadZone = 0.25
+Sleeping = false
 
 [sub_resource type="Resource" id="Resource_ta5yr"]
 resource_name = "Player"
 script = ExtResource("4_2s7hm")
 Name = "Player"
-Actions = [ExtResource("1_fthub"), ExtResource("2_y5d0v"), ExtResource("4_4o0ed"), ExtResource("4_udqwh"), ExtResource("5_dt2ne"), ExtResource("6_u7sdq")]
+Actions = [ExtResource("1_fthub"), ExtResource("2_y5d0v"), ExtResource("4_4o0ed"), ExtResource("4_udqwh"), ExtResource("5_dt2ne"), ExtResource("6_u7sdq"), SubResource("Resource_cw0cd")]
 Sleeping = false
 
 [sub_resource type="Resource" id="Resource_gpxy0"]

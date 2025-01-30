@@ -271,6 +271,456 @@ script = ExtResource("10_gvm4v")
 [node name="Look" type="Node" parent="Player/InputEventHandler/Player"]
 script = ExtResource("10_gvm4v")
 
+[node name="Node" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node2" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node3" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node4" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node5" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node6" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node7" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node8" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node9" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node10" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node11" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node12" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node13" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node14" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node15" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node16" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node17" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node18" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node19" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node20" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node21" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node22" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node23" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node24" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node25" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node26" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node27" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node28" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node29" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node30" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node31" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node32" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node33" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node34" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node35" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node36" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node37" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node38" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node39" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node40" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node41" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node42" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node43" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node44" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node45" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node46" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node47" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node48" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node49" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node50" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node51" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node52" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node53" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node54" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node55" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node56" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node57" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node58" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node59" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node60" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node61" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node62" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node63" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node64" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node65" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node66" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node67" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node68" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node69" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node70" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node71" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node72" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node73" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node74" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node75" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node76" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node77" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node78" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node79" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node80" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node81" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node82" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node83" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node84" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node85" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node86" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node87" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node88" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node89" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node90" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node91" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node92" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node93" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node94" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node95" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node96" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node97" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node98" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node99" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node100" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node101" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node102" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node103" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node104" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node105" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node106" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node107" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node108" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node109" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node110" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node111" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node112" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node113" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node114" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node115" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node116" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node117" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node118" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node119" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node120" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node121" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node122" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node123" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node124" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node125" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node126" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node127" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node128" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node129" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node130" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node131" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node132" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node133" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node134" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node135" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node136" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node137" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node138" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node139" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node140" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node141" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node142" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node143" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node144" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node145" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node146" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node147" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node148" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node149" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
+[node name="Node150" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("10_gvm4v")
+
 [node name="UI" type="Node" parent="Player/InputEventHandler"]
 
 [node name="Pause" type="Node" parent="Player/InputEventHandler/UI"]

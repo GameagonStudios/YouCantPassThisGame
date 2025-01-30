@@ -16,6 +16,7 @@
 
 [sub_resource type="SystemFont" id="SystemFont_4ihvp"]
 font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -81,9 +82,11 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.04, 1.08)
+current_tab = 0
 
 [node name="CONTROLS" type="TabBar" parent="TabContainer"]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="ControlsContainer" type="GridContainer" parent="TabContainer/CONTROLS"]
 layout_mode = 1
@@ -132,6 +135,7 @@ step = 0.01
 [node name="SOUND" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="SoundContainer" type="GridContainer" parent="TabContainer/SOUND"]
 layout_mode = 1
@@ -149,10 +153,9 @@ text = "MENU_LANGUAGE"
 [node name="LanguageSelector" type="OptionButton" parent="TabContainer/SOUND/SoundContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 3
 selected = 1
+item_count = 3
 popup/item_0/text = "English"
-popup/item_0/id = 0
 popup/item_1/text = "Español"
 popup/item_1/id = 1
 popup/item_2/text = "Français"
@@ -233,6 +236,7 @@ size_flags_horizontal = 0
 [node name="VIDEO" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="VideoContainer" type="GridContainer" parent="TabContainer/VIDEO"]
 layout_mode = 0
@@ -250,10 +254,9 @@ script = ExtResource("5_bae45")
 [node name="ResolutionSelection" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 7
 selected = 3
+item_count = 7
 popup/item_0/text = "640x480"
-popup/item_0/id = 0
 popup/item_1/text = "960x540 "
 popup/item_1/id = 1
 popup/item_2/text = "1280x720"
@@ -280,10 +283,9 @@ text = "WINDOWS_MODE"
 [node name="Windowsmodeselector" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 3
 selected = 1
+item_count = 3
 popup/item_0/text = "WINDOW"
-popup/item_0/id = 0
 popup/item_1/text = "FULLSCREEN"
 popup/item_1/id = 3
 popup/item_2/text = "WITHOUT BORDERS"
@@ -307,8 +309,8 @@ text = "SOFT_SHADOWS"
 [node name="Shadowqualityselector" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 4
 selected = 1
+item_count = 4
 popup/item_0/text = "LOW"
 popup/item_0/id = 3
 popup/item_1/text = "MIDDLE"
@@ -327,10 +329,9 @@ script = ExtResource("11_akee7")
 [node name="ResolutionShadowsSelection2" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-item_count = 4
 selected = 2
+item_count = 4
 popup/item_0/text = "512x512"
-popup/item_0/id = 0
 popup/item_1/text = "1024x1024"
 popup/item_1/id = 1
 popup/item_2/text = "4096x4096"

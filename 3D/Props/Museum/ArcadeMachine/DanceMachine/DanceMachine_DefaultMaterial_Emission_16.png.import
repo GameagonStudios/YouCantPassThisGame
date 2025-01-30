@@ -2,13 +2,12 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://do84eomo53ch0"
+uid="uid://dn0voqja7aij0"
 path.s3tc="res://.godot/imported/DanceMachine_DefaultMaterial_Emission_16.png-db114a8ad3ff598fdd19079a45d63136.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 
