@@ -128,15 +128,13 @@ offset_right = 1.0
 offset_bottom = 1.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Container" type="Container" parent="." node_paths=PackedStringArray("ball", "TextWin")]
+[node name="Container" type="Container" parent="."]
 offset_left = 4.0
 offset_top = 3.0
 offset_right = 34.0
 offset_bottom = 18.0
 script = ExtResource("8_dmfm0")
 BrickPrefab = ExtResource("9_4ieu4")
-ball = NodePath("../RigidBody2D/ColorRect")
-TextWin = NodePath("../WinText")
 initialLines = 5
 colorPalette = [Color(0.627451, 0, 1, 1), Color(0.610279, 0.500843, 0.403241, 1), Color(0.71561, 0.869275, 0.79866, 1), Color(0.183765, 0.329878, 0.577888, 1), Color(0.956275, 0.969679, 0.87529, 1), Color(0.980532, 0.847008, 0.767188, 1)]
 metadata/_edit_use_anchors_ = true

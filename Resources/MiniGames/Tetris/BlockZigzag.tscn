@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://bodpm1n0q44hm"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_025at"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxnto"]
+size = Vector2(2, 1)
+
+[node name="StaticBody2D" type="StaticBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_025at")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0.5)
+shape = SubResource("RectangleShape2D_yxnto")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(1, 1.5)
+shape = SubResource("RectangleShape2D_yxnto")
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 2.0
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 2.0
+offset_bottom = 2.0
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 1.0
+offset_right = 2.0
+offset_bottom = 1.0
+color = Color(0, 1, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 2.0
+offset_right = 3.0
+offset_bottom = 1.0
+color = Color(0, 1, 0, 1)
