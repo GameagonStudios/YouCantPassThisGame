@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cc67vq0a343ff"]
+[gd_scene load_steps=2 format=3 uid="uid://cc67vq0a343ff"]
+
+[ext_resource type="Script" path="res://Scripts/MiniGames/Tetris/TetrisManager.cs" id="1_dreld"]
 
 [node name="Tetris" type="Node2D"]
 
@@ -13,3 +15,11 @@ metadata/_edit_use_anchors_ = true
 [node name="Camera2D" type="Camera2D" parent="BackGround"]
 position = Vector2(15, 19)
 zoom = Vector2(26.62, 26.62)
+
+[node name="Container" type="Container" parent="."]
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 49.0
+offset_bottom = 2.0
+scale = Vector2(0.726943, 0.72)
+script = ExtResource("1_dreld")

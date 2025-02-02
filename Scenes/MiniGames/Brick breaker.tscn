@@ -6,9 +6,9 @@
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="3_nwx1a"]
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="4_ykrfl"]
 [ext_resource type="Script" path="res://Scripts/Utils/EventActuator.cs" id="5_0h3tu"]
-[ext_resource type="Script" path="res://Scripts/BrickBreaker/PaddleController.cs" id="6_1uf5h"]
-[ext_resource type="Script" path="res://Scripts/BrickBreaker/Ball.cs" id="7_vhdvm"]
-[ext_resource type="Script" path="res://Scripts/BrickBreaker/BrickBreakerGenerator.cs" id="8_dmfm0"]
+[ext_resource type="Script" path="res://Scripts/MiniGames/BrickBreaker/PaddleController.cs" id="6_1uf5h"]
+[ext_resource type="Script" path="res://Scripts/MiniGames/BrickBreaker/Ball.cs" id="7_vhdvm"]
+[ext_resource type="Script" path="res://Scripts/MiniGames/BrickBreaker/BrickBreakerGenerator.cs" id="8_dmfm0"]
 [ext_resource type="PackedScene" uid="uid://c7ew7dgxqm7nt" path="res://Resources/MiniGames/BrickBreaker/Brick.tscn" id="9_4ieu4"]
 
 [sub_resource type="Resource" id="Resource_ie6o7"]
