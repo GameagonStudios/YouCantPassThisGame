@@ -29,7 +29,7 @@ project/assembly_name="YouCantFinishThisGame"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/SKInputSystem/plugin.cfg")
 
 [file_customization]
 

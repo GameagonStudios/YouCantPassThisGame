@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=14 format=3 uid="uid://bovdny6kjjej2"]
+[gd_resource type="Resource" script_class="InputMap" load_steps=14 format=3 uid="uid://bovdny6kjjej2"]
 
 [ext_resource type="Resource" uid="uid://bts4hgwllyavp" path="res://Resources/Inputs/Actions/Jump.tres" id="1_fthub"]
 [ext_resource type="Resource" uid="uid://dw1f6c4qf325r" path="res://Resources/Inputs/Actions/Interact.tres" id="2_y5d0v"]
