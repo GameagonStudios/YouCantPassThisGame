@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cc67vq0a343ff"]
+[gd_scene load_steps=7 format=3 uid="uid://cc67vq0a343ff"]
 
 [ext_resource type="Script" path="res://Scripts/MiniGames/Tetris/TetrisManager.cs" id="1_dreld"]
+[ext_resource type="PackedScene" uid="uid://bbuqjxb2m0k38" path="res://Resources/MiniGames/Tetris/BlockRect.tscn" id="2_mhfx4"]
+[ext_resource type="PackedScene" uid="uid://8wlg2cjxb6rm" path="res://Resources/MiniGames/Tetris/BlockSquad.tscn" id="3_xt7xm"]
+[ext_resource type="PackedScene" uid="uid://bodpm1n0q44hm" path="res://Resources/MiniGames/Tetris/BlockZigzag.tscn" id="4_wbiay"]
+[ext_resource type="PackedScene" uid="uid://baqh3fgf6v4aj" path="res://Resources/MiniGames/Tetris/LBlock.tscn" id="5_2543x"]
+[ext_resource type="PackedScene" uid="uid://cmvt6e72icdym" path="res://Resources/MiniGames/Tetris/MiddBlock.tscn" id="6_g70ft"]
 
 [node name="Tetris" type="Node2D"]
 
@@ -10,16 +15,10 @@ offset_top = 1.0
 offset_right = 36.0
 offset_bottom = 35.0
 color = Color(0, 0, 0, 1)
+script = ExtResource("1_dreld")
+pieces = Array[PackedScene]([ExtResource("2_mhfx4"), ExtResource("3_xt7xm"), ExtResource("4_wbiay"), ExtResource("5_2543x"), ExtResource("6_g70ft")])
 metadata/_edit_use_anchors_ = true
 
 [node name="Camera2D" type="Camera2D" parent="BackGround"]
 position = Vector2(15, 19)
 zoom = Vector2(26.62, 26.62)
-
-[node name="Container" type="Container" parent="."]
-offset_left = 2.0
-offset_top = 1.0
-offset_right = 49.0
-offset_bottom = 2.0
-scale = Vector2(0.726943, 0.72)
-script = ExtResource("1_dreld")

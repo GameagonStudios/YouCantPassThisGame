@@ -14,6 +14,8 @@ public partial class BrickBreakerGenerator : Container
 	int brickWidth = 2;
 	[Export]
 	Array<Color> colorPalette = new Array<Color>() {new Color(1,1,1)};
+	[Export]
+	Node2D winText;
 
     List<BrickBreakerBrick> Bricks = new List<BrickBreakerBrick>();
 
@@ -26,6 +28,7 @@ public partial class BrickBreakerGenerator : Container
 
 	[Signal]
 	public delegate void WinGameEventHandler();
+
 	
 
 	private void RestartBrick()
@@ -50,7 +53,7 @@ public partial class BrickBreakerGenerator : Container
 	{
 		if(Bricks.All(b => !b.Visible))
 		{
-			GD.Print(" me voy a cargar a tu abuela");
+			winText.Visible = true;
 		}
 	}
 

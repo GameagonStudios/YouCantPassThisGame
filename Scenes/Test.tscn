@@ -240,6 +240,24 @@ script = ExtResource("3_hyyl2")
 [node name="Node12" type="Node" parent="Player/InputEventHandler/Player"]
 script = ExtResource("3_hyyl2")
 
+[node name="Node13" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node14" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node15" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node16" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node17" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
+[node name="Node18" type="Node" parent="Player/InputEventHandler/Player"]
+script = ExtResource("3_hyyl2")
+
 [node name="UI" type="Node" parent="Player/InputEventHandler"]
 
 [node name="Pause" type="Node" parent="Player/InputEventHandler/UI"]
