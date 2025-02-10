@@ -2,7 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
+<<<<<<< Updated upstream
 uid="uid://qhittwaug58c"
+=======
+uid="uid://b2505g5bquws6"
+>>>>>>> Stashed changes
 path.s3tc="res://.godot/imported/Machine_DefaultMaterial_Metallic.png-0f221c66b7fe1688e8b25d5eeaf48784.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],

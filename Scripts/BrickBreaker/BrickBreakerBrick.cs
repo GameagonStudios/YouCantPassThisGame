@@ -20,8 +20,8 @@ public partial class BrickBreakerBrick : StaticBody2D, ColissionReciver
 	{
 		livePoints = lives;
 	}
-    public void HandleCollision(Node node)
-    {
+	public void HandleCollision(Node node)
+	{
 		if(livePoints > 0)
 		{
 			livePoints--;
@@ -34,6 +34,6 @@ public partial class BrickBreakerBrick : StaticBody2D, ColissionReciver
 			parent.UpdateVisibleBlocksCount();
 
 		}
-    }
+	}
 
 }
