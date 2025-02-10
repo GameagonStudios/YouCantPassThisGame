@@ -13,6 +13,8 @@ public partial class BrickBreakerGenerator : Container
 	[Export]
 	int brickWidth = 2;
 	[Export]
+	Node2D WinText;
+	[Export]
 	Array<Color> colorPalette = new Array<Color>() {new Color(1,1,1)};
 
     List<BrickBreakerBrick> Bricks = new List<BrickBreakerBrick>();
@@ -50,7 +52,7 @@ public partial class BrickBreakerGenerator : Container
 	{
 		if(Bricks.All(b => !b.Visible))
 		{
-			GD.Print(" me voy a cargar a tu abuela");
+			WinText.Visible = true;
 		}
 	}
 
@@ -104,7 +106,7 @@ public partial class BrickBreakerGenerator : Container
 
 	}
 
-	private void UpdateVisibleBlocksCount()
+	public void UpdateVisibleBlocksCount()
     {
         bool visibleBlocksCount = Bricks.All(b => !b.Visible); // Contamos cuántos bloques siguen siendo visibles
 

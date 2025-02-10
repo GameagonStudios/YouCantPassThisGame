@@ -20,6 +20,8 @@ public partial class Ball : RigidBody2D
 	[Export]
 	ColorRect Paddle;
 
+	[Export]
+	Node2D WinText;
 	Area2D ControllerPaddle;
 
 	[Export]
@@ -85,6 +87,10 @@ public partial class Ball : RigidBody2D
 			{
 				isLaunched = false;
 				BrickBreakerController.RestartLine();
+			}
+			if(WinText.Visible == true)
+			{
+				this.QueueFree();
 			}
 
 		}

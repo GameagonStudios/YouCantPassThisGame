@@ -30,6 +30,8 @@ public partial class BrickBreakerBrick : StaticBody2D, ColissionReciver
 		{
 			this.Visible = false;
 			this.ProcessMode = ProcessModeEnum.Disabled;
+			BrickBreakerGenerator parent = GetParent() as BrickBreakerGenerator;
+			parent.UpdateVisibleBlocksCount();
 
 		}
     }
