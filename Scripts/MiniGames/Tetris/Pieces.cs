@@ -1,15 +1,49 @@
 using Godot;
 using System;
 
-public partial class Pieces : Node
+public partial class Pieces : Node2D
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+    
+    [Export]
+    private float dropSpeed = 1f; // Velocidad de caída en píxeles por segundo (ajustado a 100 píxeles por segundo)
+    private float timeElapsed = 0f; // Tiempo transcurrido desde la última actualización
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+    private int gridSize = 1; // La pieza cae 1 píxel por frame
+
+    [Export]
+    private int maxY = 32; // Límite del suelo en píxeles
+
+    // Llamado cuando el nodo entra en el árbol de nodos por primera vez.
+    public override void _Ready()
+    {
+        // Aquí no hace falta agregar nada por ahora
+    }
+
+    // Llamado cada frame. 'delta' es el tiempo transcurrido desde el frame anterior.
+    public override void _PhysicsProcess(double delta)
+    {
+        // Acumulamos el tiempo de cada frame
+        timeElapsed += (float)delta;
+
+        // Si ha pasado suficiente tiempo (en términos de píxeles)
+        if (timeElapsed >= 1f / dropSpeed)  // La pieza se mueve de 1 píxel por vez
+        {
+            // Restablecer el contador de tiempo
+            timeElapsed = 0f;
+
+            // Mover la pieza un píxel hacia abajo
+            Vector2 newPosition = Position + new Vector2(0, gridSize);
+
+            // Verifica que la pieza no se haya desplazado más allá del límite inferior
+            if (newPosition.Y < maxY)
+            {
+                Position = newPosition; // Baja la pieza en la cuadrícula
+            }
+            else
+            {
+                //GD.Print("Pieza fijada al suelo"); // Fijar la pieza al suelo
+                //QueueFree(); // Eliminar la pieza, o agregarla al tablero (dependiendo de tu lógica)
+            }
+        }
+    }
 }

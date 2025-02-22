@@ -1,18 +1,20 @@
 [gd_scene load_steps=3 format=3 uid="uid://bodpm1n0q44hm"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_025at"]
+[ext_resource type="Script" path="res://Scripts/MiniGames/Tetris/Pieces.cs" id="1_fb1ud"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yxnto"]
 size = Vector2(2, 1)
 
-[node name="StaticBody2D" type="StaticBody2D"]
-physics_material_override = SubResource("PhysicsMaterial_025at")
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_fb1ud")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(2, 0.5)
 shape = SubResource("RectangleShape2D_yxnto")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(1, 1.5)
 shape = SubResource("RectangleShape2D_yxnto")
 

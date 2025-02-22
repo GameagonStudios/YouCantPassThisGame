@@ -56,7 +56,7 @@ public partial class TetrisManager : ColorRect
 
 
         // Generar una posición aleatoria en el eje X (en el rango de la anchura de la pantalla)
-        pieceInstance.Position = new Vector2((float)GD.RandRange(0, this.Size.X), 0);  // Coloca la pieza en la parte superior
+        pieceInstance.Position = new Vector2((int)GD.RandRange(0, this.Size.X), 0);  // Coloca la pieza en la parte superior
 
         // Agregar la pieza al contenedor para que se vea en pantalla
         AddChild(pieceInstance);

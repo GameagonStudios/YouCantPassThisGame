@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://baqh3fgf6v4aj"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_025at"]
+[ext_resource type="Script" path="res://Scripts/MiniGames/Tetris/Pieces.cs" id="1_gsrst"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvla6"]
 size = Vector2(1, 3)
@@ -8,12 +8,18 @@ size = Vector2(1, 3)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvj0r"]
 size = Vector2(1, 1)
 
-[node name="StaticBody2D" type="StaticBody2D"]
-physics_material_override = SubResource("PhysicsMaterial_025at")
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_gsrst")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0.5, 1.5)
 shape = SubResource("RectangleShape2D_bvla6")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1.5, 2.5)
+shape = SubResource("RectangleShape2D_gvj0r")
 
 [node name="ColorRect4" type="ColorRect" parent="."]
 offset_left = 1.0
@@ -38,7 +44,3 @@ color = Color(1, 0.584314, 0, 1)
 offset_right = 1.0
 offset_bottom = 1.0
 color = Color(1, 0.584314, 0, 1)
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, 2.5)
-shape = SubResource("RectangleShape2D_gvj0r")
