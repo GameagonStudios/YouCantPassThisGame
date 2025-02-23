@@ -15,6 +15,9 @@ public partial class TetrisManager : ColorRect
     private float fallSpeed = 1.0f;  // Velocidad de caída de las piezas
     private float timeSinceLastFall = 0.0f;  // Tiempo acumulado desde la última caída
     // Llamado cuando el nodo entra en el árbol de nodos por primera vez.
+
+    [Export]
+	Array<Color> colorPalette = new Array<Color>() {new Color(1,1,1)};
     public override void _Ready()
     {
         // Generar la primera pieza aleatoria
@@ -48,15 +51,30 @@ public partial class TetrisManager : ColorRect
     private void SpawnPiece()
     {
         // Seleccionar una pieza aleatoria del array 'pieces'
-        int randomIndex = (int)GD.RandRange(0, pieces.Length-1);
+        int randomIndex = (int)GD.RandRange(0, pieces.Length - 1);
+        
         PackedScene randomPieceScene = pieces[randomIndex];
 
         // Instanciar la pieza
-        Node2D pieceInstance = (Node2D)randomPieceScene.Instantiate();
+        Pieces pieceInstance = (Pieces)randomPieceScene.Instantiate();
 
+        // Obtener el tamaño de la pieza (solo el valor en X para verificar que encaje en la pantalla)
+        float pieceWidth = NodeUtils.GetSize<ColorRect>(pieceInstance).X;
 
         // Generar una posición aleatoria en el eje X (en el rango de la anchura de la pantalla)
-        pieceInstance.Position = new Vector2((int)GD.RandRange(0, this.Size.X), 0);  // Coloca la pieza en la parte superior
+        int randomX = (int)GD.RandRange(0, this.Size.X);
+
+        // Ajustar la posición X solo si la pieza sobresale del límite derecho
+        if (randomX + pieceWidth > this.Size.X)
+        {
+            randomX = (int)this.Size.X - (int)pieceWidth;  // Ajustamos para que la pieza no se salga por la derecha
+        }
+
+        // Coloca la pieza en la parte superior de la pantalla, pero con la posición X ajustada
+        pieceInstance.Position = new Vector2(randomX, 0);  // Coloca la pieza en la parte superior
+
+        // Asignar un color aleatorio
+        pieceInstance.setColor(colorPalette.PickRandom());
 
         // Agregar la pieza al contenedor para que se vea en pantalla
         AddChild(pieceInstance);

@@ -13,10 +13,11 @@ public partial class Pieces : Node2D
     [Export]
     private int maxY = 32; // Límite del suelo en píxeles
 
+	ColorRect color;
     // Llamado cuando el nodo entra en el árbol de nodos por primera vez.
     public override void _Ready()
     {
-        // Aquí no hace falta agregar nada por ahora
+
     }
 
     // Llamado cada frame. 'delta' es el tiempo transcurrido desde el frame anterior.
@@ -33,9 +34,10 @@ public partial class Pieces : Node2D
 
             // Mover la pieza un píxel hacia abajo
             Vector2 newPosition = Position + new Vector2(0, gridSize);
+            GD.Print(NodeUtils.GetSize<ColorRect>(this).Y);
 
             // Verifica que la pieza no se haya desplazado más allá del límite inferior
-            if (newPosition.Y < maxY)
+            if (newPosition.Y + NodeUtils.GetSize<ColorRect>(this).Y <= maxY)
             {
                 Position = newPosition; // Baja la pieza en la cuadrícula
             }
@@ -43,6 +45,18 @@ public partial class Pieces : Node2D
             {
                 //GD.Print("Pieza fijada al suelo"); // Fijar la pieza al suelo
                 //QueueFree(); // Eliminar la pieza, o agregarla al tablero (dependiendo de tu lógica)
+            }
+        }
+    }
+
+    public void setColor(Color col)
+	{
+        foreach (Node child in GetChildren())
+        {
+            if (child is ColorRect colorRect) // Verifica si el hijo es un ColorRect
+            {
+                ColorRect rect = (ColorRect)child;
+                rect.Color = col;  // Aplica el color
             }
         }
     }
