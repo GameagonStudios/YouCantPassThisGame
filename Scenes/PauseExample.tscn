@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://btafrs5opvola"]
 
 [ext_resource type="PackedScene" uid="uid://dqwynxbg3ejn6" path="res://Resources/Nodes/pause_menu.tscn" id="1_3t2xg"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="2_d2227"]
+[ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="2_d2227"]
 [ext_resource type="Resource" uid="uid://bovdny6kjjej2" path="res://Resources/Inputs/InputMap.tres" id="3_vntw8"]
-[ext_resource type="Script" path="res://Scripts/Utils/EventActuator.cs" id="4_sbhk7"]
+[ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="4_sbhk7"]
 
 [node name="Node3D" type="Node3D"]
 

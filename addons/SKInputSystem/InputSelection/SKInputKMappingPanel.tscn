@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cs5eswfxmhc8"]
 
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSelection/SKInputSelectionList.cs" id="2_ecb7s"]
+[ext_resource type="Script" uid="uid://ci3012xqdqdhj" path="res://addons/SKInputSystem/InputSelection/SKInputSelectionList.cs" id="2_ecb7s"]
 
 [sub_resource type="Theme" id="Theme_jm0s2"]
 

@@ -144,8 +144,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1llm6"]
 _data = {
-"FlyingCorn": SubResource("Animation_i7yi0"),
-"RESET": SubResource("Animation_w8wt2")
+&"FlyingCorn": SubResource("Animation_i7yi0"),
+&"RESET": SubResource("Animation_w8wt2")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0shaa"]
@@ -209,8 +209,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_diukd"]
 _data = {
-"FlyingCarrot": SubResource("Animation_kqchq"),
-"RESET": SubResource("Animation_oukpa")
+&"FlyingCarrot": SubResource("Animation_kqchq"),
+&"RESET": SubResource("Animation_oukpa")
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_0aacl"]
@@ -305,8 +305,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bydw8"]
 _data = {
-"RESET": SubResource("Animation_tydst"),
-"WalkingMonstergurt": SubResource("Animation_86la3")
+&"RESET": SubResource("Animation_tydst"),
+&"WalkingMonstergurt": SubResource("Animation_86la3")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vktoj"]
@@ -520,7 +520,7 @@ debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Corn"]
 libraries = {
-"": SubResource("AnimationLibrary_1llm6")
+&"": SubResource("AnimationLibrary_1llm6")
 }
 autoplay = "FlyingCorn"
 movie_quit_on_finish = true
@@ -567,7 +567,7 @@ debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Carrot"]
 libraries = {
-"": SubResource("AnimationLibrary_diukd")
+&"": SubResource("AnimationLibrary_diukd")
 }
 autoplay = "FlyingCarrot"
 
@@ -575,8 +575,8 @@ autoplay = "FlyingCarrot"
 material = SubResource("CanvasItemMaterial_0aacl")
 position = Vector2(11, 0)
 amount = 30
-process_material = ExtResource("22_e6hrg")
 texture = ExtResource("20_wj5t0")
+process_material = ExtResource("22_e6hrg")
 
 [node name="LeftEye2" type="Sprite2D" parent="Carrot"]
 position = Vector2(0, -2)
@@ -617,7 +617,7 @@ debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Monstergurt"]
 libraries = {
-"": SubResource("AnimationLibrary_bydw8")
+&"": SubResource("AnimationLibrary_bydw8")
 }
 autoplay = "WalkingMonstergurt"
 
@@ -677,8 +677,8 @@ debug_color = Color(1, 0, 0, 0.419608)
 material = SubResource("CanvasItemMaterial_o4as5")
 position = Vector2(0, -13)
 amount = 30
-process_material = ExtResource("20_dwvqd")
 texture = ExtResource("20_wj5t0")
+process_material = ExtResource("20_dwvqd")
 
 [node name="Granade" type="Sprite2D" parent="Granade"]
 texture = ExtResource("5_k2c1q")

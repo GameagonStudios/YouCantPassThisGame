@@ -12,7 +12,8 @@ config_version=5
 
 config/name="YouCantFinishThisGame"
 run/main_scene="res://Scenes/Test.tscn"
-config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
@@ -33,7 +34,7 @@ project/assembly_name="YouCantFinishThisGame"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SKInputSystem/plugin.cfg", "res://addons/panku_console/plugin.cfg")
+enabled=PackedStringArray("res://addons/panku_console/plugin.cfg")
 
 [file_customization]
 

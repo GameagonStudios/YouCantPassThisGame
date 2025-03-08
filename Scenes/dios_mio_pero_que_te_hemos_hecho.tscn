@@ -1,13 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://dnv8c28rd53x5"]
+[gd_scene load_steps=19 format=3 uid="uid://dnv8c28rd53x5"]
 
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_e2mwo"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector2InputAction.cs" id="2_kayhh"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="3_kp6ex"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="3_m870o"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="4_cnn4l"]
+[ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_e2mwo"]
+[ext_resource type="Script" uid="uid://ba8gjttvae2wj" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector2InputAction.cs" id="2_kayhh"]
+[ext_resource type="Script" uid="uid://c1tu0afldgxa8" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="3_kp6ex"]
+[ext_resource type="Script" uid="uid://t0cmlswemv15" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="3_m870o"]
+[ext_resource type="Script" uid="uid://cyltkd572m4ig" path="res://addons/SKInputSystem/InputSystem/InputAction.cs" id="3_mhm07"]
+[ext_resource type="Script" uid="uid://caspgt78xg48h" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="4_cnn4l"]
 [ext_resource type="Material" uid="uid://c2rlcwx53fo57" path="res://Materials/PlaceHolders/Grass.material" id="5_5k7by"]
-[ext_resource type="Script" path="res://Scripts/Utils/EventActuator.cs" id="6_uhagm"]
-[ext_resource type="Script" path="res://Scripts/Test Do Not Use/TestController.cs" id="8_uhd1y"]
+[ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="6_uhagm"]
+[ext_resource type="Script" uid="uid://bqcnorb7f13b" path="res://Scripts/Test Do Not Use/TestController.cs" id="8_uhd1y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_eeowi"]
 sky_top_color = Color(0, 0.682353, 0.952941, 1)
@@ -29,15 +30,15 @@ volumetric_fog_density = 0.0
 [sub_resource type="Resource" id="Resource_dnh1w"]
 resource_name = "Movment"
 script = ExtResource("2_kayhh")
-MouseInput = 0
-AxisXNegative = ["Key A"]
-AxisXPositive = ["Key D"]
-AxisYNegative = ["Key S"]
-AxisYPositive = ["Key W"]
+AxisXNegative = Array[String](["Key A"])
+AxisXPositive = Array[String](["Key D"])
+AxisYNegative = Array[String](["Key S"])
+AxisYPositive = Array[String](["Key W"])
 XNegativeName = "NuevoXNegative"
 XPositiveName = "NuevoXPositive"
 YNegativeName = "NuevoYNegative"
 YPositiveName = "NuevoYPositive"
+MouseInput = 0
 Name = "Movment"
 DeadZone = 0.05
 Sleeping = false
@@ -45,8 +46,8 @@ Sleeping = false
 [sub_resource type="Resource" id="Resource_65pyf"]
 resource_name = "Salto"
 script = ExtResource("3_kp6ex")
+Events = Array[String](["Key Space"])
 MouseInput = 0
-Events = ["Key Space"]
 Name = "Salto"
 DeadZone = 0.05
 Sleeping = false
@@ -55,14 +56,14 @@ Sleeping = false
 resource_name = "NuevoInputActionGroup"
 script = ExtResource("3_m870o")
 Name = "NuevoInputActionGroup"
-Actions = [SubResource("Resource_dnh1w"), SubResource("Resource_65pyf")]
+Actions = Array[ExtResource("3_mhm07")]([SubResource("Resource_dnh1w"), SubResource("Resource_65pyf")])
 Sleeping = false
 
 [sub_resource type="Resource" id="Resource_d5ecf"]
 resource_name = "NuevoInputMap"
 script = ExtResource("4_cnn4l")
 Name = "NuevoInputMap"
-Groups = [SubResource("Resource_b8o8w")]
+Groups = Array[ExtResource("3_m870o")]([SubResource("Resource_b8o8w")])
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5xoba"]
 

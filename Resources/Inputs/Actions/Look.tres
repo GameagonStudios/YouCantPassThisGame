@@ -1,19 +1,19 @@
 [gd_resource type="Resource" script_class="Vector2InputAction" load_steps=2 format=3 uid="uid://j3g0wqycbpe6"]
 
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector2InputAction.cs" id="1_bst2j"]
+[ext_resource type="Script" uid="uid://ba8gjttvae2wj" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector2InputAction.cs" id="1_bst2j"]
 
 [resource]
 resource_name = "Look"
 script = ExtResource("1_bst2j")
-MouseInput = 4
-AxisXNegative = ["JoyAxis RightX"]
-AxisXPositive = ["JoyAxis RightX"]
-AxisYNegative = ["JoyAxis RightY"]
-AxisYPositive = ["JoyAxis RightY"]
+AxisXNegative = Array[String](["JoyAxis RightX"])
+AxisXPositive = Array[String](["JoyAxis RightX"])
+AxisYNegative = Array[String](["JoyAxis RightY"])
+AxisYPositive = Array[String](["JoyAxis RightY"])
 XNegativeName = "XNegative"
 XPositiveName = "XPositive"
 YNegativeName = "YNegative"
 YPositiveName = "YPositive"
+MouseInput = 4
 Name = "Look"
 DeadZone = 0.25
 Sleeping = false

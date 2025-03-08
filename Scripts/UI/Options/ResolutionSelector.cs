@@ -17,25 +17,26 @@ public partial class ResolutionSelector : OptionButton
         ItemSelected += OnItemSelected;
         SetResolution();
     }
-    public void SetResolution()
-    {
+	public void SetResolution()
+	{
 
-        string currentLocale;
-        GD.Print(OptionsSavesHandler.Current.GetValue(key)?.ToString());
-        currentLocale = OptionsSavesHandler.Current.GetValue(key)?.ToString() ?? resolutionDefault;
-        //TransformtoStringRes(DisplayServer.ScreenGetSize());
-        Vector2I res = TransformtoVectorRes(currentLocale);
+		string currentLocale;
+		GD.Print(OptionsSavesHandler.Current.GetValue(key)?.ToString());
+		currentLocale = OptionsSavesHandler.Current.GetValue(key)?.ToString() ?? resolutionDefault;
+		//TransformtoStringRes(DisplayServer.ScreenGetSize());
+		Vector2I res = TransformtoVectorRes(currentLocale);
 
-        for (int i = 0; i < ItemCount; i++)
-        {
-            // AddItem(GetItemText(i), i);
-            SetItemMetadata(i, GetItemText(i));
+		for (int i = 0; i < ItemCount; i++)
+		{
+			// AddItem(GetItemText(i), i);
+			SetItemMetadata(i, GetItemText(i));
 
-            if (currentLocale == GetItemText(i))
-                Select(i);
-        }
-        GD.Print("AAAAAAAAAAAH");
-        EmitSignal(SignalName.Resolution, res);
+			if (currentLocale == GetItemText(i))
+				Select(i);
+		}
+		GD.Print("AAAAAAAAAAAH");
+		//EmitSignal(SignalName.Resolution, res);
+		RenderingServer.DirectionalShadowAtlasSetSize(res[0], true);
 
     }
     public string TransformtoStringRes(Vector2 resolution)

@@ -13,6 +13,9 @@ public partial class WalkingController : CharacterBody3D
 
 	[ExportGroup("Movement")]
 	[Export]
+	public ShapeCast3D floorDetector;
+
+	[Export]
 	public float walkSpeed = 5.0f;
 
 	[Export]
@@ -32,8 +35,6 @@ public partial class WalkingController : CharacterBody3D
 	[Export]
 	private StringName sensivilityKey;
 
-	public float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
-
 	Vector2 MovementDir;
 
 	bool Running;
@@ -41,13 +42,23 @@ public partial class WalkingController : CharacterBody3D
 	float Speed => Running ? runSpeed : walkSpeed;
 
 	Vector2 LookDelta;
+	Vector2 lastLookDelta;
+
+	bool isPersistentLookDelta = false;
 
 	bool Jumping = false;
 
 	Rect2 rect;
 
-	PhysicsBody3D lastFloor;
+	GodotObject lastFloor;
+
+	float CurrentFriction = 0;
+
 	PhysicsMaterial floorMaterial = null;
+
+	Vector3 FlorNormal = Vector3.Up;
+
+	bool OnFloor = false;
 
 	public override void _EnterTree()
 	{
@@ -83,16 +94,17 @@ public partial class WalkingController : CharacterBody3D
 	{
 		if (state.inputEvent is InputEventMouseMotion)
 		{
-			LookDelta = (Vector2)state.strength * RotationSensitivity * 360;
+			LookDelta = (Vector2)state.strength;
+
 			LookDelta = new(LookDelta.X, -LookDelta.Y);
 
-			UpdateRotation(GetProcessDeltaTime());
-
-			LookDelta = Vector2.Zero;
+			isPersistentLookDelta = false;
 		}
 		else
 		{
-			LookDelta = (Vector2)state.strength * RotationSensitivity * 360;
+			LookDelta = (Vector2)state.strength;
+
+			isPersistentLookDelta = true;
 		}
 	}
 
@@ -110,74 +122,119 @@ public partial class WalkingController : CharacterBody3D
 
 	public override void _Process(double delta)
 	{
-		if(LookDelta != Vector2.Zero) UpdateRotation(delta);
+		if (isPersistentLookDelta)
+		{
+			if (LookDelta != Vector2.Zero) UpdateRotation(LookDelta * RotationSensitivity * 360, delta);
+
+			lastLookDelta = LookDelta;
+		}
+		else
+		{
+			LookDelta = lastLookDelta.Lerp(LookDelta, (float)delta*20);
+
+			if (LookDelta != Vector2.Zero) UpdateRotation(LookDelta * RotationSensitivity * (1 / (float)delta / 2), delta);
+
+			lastLookDelta = LookDelta;
+
+			LookDelta = Vector2.Zero;
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		DetectFloor();
 		Updatemovement(delta);
 	}
 
-	void UpdateRotation(double delta)
+	void UpdateRotation(Vector2 degrees, double delta)
 	{
-		head.RotationDegrees = new (Math.Clamp(head.RotationDegrees.X - LookDelta.Y * (float)delta, -maxY, minY),0,0);
-		RotationDegrees = new (0,RotationDegrees.Y - LookDelta.X * (float)delta,0);
+		head.RotationDegrees = new(Math.Clamp(head.RotationDegrees.X - degrees.Y * (float)delta, -maxY, minY), 0, 0);
+
+		RotateY(Mathf.DegToRad(-degrees.X * (float)delta));
 	}
 
-	PhysicsBody3D GetLastMoveAndSlideFloor() 
+	void DetectFloor()
 	{
-		KinematicCollision3D collision = GetLastSlideCollision();
-		PhysicsBody3D body = collision?.GetCollider() as PhysicsBody3D;
+		OnFloor = IsOnFloor();
 
-		//collision.Dispose();
-
-		return body;
-	}
-
-	void Updatemovement(double delta)
-	{
-		Vector3 velocity = Velocity;
-
-		bool onFloor = IsOnFloor();
-
-		Vector3 dir3d = Basis.Z * MovementDir.Y + Basis.X * -MovementDir.X;
-
-		if (!onFloor)
+		if (!OnFloor)
 		{
 			floorMaterial = null;
 			lastFloor = null;
-
-			Vector3 ungravidVel = new Vector3(velocity.X, 0, velocity.Z).CalulateVelocity(dir3d, Acceleration, Speed, AirFrictioin);
-
-			Velocity = new(ungravidVel.X, velocity.Y - gravity * (float)delta, ungravidVel.Z);
+			CurrentFriction = AirFrictioin;
+			FlorNormal = -GetGravity().Normalized();
 		}
 		else
 		{
-			PhysicsBody3D currentFloor = GetLastMoveAndSlideFloor();
+			FlorNormal = GetFloorNormal();
 
-			Vector3 florNormal = GetFloorNormal();
+			GodotObject currentFloor = floorDetector.GetCollider(0);
 
 			if (currentFloor != null && currentFloor != lastFloor)
 			{
 				floorMaterial = (PhysicsMaterial)currentFloor?.GetType().GetProperty("PhysicsMaterialOverride")?.GetValue(currentFloor);
 
 				lastFloor = currentFloor;
+
+				CurrentFriction = MathF.Max(floorMaterial != null ? floorMaterial.Friction : AirFrictioin, AirFrictioin);
 			}
+		}
+	}
 
-			float friction = MathF.Max(floorMaterial != null ? floorMaterial.Friction : AirFrictioin, AirFrictioin);
+	void Updatemovement(double delta)
+	{
+		Vector3 dir3d = Basis.Z * MovementDir.Y + Basis.X * -MovementDir.X;
+		bool snap = true;
 
-			float maxVel = friction > 1 ? Speed * friction : Speed;
+		Vector3 gravity = GetGravity();
+		Vector3 gravityDir = gravity.Abs().Normalized();
 
-			velocity = velocity.CalulateVelocity(dir3d.ProjectToNormal(florNormal), Acceleration, maxVel, friction);
+		float maxVel = CurrentFriction > 1 ? Speed * CurrentFriction : Speed;
+
+		if (OnFloor)
+		{
+			Vector3 newVel = Velocity.CalulateVelocity(dir3d.RotateFromToNormal(FlorNormal, Basis.Y), Acceleration, (float)delta, maxVel, CurrentFriction);
 
 			if (Jumping)
 			{
-				velocity.Y = JumpVelocity;
+				newVel += JumpVelocity * FlorNormal;
+				Jumping = false;
+				snap = false;
 			}
 
-			Velocity = velocity;
+			Velocity = newVel;
+		}
+		else
+		{
+			Vector3 normalVel = (Velocity * (Vector3.One - gravityDir)).CalulateVelocity(dir3d, Acceleration, (float)delta, maxVel, CurrentFriction);
+
+			Vector3 gravPerpVel = Velocity * gravityDir + (gravity * (float)delta);
+
+			Velocity = normalVel + gravPerpVel;
+
+			snap = gravPerpVel.Normalized().DistanceSquaredTo(gravity.Normalized()) < 1;
 		}
 
 		MoveAndSlide();
+
+		if(snap) ApplyFloorSnap();
+
+		if (-gravity != Vector3.Zero && Basis.Y != -gravity.Normalized())
+		{
+			ChangeUp(-gravity, (float)delta);
+		}
+	}
+
+	public void ChangeUp(Vector3 newUp, float weight)
+	{
+		Vector3 newUpNormalized = newUp.Normalized();
+
+		Basis basis = new Basis(Basis.Column0, Basis.Column1, Basis.Column2);
+
+		basis.Y = basis.Y.Lerp(newUpNormalized, weight);
+
+		Basis = basis.Orthonormalized();
+
+		UpDirection = basis.Y;
 	}
 }

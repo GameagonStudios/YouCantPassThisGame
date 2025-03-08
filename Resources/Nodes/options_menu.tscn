@@ -1,18 +1,18 @@
 [gd_scene load_steps=15 format=3 uid="uid://ckmicpesj5sm5"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Options/OptionsSavesHandler.cs" id="1_ic75l"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/LanguageSelector.cs" id="1_jiw6j"]
+[ext_resource type="Script" uid="uid://c44gjpwls1lym" path="res://Scripts/UI/Options/OptionsSavesHandler.cs" id="1_ic75l"]
+[ext_resource type="Script" uid="uid://dgb3ixurfx85a" path="res://Scripts/UI/Options/LanguageSelector.cs" id="1_jiw6j"]
 [ext_resource type="Texture2D" uid="uid://ccadnihteadrs" path="res://2D/Sprites/Back Arrow.png" id="2_2nxtg"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/Components/Prueba.cs" id="3_y8hch"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/Components/SliderController.cs" id="4_wes0x"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/ResolutionSelector.cs" id="5_8j1jd"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/WindowsResolution.cs" id="5_bae45"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/SetWindows.cs" id="6_w8koo"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/OclussionCulling.cs" id="7_24uu5"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/Components/CheckboxController.cs" id="8_xgwao"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/SoftShadows.cs" id="9_s4u8j"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/ShadowsResolution.cs" id="11_akee7"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/Components/ImageScale.cs" id="12_jj2dr"]
+[ext_resource type="Script" uid="uid://c57oitwaco2f0" path="res://Scripts/UI/Options/Components/Prueba.cs" id="3_y8hch"]
+[ext_resource type="Script" uid="uid://cdxrxqiiosvrn" path="res://Scripts/UI/Options/Components/SliderController.cs" id="4_wes0x"]
+[ext_resource type="Script" uid="uid://cehx524v40cqo" path="res://Scripts/UI/Options/ResolutionSelector.cs" id="5_8j1jd"]
+[ext_resource type="Script" uid="uid://bpoo4dfr25ln5" path="res://Scripts/UI/Options/WindowsResolution.cs" id="5_bae45"]
+[ext_resource type="Script" uid="uid://blqp0phy28yfu" path="res://Scripts/UI/Options/SetWindows.cs" id="6_w8koo"]
+[ext_resource type="Script" uid="uid://c1jcedf5gf8sh" path="res://Scripts/UI/Options/OclussionCulling.cs" id="7_24uu5"]
+[ext_resource type="Script" uid="uid://cr1nlc1u876a4" path="res://Scripts/UI/Options/Components/CheckboxController.cs" id="8_xgwao"]
+[ext_resource type="Script" uid="uid://wsiia16d5tny" path="res://Scripts/UI/Options/SoftShadows.cs" id="9_s4u8j"]
+[ext_resource type="Script" uid="uid://dw4lp2bi7wxih" path="res://Scripts/UI/Options/ShadowsResolution.cs" id="11_akee7"]
+[ext_resource type="Script" uid="uid://d1ufpao0hsj83" path="res://Scripts/UI/Options/Components/ImageScale.cs" id="12_jj2dr"]
 
 [sub_resource type="SystemFont" id="SystemFont_4ihvp"]
 font_names = PackedStringArray("Impact")
@@ -102,12 +102,7 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 
-[node name="SensibilityContainer" type="MarginContainer" parent="TabContainer/CONTROLS/ControlsContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_right = 16
-
-[node name="SensibilityLabel" type="Label" parent="TabContainer/CONTROLS/ControlsContainer/SensibilityContainer"]
+[node name="SensibilityLabel" type="Label" parent="TabContainer/CONTROLS/ControlsContainer"]
 layout_mode = 2
 text = "SENSIVILITY"
 
@@ -156,18 +151,14 @@ size_flags_horizontal = 0
 selected = 1
 item_count = 3
 popup/item_0/text = "English"
+popup/item_0/id = 0
 popup/item_1/text = "Español"
 popup/item_1/id = 1
 popup/item_2/text = "Français"
 popup/item_2/id = 2
 script = ExtResource("1_jiw6j")
 
-[node name="MusicContainer" type="MarginContainer" parent="TabContainer/SOUND/SoundContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_right = 16
-
-[node name="MusicLabel" type="Label" parent="TabContainer/SOUND/SoundContainer/MusicContainer"]
+[node name="MusicLabel" type="Label" parent="TabContainer/SOUND/SoundContainer"]
 layout_mode = 2
 text = "MUSIC"
 
@@ -193,12 +184,7 @@ size_flags_horizontal = 3
 max_value = 2.0
 step = 0.05
 
-[node name="VoicesContainer" type="MarginContainer" parent="TabContainer/SOUND/SoundContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_right = 16
-
-[node name="VoicesLabel" type="Label" parent="TabContainer/SOUND/SoundContainer/VoicesContainer"]
+[node name="VoicesLabel" type="Label" parent="TabContainer/SOUND/SoundContainer"]
 layout_mode = 2
 text = "VOICES"
 
@@ -257,6 +243,7 @@ size_flags_horizontal = 0
 selected = 3
 item_count = 7
 popup/item_0/text = "640x480"
+popup/item_0/id = 0
 popup/item_1/text = "960x540 "
 popup/item_1/id = 1
 popup/item_2/text = "1280x720"
@@ -285,6 +272,7 @@ size_flags_horizontal = 0
 selected = 1
 item_count = 3
 popup/item_0/text = "WINDOW"
+popup/item_0/id = 0
 popup/item_1/text = "FULLSCREEN"
 popup/item_1/id = 3
 popup/item_2/text = "WITHOUT BORDERS"
@@ -331,6 +319,7 @@ size_flags_horizontal = 0
 selected = 2
 item_count = 4
 popup/item_0/text = "512x512"
+popup/item_0/id = 0
 popup/item_1/text = "1024x1024"
 popup/item_1/id = 1
 popup/item_2/text = "4096x4096"
@@ -340,14 +329,7 @@ popup/item_3/id = 3
 script = ExtResource("5_8j1jd")
 resolutionDefault = "4096x4096"
 
-[node name="ImageScaleContainer" type="MarginContainer" parent="TabContainer/VIDEO/VideoContainer"]
-clip_contents = true
-layout_mode = 2
-size_flags_stretch_ratio = 0.0
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_right = 75
-
-[node name="ImageScaleLabel" type="Label" parent="TabContainer/VIDEO/VideoContainer/ImageScaleContainer"]
+[node name="ImageScaleLabel" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
 clip_contents = true
 layout_mode = 2
 text = "IMAGE_SCALE"
@@ -379,12 +361,7 @@ max_value = 1.0
 step = 0.01
 value = 1.0
 
-[node name="BrightnessContainer" type="MarginContainer" parent="TabContainer/VIDEO/VideoContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_right = 40
-
-[node name="BrightnessLabel" type="Label" parent="TabContainer/VIDEO/VideoContainer/BrightnessContainer"]
+[node name="BrightnessLabel" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
 layout_mode = 2
 text = "BRIGHTNESS"
 

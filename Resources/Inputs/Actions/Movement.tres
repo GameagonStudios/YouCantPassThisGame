@@ -1,19 +1,19 @@
 [gd_resource type="Resource" script_class="Vector2InputAction" load_steps=2 format=3 uid="uid://bbrpccay4rxx6"]
 
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector2InputAction.cs" id="1_4w2kw"]
+[ext_resource type="Script" uid="uid://ba8gjttvae2wj" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector2InputAction.cs" id="1_4w2kw"]
 
 [resource]
 resource_name = "Movement"
 script = ExtResource("1_4w2kw")
-MouseInput = 0
-AxisXNegative = ["Key A", "JoyAxis LeftX"]
-AxisXPositive = ["Key D", "JoyAxis LeftX"]
-AxisYNegative = ["Key S", "JoyAxis LeftY"]
-AxisYPositive = ["Key W", "JoyAxis LeftY"]
+AxisXNegative = Array[String](["Key A", "JoyAxis LeftX"])
+AxisXPositive = Array[String](["Key D", "JoyAxis LeftX"])
+AxisYNegative = Array[String](["Key S", "JoyAxis LeftY"])
+AxisYPositive = Array[String](["Key W", "JoyAxis LeftY"])
 XNegativeName = "Left"
 XPositiveName = "Right"
 YNegativeName = "Down"
 YPositiveName = "Up"
+MouseInput = 0
 Name = "Movement"
 DeadZone = 0.25
 Sleeping = false

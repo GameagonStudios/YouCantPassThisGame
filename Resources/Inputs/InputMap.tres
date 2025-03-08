@@ -1,11 +1,12 @@
-[gd_resource type="Resource" script_class="InputMap" load_steps=12 format=3 uid="uid://bovdny6kjjej2"]
+[gd_resource type="Resource" script_class="InputMap" load_steps=13 format=3 uid="uid://bovdny6kjjej2"]
 
 [ext_resource type="Resource" uid="uid://bts4hgwllyavp" path="res://Resources/Inputs/Actions/Jump.tres" id="1_fthub"]
+[ext_resource type="Script" uid="uid://cyltkd572m4ig" path="res://addons/SKInputSystem/InputSystem/InputAction.cs" id="2_xnvw8"]
 [ext_resource type="Resource" uid="uid://dw1f6c4qf325r" path="res://Resources/Inputs/Actions/Interact.tres" id="2_y5d0v"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="4_2s7hm"]
+[ext_resource type="Script" uid="uid://t0cmlswemv15" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="4_2s7hm"]
 [ext_resource type="Resource" uid="uid://cu1srxjne8cxk" path="res://Resources/Inputs/Actions/Crouch.tres" id="4_4o0ed"]
 [ext_resource type="Resource" uid="uid://bbrpccay4rxx6" path="res://Resources/Inputs/Actions/Movement.tres" id="4_udqwh"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="5_r2ep5"]
+[ext_resource type="Script" uid="uid://caspgt78xg48h" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="5_r2ep5"]
 [ext_resource type="Resource" uid="uid://c37pk7xhyw753" path="res://Resources/Inputs/Actions/Run.tres" id="6_sb1gn"]
 [ext_resource type="Resource" uid="uid://j3g0wqycbpe6" path="res://Resources/Inputs/Actions/Look.tres" id="6_u7sdq"]
 [ext_resource type="Resource" uid="uid://bkf6fqu2milak" path="res://Resources/Inputs/Actions/Pause.tres" id="8_g75ei"]
@@ -14,18 +15,18 @@
 resource_name = "Player"
 script = ExtResource("4_2s7hm")
 Name = "Player"
-Actions = [ExtResource("1_fthub"), ExtResource("2_y5d0v"), ExtResource("4_4o0ed"), ExtResource("4_udqwh"), ExtResource("6_u7sdq"), ExtResource("6_sb1gn")]
+Actions = Array[ExtResource("2_xnvw8")]([ExtResource("1_fthub"), ExtResource("2_y5d0v"), ExtResource("4_4o0ed"), ExtResource("4_udqwh"), ExtResource("6_u7sdq"), ExtResource("6_sb1gn")])
 Sleeping = false
 
 [sub_resource type="Resource" id="Resource_gpxy0"]
 resource_name = "UI"
 script = ExtResource("4_2s7hm")
 Name = "UI"
-Actions = [ExtResource("8_g75ei")]
+Actions = Array[ExtResource("2_xnvw8")]([ExtResource("8_g75ei")])
 Sleeping = false
 
 [resource]
 resource_name = "InputMap"
 script = ExtResource("5_r2ep5")
 Name = "InputMap"
-Groups = [SubResource("Resource_ta5yr"), SubResource("Resource_gpxy0")]
+Groups = Array[ExtResource("4_2s7hm")]([SubResource("Resource_ta5yr"), SubResource("Resource_gpxy0")])
