@@ -1,0 +1,557 @@
+[gd_scene load_steps=18 format=3 uid="uid://cl0u60qn21slw"]
+
+[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_gqs2s"]
+[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector1InputAction.cs" id="2_x3idu"]
+[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="3_mdqhg"]
+[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="3_nwx1a"]
+[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="4_ykrfl"]
+[ext_resource type="Script" path="res://Scripts/Utils/EventActuator.cs" id="5_0h3tu"]
+[ext_resource type="Script" path="res://Scripts/BrickBreaker/PaddleController.cs" id="6_1uf5h"]
+[ext_resource type="Script" path="res://Scripts/BrickBreaker/Ball.cs" id="8_7t7us"]
+[ext_resource type="Script" path="res://Scripts/BrickBreaker/BrickBreakerGenerator.cs" id="8_dmfm0"]
+[ext_resource type="PackedScene" uid="uid://c7ew7dgxqm7nt" path="res://Resources/MiniGames/BrickBreaker/Brick.tscn" id="10_umr0e"]
+
+[sub_resource type="Resource" id="Resource_ie6o7"]
+resource_name = "Movment"
+script = ExtResource("2_x3idu")
+MouseInput = 0
+Negative = ["Key A", "JoyAxis LeftX"]
+Positive = ["Key D", "JoyAxis RightX"]
+NegativeName = "Left"
+PositiveName = "Right"
+Name = "Movment"
+DeadZone = 0.25
+Sleeping = false
+
+[sub_resource type="Resource" id="Resource_mu3rl"]
+resource_name = "Launchball"
+script = ExtResource("3_mdqhg")
+MouseInput = 0
+Events = ["Key Space", "JoyButton A"]
+Name = "Launchball"
+DeadZone = 0.25
+Sleeping = false
+
+[sub_resource type="Resource" id="Resource_qi3i8"]
+resource_name = "Paddle"
+script = ExtResource("3_nwx1a")
+Name = "Paddle"
+Actions = [SubResource("Resource_ie6o7"), SubResource("Resource_mu3rl")]
+Sleeping = false
+
+[sub_resource type="Resource" id="Resource_wyh2x"]
+resource_name = "InputMap"
+script = ExtResource("4_ykrfl")
+Name = "InputMap"
+Groups = [SubResource("Resource_qi3i8")]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jiohf"]
+size = Vector2(4, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vd0mw"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ochml"]
+size = Vector2(1, 1)
+
+[node name="BrickBreaker" type="Node2D"]
+
+[node name="InputEventHandler" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("1_gqs2s")
+inputMap = SubResource("Resource_wyh2x")
+MouseMode = 1
+
+[node name="Paddle" type="Node" parent="InputEventHandler"]
+
+[node name="Movment" type="Node" parent="InputEventHandler/Paddle"]
+script = ExtResource("5_0h3tu")
+
+[node name="Launchball" type="Node" parent="InputEventHandler/Paddle"]
+script = ExtResource("5_0h3tu")
+
+[node name="BackGround" type="ColorRect" parent="."]
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 36.0
+offset_bottom = 35.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("background", "rect")]
+position = Vector2(15.5, 33)
+scale = Vector2(1, 0.995115)
+disable_mode = 2
+monitorable = false
+script = ExtResource("6_1uf5h")
+speed = 15.0
+speedBallMultiplier = 1.7
+background = NodePath("../BackGround")
+rect = NodePath("ColorRect")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, 0.502453)
+scale = Vector2(1, 1.00491)
+shape = SubResource("RectangleShape2D_jiohf")
+
+[node name="ColorRect" type="ColorRect" parent="Area2D"]
+offset_right = 4.0
+offset_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(15, 19)
+zoom = Vector2(26.62, 26.62)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("Background", "rect", "Paddle", "WinText", "BrickBreakerController")]
+position = Vector2(17, 32)
+disable_mode = 1
+physics_material_override = SubResource("PhysicsMaterial_vd0mw")
+gravity_scale = 0.0
+lock_rotation = true
+linear_velocity = Vector2(0, -10)
+linear_damp_mode = 1
+script = ExtResource("8_7t7us")
+Background = NodePath("../BackGround")
+rect = NodePath("ColorRect")
+Paddle = NodePath("../Area2D/ColorRect")
+WinText = NodePath("../WinText")
+BrickBreakerController = NodePath("../Container")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_ochml")
+one_way_collision_margin = 128.0
+
+[node name="ColorRect" type="ColorRect" parent="RigidBody2D"]
+offset_right = 1.0
+offset_bottom = 1.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Container" type="Container" parent="." node_paths=PackedStringArray("WinText")]
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 34.0
+offset_bottom = 18.0
+script = ExtResource("8_dmfm0")
+BrickPrefab = ExtResource("10_umr0e")
+initialLines = 5
+WinText = NodePath("../WinText")
+colorPalette = [Color(1, 0, 0, 1), Color(0, 0.369132, 3.85046e-07, 1), Color(1, 1, 0, 1), Color(0, 0, 0.784314, 1), Color(0.470588, 0, 1, 1)]
+metadata/_edit_use_anchors_ = true
+
+[node name="WinText" type="Node2D" parent="."]
+visible = false
+
+[node name="ColorRect51" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 31.0
+offset_top = 13.0
+offset_right = 32.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect50" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 31.0
+offset_top = 14.0
+offset_right = 32.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect49" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 31.0
+offset_top = 15.0
+offset_right = 32.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect48" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 31.0
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect47" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 30.0
+offset_top = 15.0
+offset_right = 31.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect46" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 29.0
+offset_top = 14.0
+offset_right = 30.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect45" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 28.0
+offset_top = 13.0
+offset_right = 29.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect44" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 28.0
+offset_top = 14.0
+offset_right = 29.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect43" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 28.0
+offset_top = 15.0
+offset_right = 29.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect42" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 28.0
+offset_top = 16.0
+offset_right = 29.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect41" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 26.0
+offset_top = 13.0
+offset_right = 27.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect40" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 26.0
+offset_top = 14.0
+offset_right = 27.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect39" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 26.0
+offset_top = 15.0
+offset_right = 27.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect38" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 26.0
+offset_top = 16.0
+offset_right = 27.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect37" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 22.0
+offset_top = 14.0
+offset_right = 23.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect36" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 24.0
+offset_top = 13.0
+offset_right = 25.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect35" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 24.0
+offset_top = 14.0
+offset_right = 25.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect34" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 24.0
+offset_top = 15.0
+offset_right = 25.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect33" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 25.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect32" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 23.0
+offset_top = 16.0
+offset_right = 24.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect31" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 22.0
+offset_top = 15.0
+offset_right = 23.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect30" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 21.0
+offset_top = 16.0
+offset_right = 22.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect29" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 21.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect28" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 20.0
+offset_top = 15.0
+offset_right = 21.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect27" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 20.0
+offset_top = 14.0
+offset_right = 21.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect26" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 20.0
+offset_top = 13.0
+offset_right = 21.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect25" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 17.0
+offset_top = 15.0
+offset_right = 18.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect24" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 17.0
+offset_top = 16.0
+offset_right = 18.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect23" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 17.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect17" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 15.0
+offset_top = 13.0
+offset_right = 16.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect18" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 15.0
+offset_top = 14.0
+offset_right = 16.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect19" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect20" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 15.0
+offset_top = 16.0
+offset_right = 16.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect21" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 18.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect22" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 17.0
+offset_top = 13.0
+offset_right = 18.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect16" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 11.0
+offset_top = 14.0
+offset_right = 12.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect15" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 11.0
+offset_top = 15.0
+offset_right = 12.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect14" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 11.0
+offset_top = 16.0
+offset_right = 12.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect13" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 12.0
+offset_top = 16.0
+offset_right = 13.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect12" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 13.0
+offset_top = 16.0
+offset_right = 14.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect11" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 13.0
+offset_top = 15.0
+offset_right = 14.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect10" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 13.0
+offset_top = 14.0
+offset_right = 14.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect9" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 13.0
+offset_top = 13.0
+offset_right = 14.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect8" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 12.0
+offset_top = 13.0
+offset_right = 13.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect7" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 11.0
+offset_top = 13.0
+offset_right = 12.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect6" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 8.0
+offset_top = 16.0
+offset_right = 9.0
+offset_bottom = 17.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 9.0
+offset_top = 13.0
+offset_right = 10.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 9.0
+offset_top = 14.0
+offset_right = 10.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 8.0
+offset_top = 15.0
+offset_right = 9.0
+offset_bottom = 16.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 7.0
+offset_top = 14.0
+offset_right = 8.0
+offset_bottom = 15.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="WinText"]
+clip_contents = true
+offset_left = 7.0
+offset_top = 13.0
+offset_right = 8.0
+offset_bottom = 14.0
+color = Color(0.996019, 0.804517, 0, 1)
+
+[connection signal="onInvoke" from="InputEventHandler/Paddle/Movment" to="Area2D" method="Move"]
+[connection signal="onInvoke" from="InputEventHandler/Paddle/Launchball" to="RigidBody2D" method="LaunchBall"]
+[connection signal="WinGame" from="Container" to="Container" method="Win"]

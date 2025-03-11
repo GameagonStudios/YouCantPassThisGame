@@ -124,7 +124,7 @@ namespace InputSystem
                     _state.timeHeld = Time.GetTicksMsec() - TimeSinceLastPress;
                 }
 
-                _state.strength = Vector2.Zero;
+                _state.strength = 0f;
             }
 
             //if (_state.state != PressState.None) GD.Print(_state.state + " with strength " + _state.strength);
