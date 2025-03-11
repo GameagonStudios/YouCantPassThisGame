@@ -4,24 +4,27 @@ MENU_RESUME,Continuar,Resume,Continuer
 MENU_OPTIONS,Opciones,Options,Options
 MENU_QUIT_TO_DESKTOP,Salir al escritorio,Quit to desktop,Aller au bureau
 MENU_LANGUAGE,Idioma,Language,Langage 
-SENSIVILITY,Sensibilidad,Sensivility,Sensibilitié
+SENSITIVITY,Sensibilidad,Sensivility,Sensibilitié
+MASTER,Master,Master,Master
 MUSIC,Música,Music,Musique
 VOICES,Voces,Voices,Voix
 RESOLUTION,Resolución,Resolution,Résolution 
-WINDOWS_MODE,Modo de ventana,Windows mode,Mode fenêtre 
+WINDOW_MODE,Modo de ventana,Windows mode,Mode fenêtre 
 OCLUSSION_CULLING,Oclusión ambiental,Oclussion culling,Occlusion ambiante 
 SOFT_SHADOWS,Sombras suaves,Soft shadows,ombres douces 
 SHADOW_RESOLUTION,Resolución de sombras,Shadow resolution,Résolution des ombres 
 IMAGE_SCALE,Escala de imagen,Image scale,Échelle de l'image 
 BRIGHTNESS,Brillo,Brightness,Luminosité 
-WINDOW,Ventana,Windows,Fenêtres 
+WINDOWED,Ventana,Windows,Fenêtres 
 FULLSCREEN,Pantalla completa,Fullscreen,Plein écran
-WITHOUT BORDERS,Sin bordes,Without borders,Sans bordure
+MAXIMIZED,Sin bordes,Borderless,Sans bordure
+HARD,Duras,Hard,Dur
 LOW,Bajo,Low,Bas
-MIDDLE,Medio,Middle,Moyen
-HIGHT,Alto,Hight,Haut
+MEDIUM,Medio,Medium,Moyen
+HIGH,Alto,High,Haut
 ULTRA,Ultra,Ultra,Ultra
 OPTIONS,Opciones,Options,Paramètres
+GENERAL,General,General,Généraux 
 CONTROLS,Controles,Controls,Contrôles 
 SOUND,Sonido,Sound,Audio
 VIDEO,Video,Video,Vidéo

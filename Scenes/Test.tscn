@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bf44tejcvwkx8"]
+[gd_scene load_steps=48 format=3 uid="uid://bf44tejcvwkx8"]
 
 [ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_bg54p"]
 [ext_resource type="Material" uid="uid://c2rlcwx53fo57" path="res://Materials/PlaceHolders/Grass.material" id="1_s0cw8"]
@@ -6,30 +6,13 @@
 [ext_resource type="Resource" uid="uid://bovdny6kjjej2" path="res://Resources/Inputs/InputMap.tres" id="2_trta6"]
 [ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="3_hyyl2"]
 [ext_resource type="Texture2D" uid="uid://b6sp4vcirpc6e" path="res://2D/Textures/LightCheckerTexture.png" id="5_rqlgy"]
+[ext_resource type="AudioStream" uid="uid://dhu8xoedxlq65" path="res://Audio/Music/TestLicenseless/game-8-bit-on-278083.mp3" id="5_wjxug"]
 [ext_resource type="Script" uid="uid://dcnk4ue17tbsg" path="res://Scripts/InteractionSystem/Interactors/RayInteractor3D.cs" id="5_xlhib"]
+[ext_resource type="AudioStream" uid="uid://uxx34mct2ijn" path="res://Audio/Music/TestLicenseless/voice prueba.ogg" id="6_8d4ee"]
 [ext_resource type="Script" uid="uid://cwe8coh0vamcs" path="res://Scripts/Controllers/WalkingController.cs" id="6_irl46"]
-[ext_resource type="PackedScene" uid="uid://cwddhbjrf4qxi" path="res://3D/Characters/Kyorinrin/Kyōrinrin.glb" id="11_shnh5"]
+[ext_resource type="Script" uid="uid://b2l8rw2y7qcb2" path="res://Scripts/InteractionSystem/Interactables/Interactable3D.cs" id="7_8d4ee"]
 [ext_resource type="PackedScene" uid="uid://drhanb7cc2lyj" path="res://3D/Characters/Dummy/Dummy.glb" id="11_yk3wi"]
 [ext_resource type="PackedScene" uid="uid://k6m7a22pajvr" path="res://3D/Props/Museum/ArcadeMachine/ArcadeMachine/TheLastOfFruitsArcade.tscn" id="12_kfvpf"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw65n"]
-sky_top_color = Color(0, 0.682353, 0.952941, 1)
-sky_horizon_color = Color(0.682353, 0.878431, 0.898039, 1)
-sky_curve = 0.2
-ground_bottom_color = Color(0, 0, 0.196078, 1)
-ground_horizon_color = Color(0.682353, 0.878431, 0.898039, 1)
-ground_curve = 0.025
-sun_curve = 0.184673
-
-[sub_resource type="Sky" id="Sky_ii4t5"]
-sky_material = SubResource("ProceduralSkyMaterial_sw65n")
-
-[sub_resource type="Environment" id="Environment_be8nn"]
-background_mode = 2
-sky = SubResource("Sky_ii4t5")
-ambient_light_source = 3
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hvvax"]
 friction = 0.0
@@ -87,6 +70,9 @@ size = Vector3(10, 10, 10)
 material = ExtResource("1_s0cw8")
 size = Vector3(10, 10, 10)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3la1u"]
+size = Vector3(0.75, 1.9, 0.875)
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rarx8"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_rarx8"]
@@ -112,6 +98,23 @@ size = Vector3(4, 1, 10)
 [sub_resource type="BoxMesh" id="BoxMesh_3la1u"]
 material = SubResource("StandardMaterial3D_5dgje")
 size = Vector3(4, 1, 10)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8d4ee"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c5xim"]
+size = Vector3(2, 1, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b07cf"]
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+albedo_texture = ExtResource("5_rqlgy")
+metallic_specular = 0.0
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_x8mav"]
+material = SubResource("StandardMaterial3D_b07cf")
+size = Vector3(2, 1, 10)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rfcl2"]
 radius = 0.35
@@ -143,12 +146,6 @@ material = SubResource("StandardMaterial3D_fjpb7")
 
 [node name="PauseMenu" parent="." instance=ExtResource("1_uafe7")]
 visible = false
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_be8nn")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, 0.352103, 0.935961, 0, -0.935961, 0.352103, 0, 20, 0)
 
 [node name="World" type="Node3D" parent="."]
 
@@ -204,6 +201,27 @@ mesh = SubResource("BoxMesh_j0fuq")
 
 [node name="Machine_v2" parent="World" instance=ExtResource("12_kfvpf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00676, 0, -8.46303)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="World/Machine_v2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0.1)
+stream = ExtResource("5_wjxug")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="World/Machine_v2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0.1)
+stream = ExtResource("6_8d4ee")
+bus = &"Voices"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Machine_v2"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("7_8d4ee")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Machine_v2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.0247345)
+shape = SubResource("BoxShape3D_3la1u")
 
 [node name="Planetoid" type="StaticBody3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19.5433, -89.2641)
@@ -388,13 +406,27 @@ shape = SubResource("BoxShape3D_8d4ee")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
+[node name="Conveyor" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.4, 14)
+physics_material_override = SubResource("PhysicsMaterial_8d4ee")
+constant_linear_velocity = Vector3(0, 0, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Conveyor"]
+shape = SubResource("BoxShape3D_c5xim")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Conveyor/CollisionShape3D"]
+mesh = SubResource("BoxMesh_x8mav")
+skeleton = NodePath("../..")
+
 [node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("head", "floorDetector")]
 script = ExtResource("6_irl46")
 head = NodePath("CameraMountTemp")
 minY = 75.0
 floorDetector = NodePath("ShapeCast3D")
 Acceleration = 50.0
-sensivilityKey = &"SENSIBILITY"
+JumpVelocity = 6.0
+sensivilityKey = &"SENSITIVITY"
 
 [node name="InputEventHandler" type="Node" parent="Player"]
 process_mode = 3
@@ -574,15 +606,15 @@ collide_with_areas = true
 debug_shape_custom_color = Color(1, 0, 0, 1)
 script = ExtResource("5_xlhib")
 
+[node name="AudioListener3D" type="AudioListener3D" parent="Player/CameraMountTemp/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66045e-08, -0.00399411, 0.0466445)
+current = true
+
 [node name="ShapeCast3D" type="ShapeCast3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_rarx8")
 max_results = 4
 debug_shape_custom_color = Color(1, 1, 1, 1)
-
-[node name="Kyōrinrin" parent="." instance=ExtResource("11_shnh5")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.59722, 0, -7.02092)
-visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.5, 3)
@@ -593,6 +625,7 @@ mesh = SubResource("QuadMesh_52in0")
 [node name="Camera3D" type="Camera3D" parent="MeshInstance3D/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.64527)
 
+[connection signal="Activated" from="World/Machine_v2/StaticBody3D" to="World/Machine_v2/AudioStreamPlayer3D2" method="play" unbinds=1]
 [connection signal="onInvoke" from="Player/InputEventHandler/Player/Jump" to="Player" method="Jump"]
 [connection signal="onInvoke" from="Player/InputEventHandler/Player/Interact" to="Player/CameraMountTemp/Camera3D/RayCast3D" method="Interact"]
 [connection signal="onInvoke" from="Player/InputEventHandler/Player/Movement" to="Player" method="Move"]

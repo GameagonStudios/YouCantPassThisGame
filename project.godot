@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Panku="*res://addons/panku_console/console.tscn"
+GlobalWorldEnvironment="*res://Resources/Nodes/GlobalWorldEnvironment.tscn"
 
 [display]
 
@@ -41,6 +42,7 @@ enabled=PackedStringArray("res://addons/panku_console/plugin.cfg")
 folder_colors={
 "res://2D/": "blue",
 "res://3D/": "red",
+"res://Audio/": "pink",
 "res://Materials/": "purple",
 "res://Resources/": "orange",
 "res://Resources/Nodes/": "orange",
@@ -91,6 +93,10 @@ locale/translations=PackedStringArray("res://Translations/Translations.en.transl
 
 3d_physics/layer_1="Default"
 3d_physics/layer_2="Buttons"
+
+[physics]
+
+3d/default_gravity=19.6
 
 [rendering]
 

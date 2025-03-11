@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dqwynxbg3ejn6"]
 
 [ext_resource type="Script" uid="uid://yurswndqvsk4" path="res://Scripts/UI/PauseMenu.cs" id="1_5xtyu"]
-[ext_resource type="PackedScene" uid="uid://ckmicpesj5sm5" path="res://Resources/Nodes/options_menu.tscn" id="2_uwje5"]
+[ext_resource type="PackedScene" uid="uid://ckmicpesj5sm5" path="res://Resources/Nodes/Options/options_menu.tscn" id="2_uwje5"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3

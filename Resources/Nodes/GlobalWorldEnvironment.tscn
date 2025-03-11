@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://yteboel70rr6"]
+
+[ext_resource type="Script" uid="uid://dmdqw70u37ij1" path="res://Scripts/Singletons/WoldEnvironmentManager.cs" id="1_0vsba"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw65n"]
+sky_top_color = Color(0, 0.682353, 0.952941, 1)
+sky_horizon_color = Color(0.682353, 0.878431, 0.898039, 1)
+sky_curve = 0.2
+ground_bottom_color = Color(0, 0, 0.196078, 1)
+ground_horizon_color = Color(0.682353, 0.878431, 0.898039, 1)
+ground_curve = 0.025
+sun_curve = 0.184673
+
+[sub_resource type="Sky" id="Sky_ii4t5"]
+sky_material = SubResource("ProceduralSkyMaterial_sw65n")
+
+[sub_resource type="Environment" id="Environment_be8nn"]
+background_mode = 2
+sky = SubResource("Sky_ii4t5")
+ambient_light_source = 3
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+adjustment_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_be8nn")
+script = ExtResource("1_0vsba")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.352103, 0.935961, 0, -0.935961, 0.352103, 0, 20, 0)

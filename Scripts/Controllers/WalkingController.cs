@@ -65,14 +65,20 @@ public partial class WalkingController : CharacterBody3D
 		base._EnterTree();
 
 		RotationSensitivity = OptionsSavesHandler.Current.GetValue(sensivilityKey)?.As<float>() ?? 1;
-		OptionsSavesHandler.Current.onOptionsChanged += SetSensivility;
+
+		GD.Print("Sensitivity " + RotationSensitivity);
+
+		OptionsSavesHandler.Current.onOptionsChanged += (key, value) =>
+		{
+			if (key == sensivilityKey) SetSensivility((float)value);
+		};
+
 		rect = GetViewport().GetVisibleRect();
 	}
 
-	public void SetSensivility(StringName key, Variant value)
+	public void SetSensivility(float value)
 	{
-		if (key == sensivilityKey)
-			RotationSensitivity = value.As<float>();
+		RotationSensitivity = value;
 	}
 	public void Move(InputActionState state)
 	{
@@ -197,7 +203,7 @@ public partial class WalkingController : CharacterBody3D
 
 			if (Jumping)
 			{
-				newVel += JumpVelocity * FlorNormal;
+				newVel = newVel * (Vector3.One - FlorNormal.Abs()) + JumpVelocity * FlorNormal;
 				Jumping = false;
 				snap = false;
 			}

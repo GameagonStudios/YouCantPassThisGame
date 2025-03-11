@@ -1,0 +1,289 @@
+[gd_scene load_steps=16 format=3 uid="uid://ckmicpesj5sm5"]
+
+[ext_resource type="Theme" uid="uid://ckw0wbwad7mgs" path="res://Resources/Theme/OptionsTheme.tres" id="1_1ohkl"]
+[ext_resource type="Script" uid="uid://c44gjpwls1lym" path="res://Scripts/UI/Options/OptionsSavesHandler.cs" id="2_2383f"]
+[ext_resource type="Texture2D" uid="uid://ccadnihteadrs" path="res://2D/Sprites/Back Arrow.png" id="3_3ko0t"]
+[ext_resource type="Script" uid="uid://dgb3ixurfx85a" path="res://Scripts/UI/Options/IndividualOptions/LanguageSelector.cs" id="4_unrfp"]
+[ext_resource type="PackedScene" uid="uid://cwcwpr1os2dra" path="res://Resources/Nodes/Options/BasicSliderController.tscn" id="5_xq66n"]
+[ext_resource type="Script" uid="uid://bh0e38og7im16" path="res://Scripts/UI/Options/BaseController/SoundControls.cs" id="7_aftbm"]
+[ext_resource type="Script" uid="uid://cehx524v40cqo" path="res://Scripts/UI/Options/IndividualOptions/ResolutionSelector.cs" id="9_u1nj0"]
+[ext_resource type="Script" uid="uid://blqp0phy28yfu" path="res://Scripts/UI/Options/IndividualOptions/WindowModeSelector.cs" id="10_xesqq"]
+[ext_resource type="Script" uid="uid://c1jcedf5gf8sh" path="res://Scripts/UI/Options/IndividualOptions/OclussionCullingCheckBox.cs" id="11_70a0k"]
+[ext_resource type="Script" uid="uid://wsiia16d5tny" path="res://Scripts/UI/Options/IndividualOptions/SoftShadowsModeSelector.cs" id="13_7ovd0"]
+[ext_resource type="Script" uid="uid://ci0pj51jcmrjj" path="res://Scripts/UI/Options/IndividualOptions/BrightnessSlider.cs" id="13_apmns"]
+[ext_resource type="Script" uid="uid://d17t3rwihyo8m" path="res://Scripts/UI/Options/IndividualOptions/FpsLimitSelector.cs" id="14_rlvx3"]
+[ext_resource type="Script" uid="uid://dw4lp2bi7wxih" path="res://Scripts/UI/Options/IndividualOptions/ShadowResolutionSelector.cs" id="14_x06l1"]
+[ext_resource type="Script" uid="uid://d1ufpao0hsj83" path="res://Scripts/UI/Options/IndividualOptions/ImageScaleSlider.cs" id="15_ptdd0"]
+
+[sub_resource type="SystemFont" id="SystemFont_4ihvp"]
+font_names = PackedStringArray("Impact")
+subpixel_positioning = 0
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_1ohkl")
+script = ExtResource("2_2383f")
+
+[node name="Button" type="Button" parent="."]
+top_level = true
+z_as_relative = false
+layout_mode = 1
+offset_left = 1848.0
+offset_top = 1017.0
+offset_right = 1920.0
+offset_bottom = 1089.0
+scale = Vector2(0.5, 0.5)
+toggle_mode = true
+action_mode = 0
+icon = ExtResource("3_3ko0t")
+flat = true
+
+[node name="OptionUI" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionUI"]
+layout_mode = 2
+theme_override_constants/separation = -48
+
+[node name="Title" type="Label" parent="OptionUI/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = SubResource("SystemFont_4ihvp")
+theme_override_font_sizes/font_size = 32
+text = "OPTIONS
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TabContainer" type="TabContainer" parent="."]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = 50.0
+offset_right = -100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.04, 1.08)
+current_tab = 3
+
+[node name="GENERAL" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="GeneralContainer" type="GridContainer" parent="TabContainer/GENERAL"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+columns = 2
+
+[node name="Language" type="Label" parent="TabContainer/GENERAL/GeneralContainer"]
+layout_mode = 2
+text = "MENU_LANGUAGE"
+
+[node name="LanguageSelector" type="OptionButton" parent="TabContainer/GENERAL/GeneralContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+selected = 1
+item_count = 3
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Español"
+popup/item_1/id = 1
+popup/item_2/text = "Français"
+popup/item_2/id = 2
+script = ExtResource("4_unrfp")
+key = &"LANGUAGE"
+
+[node name="Label" type="Label" parent="TabContainer/GENERAL/GeneralContainer"]
+visible = false
+layout_mode = 2
+text = "SUBTITLES"
+
+[node name="CheckButton" type="CheckButton" parent="TabContainer/GENERAL/GeneralContainer"]
+visible = false
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="CONTROLS" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ControlsContainer" type="GridContainer" parent="TabContainer/CONTROLS"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="SensibilityLabel" type="Label" parent="TabContainer/CONTROLS/ControlsContainer"]
+layout_mode = 2
+text = "SENSITIVITY"
+
+[node name="VBoxSensibility" parent="TabContainer/CONTROLS/ControlsContainer" instance=ExtResource("5_xq66n")]
+layout_mode = 2
+key = &"SENSITIVITY"
+maxValue = 2.0
+
+[node name="SOUND" type="TabBar" parent="TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="SoundContainer" type="GridContainer" parent="TabContainer/SOUND"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+script = ExtResource("7_aftbm")
+sliderControllerPrefab = ExtResource("5_xq66n")
+
+[node name="VIDEO" type="TabBar" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="VideoContainer" type="GridContainer" parent="TabContainer/VIDEO"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Resolution" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+text = "RESOLUTION"
+
+[node name="ResolutionSelection" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("9_u1nj0")
+defaultIndex = Vector2i(1, 1)
+heights = Array[int]([640, 720, 1080, 1440, 2160])
+aspectRatios = Array[Vector2i]([Vector2i(4, 3), Vector2i(16, 9), Vector2i(21, 9)])
+key = &"RESOLUTION"
+
+[node name="WindowsMode" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(178, 23)
+layout_mode = 2
+size_flags_stretch_ratio = 20.0
+text = "WINDOW_MODE"
+
+[node name="Windowsmodeselector" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("10_xesqq")
+availableOptions = Array[int]([0, 2, 3])
+key = &"WINDOW_MODE"
+
+[node name="OclussionCulling" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+text = "OCLUSSION_CULLING"
+
+[node name="OcclussionCullingCheckBox" type="CheckBox" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+button_pressed = true
+script = ExtResource("11_70a0k")
+key = &"OCLUSSION_CULLING"
+
+[node name="Shadowsquality" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+text = "SOFT_SHADOWS"
+
+[node name="Shadowqualityselector" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("13_7ovd0")
+availableOptions = Array[int]([0, 2, 3, 4, 5])
+key = &"SOFT_SHADOWS"
+
+[node name="ResolutionsShadows" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+text = "SHADOW_RESOLUTION"
+
+[node name="ResolutionShadowsSelection2" type="OptionButton" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+script = ExtResource("14_x06l1")
+maxExponent = 5
+key = &"SHADOW_RESOLUTION"
+
+[node name="ImageScaleLabel" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
+clip_contents = true
+layout_mode = 2
+text = "IMAGE_SCALE"
+
+[node name="ImageScale" parent="TabContainer/VIDEO/VideoContainer" instance=ExtResource("5_xq66n")]
+layout_mode = 2
+script = ExtResource("15_ptdd0")
+key = &"IMAGE_SCALE"
+
+[node name="BrightnessLabel" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+text = "BRIGHTNESS"
+
+[node name="Brightness" parent="TabContainer/VIDEO/VideoContainer" instance=ExtResource("5_xq66n")]
+layout_mode = 2
+script = ExtResource("13_apmns")
+key = &"BRIGHTNESS"
+maxValue = 2.0
+
+[node name="Fps Limit" type="Label" parent="TabContainer/VIDEO/VideoContainer"]
+layout_mode = 2
+text = "FPS_LIMIT"
+
+[node name="Fps Limiter" parent="TabContainer/VIDEO/VideoContainer" instance=ExtResource("5_xq66n")]
+layout_mode = 2
+script = ExtResource("14_rlvx3")
+key = &"FPS_LIMIT"
+defaultValue = 120.0
+step = 15.0
+minValue = 30.0
+maxValue = 240.0
+
+[connection signal="button_up" from="Button" to="." method="hide"]
