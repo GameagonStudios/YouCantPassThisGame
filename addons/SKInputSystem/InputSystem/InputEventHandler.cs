@@ -126,6 +126,7 @@ namespace InputSystem
                         Events[action.Item1].Invoke(state);
                 }
             }
+			//GetViewport().SetInputAsHandled();
             @event.Dispose();
         }
 
@@ -206,8 +207,10 @@ namespace InputSystem
         {
             return motion switch
             {
-                MouseMotion.Velocity => e.Velocity,
-                MouseMotion.Delta => e.Relative,
+                MouseMotion.PixelVelocity => e.Velocity,
+                MouseMotion.ScreenVelocity => e.ScreenVelocity,
+                MouseMotion.PixelDelta => e.Relative,
+                MouseMotion.ScreenDelta => e.ScreenRelative,
                 MouseMotion.Position => e.Position,
                 MouseMotion.Tilt => e.Tilt,
                 MouseMotion.Pressure => e.Pressure,

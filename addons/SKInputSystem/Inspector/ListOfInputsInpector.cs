@@ -1,3 +1,5 @@
+#if TOOLS
+
 using Godot;
 using System;
 using System.Reflection;
@@ -122,3 +124,5 @@ public partial class ListOfInputsInpector : EditorInspectorPlugin
 
     }
 }
+
+#endif

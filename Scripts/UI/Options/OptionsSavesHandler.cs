@@ -5,7 +5,7 @@ public partial class OptionsSavesHandler : Control
 	public static OptionsSavesHandler Current;
 
 	[Signal]
-	public delegate void onOptionsChangedEventHandler(string key, Variant value);
+	public delegate void onOptionsChangedEventHandler(StringName key, Variant value);
 	
 	public OptionsSave options;
 	public string path = "user://options_data.res";
@@ -36,14 +36,14 @@ public partial class OptionsSavesHandler : Control
 		ResourceSaver.Save(options, path);
 	}
 
-	public void SetValue(string key, Variant value)
+	public void SetValue(StringName key, Variant value)
 	{
 		options.SetValue(key, value);
 		EmitSignal(SignalName.onOptionsChanged, key, value);
 		Save();
 	}
 
-	public Variant? GetValue(string key)
+	public Variant? GetValue(StringName key)
 	{
 		return options.GetValue(key);
 	}

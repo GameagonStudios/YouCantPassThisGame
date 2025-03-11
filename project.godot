@@ -12,8 +12,14 @@ config_version=5
 
 config/name="YouCantFinishThisGame"
 run/main_scene="res://Scenes/Test.tscn"
-config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+run/max_fps=60
 config/icon="res://icon.svg"
+
+[autoload]
+
+Panku="*res://addons/panku_console/console.tscn"
+GlobalWorldEnvironment="*res://Resources/Nodes/GlobalWorldEnvironment.tscn"
 
 [display]
 
@@ -29,13 +35,14 @@ project/assembly_name="YouCantFinishThisGame"
 
 [editor_plugins]
 
-enabled=PackedStringArray()
+enabled=PackedStringArray("res://addons/panku_console/plugin.cfg")
 
 [file_customization]
 
 folder_colors={
 "res://2D/": "blue",
 "res://3D/": "red",
+"res://Audio/": "pink",
 "res://Materials/": "purple",
 "res://Resources/": "orange",
 "res://Resources/Nodes/": "orange",
@@ -48,11 +55,33 @@ folder_colors={
 
 import/fbx/enabled=false
 
+[importer_defaults]
+
+texture={
+"compress/channel_pack": 0,
+"compress/hdr_compression": 0,
+"compress/high_quality": true,
+"compress/lossy_quality": 0.7,
+"compress/mode": 2,
+"compress/normal_map": 2,
+"detect_3d/compress_to": 0,
+"mipmaps/generate": false,
+"mipmaps/limit": -1,
+"process/fix_alpha_border": true,
+"process/hdr_as_srgb": false,
+"process/hdr_clamp_exposure": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"process/size_limit": 4096,
+"roughness/mode": 1,
+"roughness/src_normal": "res://3D/Characters/Dummy_DummyNormal4K.png"
+}
+
 [input]
 
 toggle_console={
 "deadzone": 0.01,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194439,"physical_keycode":4194439,"key_label":4194439,"unicode":49,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194439,"physical_keycode":0,"key_label":0,"unicode":49,"location":0,"echo":false,"script":null)
 ]
 }
 
@@ -65,9 +94,14 @@ locale/translations=PackedStringArray("res://Translations/Translations.en.transl
 3d_physics/layer_1="Default"
 3d_physics/layer_2="Buttons"
 
+[physics]
+
+3d/default_gravity=19.6
+
 [rendering]
 
 occlusion_culling/bvh_build_quality=1
 textures/canvas_textures/default_texture_filter=0
 scaling_3d/fsr_sharpness=0.2
+environment/defaults/default_clear_color=Color(0.301961, 0.301961, 0.301961, 1)
 occlusion_culling/use_occlusion_culling=true

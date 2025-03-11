@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://uxx34mct2ijn"
+path="res://.godot/imported/voice prueba.ogg-5fa3c00f0c91f7aae6555a973fe5fd15.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Music/TestLicenseless/voice prueba.ogg"
+dest_files=["res://.godot/imported/voice prueba.ogg-5fa3c00f0c91f7aae6555a973fe5fd15.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://bfotbntpvvs51"
+path.s3tc="res://.godot/imported/Dummy_DummyMetallic4K-DummyRoughness4K.png-a05724de61d750e88444da3b5654b695.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "2173c8fada361f5a7bbfdd86dd1ae379"
+}
+
+[deps]
+
+source_file="res://3D/Characters/Dummy/Dummy_DummyMetallic4K-DummyRoughness4K.png"
+dest_files=["res://.godot/imported/Dummy_DummyMetallic4K-DummyRoughness4K.png-a05724de61d750e88444da3b5654b695.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=0
+compress/normal_map=2
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=1
+roughness/src_normal="res://3D/Characters/Dummy_DummyNormal4K.png"
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=4096
+detect_3d/compress_to=0

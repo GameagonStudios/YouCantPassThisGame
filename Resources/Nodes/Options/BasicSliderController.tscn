@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwcwpr1os2dra"]
+
+[ext_resource type="Script" uid="uid://cdxrxqiiosvrn" path="res://Scripts/UI/Options/BaseController/SliderController.cs" id="1_g51yr"]
+
+[node name="Controller" type="VBoxContainer" node_paths=PackedStringArray("spinBox", "slider")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 51.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_g51yr")
+key = &""
+spinBox = NodePath("SpinBox")
+slider = NodePath("HSlider")
+step = 0.01
+
+[node name="SpinBox" type="SpinBox" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+max_value = 0.0
+allow_greater = true
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 2.0
+step = 0.01

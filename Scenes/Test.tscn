@@ -1,34 +1,18 @@
-[gd_scene load_steps=31 format=3 uid="uid://bf44tejcvwkx8"]
+[gd_scene load_steps=48 format=3 uid="uid://bf44tejcvwkx8"]
 
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_bg54p"]
+[ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_bg54p"]
 [ext_resource type="Material" uid="uid://c2rlcwx53fo57" path="res://Materials/PlaceHolders/Grass.material" id="1_s0cw8"]
 [ext_resource type="PackedScene" uid="uid://dqwynxbg3ejn6" path="res://Resources/Nodes/pause_menu.tscn" id="1_uafe7"]
 [ext_resource type="Resource" uid="uid://bovdny6kjjej2" path="res://Resources/Inputs/InputMap.tres" id="2_trta6"]
-[ext_resource type="Script" path="res://Scripts/Utils/EventActuator.cs" id="3_hyyl2"]
+[ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="3_hyyl2"]
 [ext_resource type="Texture2D" uid="uid://b6sp4vcirpc6e" path="res://2D/Textures/LightCheckerTexture.png" id="5_rqlgy"]
-[ext_resource type="Script" path="res://Scripts/InteractionSystem/Interactors/RayInteractor3D.cs" id="5_xlhib"]
-[ext_resource type="Script" path="res://Scripts/Controllers/WalkingController.cs" id="6_irl46"]
-[ext_resource type="PackedScene" uid="uid://cwddhbjrf4qxi" path="res://3D/Characters/Kyorinrin/Kyōrinrin.glb" id="11_shnh5"]
+[ext_resource type="AudioStream" uid="uid://dhu8xoedxlq65" path="res://Audio/Music/TestLicenseless/game-8-bit-on-278083.mp3" id="5_wjxug"]
+[ext_resource type="Script" uid="uid://dcnk4ue17tbsg" path="res://Scripts/InteractionSystem/Interactors/RayInteractor3D.cs" id="5_xlhib"]
+[ext_resource type="AudioStream" uid="uid://uxx34mct2ijn" path="res://Audio/Music/TestLicenseless/voice prueba.ogg" id="6_8d4ee"]
+[ext_resource type="Script" uid="uid://cwe8coh0vamcs" path="res://Scripts/Controllers/WalkingController.cs" id="6_irl46"]
+[ext_resource type="Script" uid="uid://b2l8rw2y7qcb2" path="res://Scripts/InteractionSystem/Interactables/Interactable3D.cs" id="7_8d4ee"]
+[ext_resource type="PackedScene" uid="uid://drhanb7cc2lyj" path="res://3D/Characters/Dummy/Dummy.glb" id="11_yk3wi"]
 [ext_resource type="PackedScene" uid="uid://k6m7a22pajvr" path="res://3D/Props/Museum/ArcadeMachine/ArcadeMachine/TheLastOfFruitsArcade.tscn" id="12_kfvpf"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw65n"]
-sky_top_color = Color(0, 0.682353, 0.952941, 1)
-sky_horizon_color = Color(0.682353, 0.878431, 0.898039, 1)
-sky_curve = 0.2
-ground_bottom_color = Color(0, 0, 0.196078, 1)
-ground_horizon_color = Color(0.682353, 0.878431, 0.898039, 1)
-ground_curve = 0.025
-sun_curve = 0.184673
-
-[sub_resource type="Sky" id="Sky_ii4t5"]
-sky_material = SubResource("ProceduralSkyMaterial_sw65n")
-
-[sub_resource type="Environment" id="Environment_be8nn"]
-background_mode = 2
-sky = SubResource("Sky_ii4t5")
-ambient_light_source = 3
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hvvax"]
 friction = 0.0
@@ -63,11 +47,12 @@ texture_filter = 2
 material = SubResource("StandardMaterial3D_g8u87")
 size = Vector3(10, 1, 10)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3ecvd"]
-size = Vector3(200, 1, 10)
+[sub_resource type="BoxShape3D" id="BoxShape3D_wjxug"]
+size = Vector3(4, 1, 40)
 
-[sub_resource type="BoxMesh" id="BoxMesh_0q8jl"]
-size = Vector3(200, 1, 10)
+[sub_resource type="BoxMesh" id="BoxMesh_8d4ee"]
+material = SubResource("StandardMaterial3D_g8u87")
+size = Vector3(4, 1, 40)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_m2nfa"]
 
@@ -85,6 +70,52 @@ size = Vector3(10, 10, 10)
 material = ExtResource("1_s0cw8")
 size = Vector3(10, 10, 10)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3la1u"]
+size = Vector3(0.75, 1.9, 0.875)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_rarx8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_rarx8"]
+radius = 20.0
+height = 40.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wjxug"]
+radius = 40.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8d4ee"]
+radius = 20.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rarx8"]
+size = Vector3(100, 1, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wjxug"]
+material = SubResource("StandardMaterial3D_5dgje")
+size = Vector3(100, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8d4ee"]
+size = Vector3(4, 1, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3la1u"]
+material = SubResource("StandardMaterial3D_5dgje")
+size = Vector3(4, 1, 10)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8d4ee"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c5xim"]
+size = Vector3(2, 1, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b07cf"]
+albedo_color = Color(0.5, 0.5, 0.5, 1)
+albedo_texture = ExtResource("5_rqlgy")
+metallic_specular = 0.0
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+texture_filter = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_x8mav"]
+material = SubResource("StandardMaterial3D_b07cf")
+size = Vector3(2, 1, 10)
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rfcl2"]
 radius = 0.35
 height = 1.8
@@ -92,17 +123,29 @@ height = 1.8
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8nc5n"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5ii7m"]
+radius = 0.35
+height = 1.7
+radial_segments = 16
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rarx8"]
+radius = 0.3
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_b0j2p"]
+viewport_path = NodePath("MeshInstance3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjpb7"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_b0j2p")
+uv1_scale = Vector3(-1, 1, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_52in0"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_fjpb7")
 
 [node name="Node3D" type="Node3D"]
 
 [node name="PauseMenu" parent="." instance=ExtResource("1_uafe7")]
 visible = false
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_be8nn")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(1, 0, 0, 0, 0.352103, 0.935961, 0, -0.935961, 0.352103, 0, 20, 0)
 
 [node name="World" type="Node3D" parent="."]
 
@@ -127,37 +170,23 @@ shape = SubResource("BoxShape3D_f8c2c")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="World/Accelerator/CollisionShape3D"]
 mesh = SubResource("BoxMesh_d1jyl")
 
-[node name="IceRamp" type="StaticBody3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.0199, 0.6035, 0)
-physics_material_override = SubResource("PhysicsMaterial_hvvax")
+[node name="Bridge" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05828, -0.4965, -55)
+physics_material_override = SubResource("PhysicsMaterial_gswut")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/IceRamp"]
-transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -66.8524, -74.0676, 0)
-shape = SubResource("BoxShape3D_3ecvd")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Bridge"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+shape = SubResource("BoxShape3D_wjxug")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceRamp/CollisionShape3D"]
-mesh = SubResource("BoxMesh_0q8jl")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/IceRamp"]
-transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, -230.159, -168.251, -7.62939e-06)
-shape = SubResource("BoxShape3D_3ecvd")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceRamp/CollisionShape3D2"]
-mesh = SubResource("BoxMesh_0q8jl")
-
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="World/IceRamp"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -250.355, -193.333, -7.62939e-06)
-shape = SubResource("BoxShape3D_3ecvd")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceRamp/CollisionShape3D3"]
-mesh = SubResource("BoxMesh_0q8jl")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Bridge/CollisionShape3D"]
+mesh = SubResource("BoxMesh_8d4ee")
 
 [node name="Ground" type="StaticBody3D" parent="World"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0)
 physics_material_override = SubResource("PhysicsMaterial_m2nfa")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ground"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 45, 0)
 shape = SubResource("BoxShape3D_ls2ij")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ground/CollisionShape3D"]
@@ -173,10 +202,231 @@ mesh = SubResource("BoxMesh_j0fuq")
 [node name="Machine_v2" parent="World" instance=ExtResource("12_kfvpf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00676, 0, -8.46303)
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("camera")]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="World/Machine_v2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0.1)
+stream = ExtResource("5_wjxug")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="World/Machine_v2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0.1)
+stream = ExtResource("6_8d4ee")
+bus = &"Voices"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Machine_v2"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("7_8d4ee")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Machine_v2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.0247345)
+shape = SubResource("BoxShape3D_3la1u")
+
+[node name="Planetoid" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19.5433, -89.2641)
+physics_material_override = SubResource("PhysicsMaterial_rarx8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Planetoid"]
+mesh = SubResource("SphereMesh_rarx8")
+skeleton = NodePath("../Area3D")
+
+[node name="Area3D" type="Area3D" parent="World/Planetoid"]
+gravity_space_override = 3
+gravity_point = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Planetoid/Area3D"]
+shape = SubResource("SphereShape3D_wjxug")
+debug_color = Color(1, 0, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Planetoid"]
+shape = SubResource("SphereShape3D_8d4ee")
+
+[node name="IceSlide" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.4417, 4.0035, 0)
+physics_material_override = SubResource("PhysicsMaterial_hvvax")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.5, 0)
+shape = SubResource("BoxShape3D_f8c2c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_pykac")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, 34.6, -43.5711, 0)
+shape = SubResource("BoxShape3D_rarx8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_wjxug")
+
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 0, 0, 1, 60.1933, -87.7319, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 0, 0, 1, 62.0044, -90.1663, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 64.028, -92.4407, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 0, 0, 1, 66.2371, -94.5186, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D13" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0, 1, 68.6165, -96.4013, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D14" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, 71.1599, -98.0745, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D15" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0, 1, 73.8347, -99.5217, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D15"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D16" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0, 1, 76.6204, -100.724, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D17" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 79.5101, -101.682, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D17"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D18" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0, 0, 1, 82.4711, -102.381, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D18"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D19" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.996195, 0.0871558, 0, -0.0871558, 0.996195, 0, 0, 0, 1, 85.4731, -102.822, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D19"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D20" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0, 1, 88.5123, -103, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D20"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D21" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.996195, -0.0871557, 0, 0.0871557, 0.996195, 0, 0, 0, 1, 91.5436, -102.907, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D21"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D22" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.984808, -0.173648, 0, 0.173648, 0.984808, 0, 0, 0, 1, 94.5573, -102.555, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D22"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D23" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 97.5389, -101.94, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D23"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D24" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0, 1, 100.454, -101.072, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D24"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D25" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.906308, -0.422618, 0, 0.422618, 0.906308, 0, 0, 0, 1, 103.274, -99.9528, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D25"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="CollisionShape3D26" type="CollisionShape3D" parent="World/IceSlide"]
+transform = Transform3D(0.866026, -0.5, 0, 0.5, 0.866026, 0, 0, 0, 1, 105.995, -98.5868, 0)
+shape = SubResource("BoxShape3D_8d4ee")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D26"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
+mesh = SubResource("BoxMesh_3la1u")
+
+[node name="Conveyor" type="StaticBody3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.4, 14)
+physics_material_override = SubResource("PhysicsMaterial_8d4ee")
+constant_linear_velocity = Vector3(0, 0, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Conveyor"]
+shape = SubResource("BoxShape3D_c5xim")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Conveyor/CollisionShape3D"]
+mesh = SubResource("BoxMesh_x8mav")
+skeleton = NodePath("../..")
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("head", "floorDetector")]
 script = ExtResource("6_irl46")
-camera = NodePath("Camera3D")
-Acceleration = 1.0
+head = NodePath("CameraMountTemp")
+minY = 75.0
+floorDetector = NodePath("ShapeCast3D")
+Acceleration = 50.0
+JumpVelocity = 6.0
+sensivilityKey = &"SENSITIVITY"
 
 [node name="InputEventHandler" type="Node" parent="Player"]
 process_mode = 3
@@ -198,10 +448,10 @@ script = ExtResource("3_hyyl2")
 [node name="Movement" type="Node" parent="Player/InputEventHandler/Player"]
 script = ExtResource("3_hyyl2")
 
-[node name="Fly" type="Node" parent="Player/InputEventHandler/Player"]
+[node name="Look" type="Node" parent="Player/InputEventHandler/Player"]
 script = ExtResource("3_hyyl2")
 
-[node name="Look" type="Node" parent="Player/InputEventHandler/Player"]
+[node name="Run" type="Node" parent="Player/InputEventHandler/Player"]
 script = ExtResource("3_hyyl2")
 
 [node name="Node" type="Node" parent="Player/InputEventHandler/Player"]
@@ -270,29 +520,177 @@ script = ExtResource("3_hyyl2")
 script = ExtResource("3_hyyl2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.925, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 shape = SubResource("CapsuleShape3D_rfcl2")
 
+[node name="Dummy" parent="Player/CollisionShape3D" instance=ExtResource("11_yk3wi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0)
+
+[node name="Skeleton3D" parent="Player/CollisionShape3D/Dummy/metarig" index="0"]
+bones/0/scale = Vector3(1, 1, 1)
+bones/2/rotation = Quaternion(-0.0178812, 1.42115e-07, 1.58387e-10, 0.99984)
+bones/2/scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(0.0420358, -3.51458e-09, 2.6534e-09, 0.999116)
+bones/4/scale = Vector3(1, 1, 0.999999)
+bones/5/rotation = Quaternion(0.0894125, -4.82348e-08, 9.99261e-10, 0.995995)
+bones/5/scale = Vector3(1, 1, 0.999999)
+bones/6/rotation = Quaternion(0.0234276, -6.05577e-08, -2.29186e-09, 0.999726)
+bones/7/rotation = Quaternion(0.0211655, 4.93874e-08, -2.3071e-09, 0.999776)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/rotation = Quaternion(-0.0366322, 0.102955, -0.776939, 0.620019)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(0.0448632, 0.07324, -0.528559, 0.84454)
+bones/10/rotation = Quaternion(0.0843976, -6.12813e-08, 2.78407e-05, 0.996432)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/rotation = Quaternion(-0.0520768, -0.000275336, -0.0085289, 0.998607)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(0.0538475, 5.42282e-05, 0.00159415, 0.998548)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/rotation = Quaternion(0.0769621, -0.00111528, -0.00669946, 0.997011)
+bones/13/scale = Vector3(1, 1, 1)
+bones/15/rotation = Quaternion(0.00188955, 0.00727078, 0.0292179, 0.999545)
+bones/15/scale = Vector3(1, 1, 1)
+bones/16/rotation = Quaternion(0.350272, -0.00347834, -0.00727861, 0.936613)
+bones/16/scale = Vector3(1, 1, 1)
+bones/17/rotation = Quaternion(-0.00190918, -0.00409601, -0.00396431, 0.999982)
+bones/17/scale = Vector3(1, 1, 1)
+bones/18/rotation = Quaternion(0.0016799, 0.0294397, 0.028505, 0.999159)
+bones/18/scale = Vector3(1, 1, 1)
+bones/19/scale = Vector3(1, 1, 1)
+bones/20/rotation = Quaternion(0.054361, 0.000265414, 0.0085226, 0.998485)
+bones/20/scale = Vector3(1, 1, 1)
+bones/22/rotation = Quaternion(-0.000582334, 0.00249275, 0.029275, 0.999568)
+bones/22/scale = Vector3(1, 1, 1)
+bones/23/scale = Vector3(1, 1, 1)
+bones/24/rotation = Quaternion(0.0380545, -0.00288164, 0.0258927, 0.998936)
+bones/24/scale = Vector3(1, 1, 1)
+bones/26/rotation = Quaternion(-0.00291035, -0.00220919, 0.0291389, 0.999569)
+bones/28/rotation = Quaternion(-0.0791725, -0.0149041, 0.0489942, 0.995545)
+bones/28/scale = Vector3(1, 1, 1)
+bones/30/rotation = Quaternion(-0.00306481, -0.0115522, 0.0291144, 0.999505)
+bones/31/rotation = Quaternion(0.0903398, -0.0215948, 0.219643, 0.971148)
+bones/31/scale = Vector3(1, 1, 1)
+bones/32/rotation = Quaternion(-1.01817e-06, -0.00329192, 0.627318, 0.778756)
+bones/32/scale = Vector3(1, 1, 1)
+bones/33/rotation = Quaternion(-6.33739e-05, -0.00155471, 0.292649, 0.956219)
+bones/34/rotation = Quaternion(0.00177715, -0.00192943, 0.735542, 0.677475)
+bones/34/scale = Vector3(1, 1, 1)
+bones/35/rotation = Quaternion(-0.0366322, -0.102955, 0.776939, 0.620019)
+bones/35/scale = Vector3(1, 1, 1)
+bones/36/rotation = Quaternion(0.0448632, -0.0732399, 0.528559, 0.84454)
+bones/36/scale = Vector3(1, 1, 1)
+bones/37/rotation = Quaternion(0.0843975, 3.55553e-08, -2.78425e-05, 0.996432)
+bones/38/rotation = Quaternion(-0.052077, 0.000275326, 0.00852958, 0.998607)
+bones/38/scale = Vector3(1, 1, 1)
+bones/39/rotation = Quaternion(0.0538477, -5.42509e-05, -0.00159474, 0.998548)
+bones/39/scale = Vector3(1, 1, 1)
+bones/40/rotation = Quaternion(0.0769621, 0.00111531, 0.00669937, 0.997011)
+bones/40/scale = Vector3(1, 1, 1)
+bones/42/rotation = Quaternion(0.00188959, -0.00727067, -0.0292167, 0.999545)
+bones/42/scale = Vector3(1, 1, 1)
+bones/43/rotation = Quaternion(0.350272, 0.00347835, 0.00727853, 0.936613)
+bones/43/scale = Vector3(1, 1, 1)
+bones/44/rotation = Quaternion(-0.00190922, 0.00409615, 0.0039643, 0.999982)
+bones/45/rotation = Quaternion(0.00167987, -0.0294398, -0.0285049, 0.999159)
+bones/46/rotation = Quaternion(-0.0017171, -0.000147789, 0.00686191, 0.999975)
+bones/46/scale = Vector3(1, 1, 1)
+bones/47/rotation = Quaternion(0.0543609, -0.000265395, -0.00852304, 0.998485)
+bones/47/scale = Vector3(1, 1, 1)
+bones/49/rotation = Quaternion(-0.00058235, -0.00249254, -0.0292756, 0.999568)
+bones/49/scale = Vector3(1, 1, 1)
+bones/50/rotation = Quaternion(-0.0644898, -0.00145619, 0.0172201, 0.997769)
+bones/50/scale = Vector3(1, 1, 1)
+bones/53/rotation = Quaternion(-0.00291045, 0.00220913, -0.0291376, 0.999569)
+bones/54/rotation = Quaternion(-0.0977987, -0.0053747, 0.0453821, 0.994156)
+bones/54/scale = Vector3(1, 1, 1)
+bones/55/rotation = Quaternion(-0.0791724, 0.014904, -0.0489948, 0.995545)
+bones/55/scale = Vector3(1, 1, 1)
+bones/57/rotation = Quaternion(-0.0030646, 0.0115523, -0.0291144, 0.999505)
+bones/58/rotation = Quaternion(0.0903398, 0.0215949, -0.219643, 0.971148)
+bones/58/scale = Vector3(1, 1, 1)
+bones/59/rotation = Quaternion(-1.00247e-06, 0.00329192, -0.627318, 0.778756)
+bones/59/scale = Vector3(1, 1, 1)
+bones/60/rotation = Quaternion(-6.33633e-05, 0.0015547, -0.292649, 0.956219)
+bones/61/scale = Vector3(1, 1, 1)
+bones/62/rotation = Quaternion(0.0363582, -5.95652e-08, -2.88849e-15, 0.999339)
+bones/62/scale = Vector3(1, 1, 0.999999)
+bones/63/rotation = Quaternion(0.0220653, 7.54795e-08, -1.66588e-09, 0.999757)
+bones/63/scale = Vector3(1, 1, 1)
+bones/65/rotation = Quaternion(-0.0903671, -0.0239794, -0.501382, 0.86016)
+bones/66/rotation = Quaternion(-0.0148929, 0.000317909, -0.00442226, 0.999879)
+bones/66/scale = Vector3(1, 1, 1)
+bones/67/rotation = Quaternion(0.470693, -0.00160493, -0.00376005, 0.882287)
+bones/67/scale = Vector3(1, 1, 1)
+bones/68/scale = Vector3(1, 1, 1)
+bones/70/rotation = Quaternion(-0.0903671, 0.0239794, 0.501382, 0.86016)
+bones/71/rotation = Quaternion(-0.0148929, -0.000317909, 0.00442226, 0.999879)
+bones/71/scale = Vector3(1, 1, 1)
+bones/72/rotation = Quaternion(0.470693, 0.00160493, 0.00376005, 0.882287)
+bones/72/scale = Vector3(1, 1, 1)
+bones/73/scale = Vector3(1, 1, 1)
+bones/74/rotation = Quaternion(-0.00473165, 0.707091, 0.707091, -0.00473165)
+bones/74/scale = Vector3(1, 1, 1)
+bones/75/rotation = Quaternion(0.00473165, 0.707091, 0.707091, 0.00473165)
+bones/75/scale = Vector3(1, 1, 1)
+bones/76/rotation = Quaternion(0.000790848, 0.432031, 0.901857, 0.00165077)
+bones/78/rotation = Quaternion(-0.000790848, 0.432031, 0.901857, -0.00165077)
+bones/80/rotation = Quaternion(-0.000977487, -0.00986398, 0.995077, 0.0986116)
+bones/80/scale = Vector3(1, 1, 1)
+bones/81/rotation = Quaternion(0.715306, 2.23082e-07, -0.698812, 1.76685e-08)
+bones/82/rotation = Quaternion(0.000977487, -0.00986398, 0.995077, -0.0986116)
+bones/82/scale = Vector3(1, 1, 1)
+bones/83/rotation = Quaternion(0.715306, -2.23082e-07, 0.698812, 1.76685e-08)
+
+[node name="Body" parent="Player/CollisionShape3D/Dummy/metarig/Skeleton3D" index="0"]
+layers = 1025
+
+[node name="Head" parent="Player/CollisionShape3D/Dummy/metarig/Skeleton3D" index="1"]
+layers = 1024
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player/CollisionShape3D"]
-transform = Transform3D(0.7, 0, 0, 0, 0.9, 0, 0, 0, 0.7, 0, 0, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_8nc5n")
 mesh = SubResource("CapsuleMesh_5ii7m")
 
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+[node name="CameraMountTemp" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47101, -0.0252505)
 
-[node name="RayCast3D" type="RayCast3D" parent="Player/Camera3D"]
+[node name="Camera3D" type="Camera3D" parent="Player/CameraMountTemp"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.25267e-08, 0.173994, 0.0716445)
+cull_mask = 1047551
+
+[node name="RayCast3D" type="RayCast3D" parent="Player/CameraMountTemp/Camera3D"]
 target_position = Vector3(0, 0, -2)
 collision_mask = 2
 collide_with_areas = true
 debug_shape_custom_color = Color(1, 0, 0, 1)
 script = ExtResource("5_xlhib")
 
-[node name="Kyōrinrin" parent="." instance=ExtResource("11_shnh5")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.59722, 0, -7.02092)
+[node name="AudioListener3D" type="AudioListener3D" parent="Player/CameraMountTemp/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66045e-08, -0.00399411, 0.0466445)
+current = true
 
+[node name="ShapeCast3D" type="ShapeCast3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_rarx8")
+max_results = 4
+debug_shape_custom_color = Color(1, 1, 1, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.5, 3)
+mesh = SubResource("QuadMesh_52in0")
+
+[node name="SubViewport" type="SubViewport" parent="MeshInstance3D"]
+
+[node name="Camera3D" type="Camera3D" parent="MeshInstance3D/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.64527)
+
+[connection signal="Activated" from="World/Machine_v2/StaticBody3D" to="World/Machine_v2/AudioStreamPlayer3D2" method="play" unbinds=1]
 [connection signal="onInvoke" from="Player/InputEventHandler/Player/Jump" to="Player" method="Jump"]
-[connection signal="onInvoke" from="Player/InputEventHandler/Player/Interact" to="Player/Camera3D/RayCast3D" method="Interact"]
+[connection signal="onInvoke" from="Player/InputEventHandler/Player/Interact" to="Player/CameraMountTemp/Camera3D/RayCast3D" method="Interact"]
 [connection signal="onInvoke" from="Player/InputEventHandler/Player/Movement" to="Player" method="Move"]
 [connection signal="onInvoke" from="Player/InputEventHandler/Player/Look" to="Player" method="Look"]
+[connection signal="onInvoke" from="Player/InputEventHandler/Player/Run" to="Player" method="Run"]
 [connection signal="onInvoke" from="Player/InputEventHandler/UI/Pause" to="PauseMenu" method="Toggle"]
+
+[editable path="Player/CollisionShape3D/Dummy"]
