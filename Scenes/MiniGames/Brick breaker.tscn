@@ -1,24 +1,25 @@
-[gd_scene load_steps=18 format=3 uid="uid://cl0u60qn21slw"]
+[gd_scene load_steps=19 format=3 uid="uid://cl0u60qn21slw"]
 
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_gqs2s"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector1InputAction.cs" id="2_x3idu"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="3_mdqhg"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="3_nwx1a"]
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="4_ykrfl"]
-[ext_resource type="Script" path="res://Scripts/Utils/EventActuator.cs" id="5_0h3tu"]
-[ext_resource type="Script" path="res://Scripts/BrickBreaker/PaddleController.cs" id="6_1uf5h"]
-[ext_resource type="Script" path="res://Scripts/BrickBreaker/Ball.cs" id="8_7t7us"]
-[ext_resource type="Script" path="res://Scripts/BrickBreaker/BrickBreakerGenerator.cs" id="8_dmfm0"]
+[ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_gqs2s"]
+[ext_resource type="Script" uid="uid://dd5x0ms6rkxjh" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector1InputAction.cs" id="2_x3idu"]
+[ext_resource type="Script" uid="uid://c1tu0afldgxa8" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="3_mdqhg"]
+[ext_resource type="Script" uid="uid://t0cmlswemv15" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="3_nwx1a"]
+[ext_resource type="Script" uid="uid://cyltkd572m4ig" path="res://addons/SKInputSystem/InputSystem/InputAction.cs" id="3_sy575"]
+[ext_resource type="Script" uid="uid://caspgt78xg48h" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="4_ykrfl"]
+[ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="5_0h3tu"]
+[ext_resource type="Script" uid="uid://bc70qutojl3yw" path="res://Scripts/MiniGames/BrickBreaker/PaddleController.cs" id="6_1uf5h"]
+[ext_resource type="Script" uid="uid://cy4wtsn2uouoj" path="res://Scripts/MiniGames/BrickBreaker/Ball.cs" id="8_7t7us"]
+[ext_resource type="Script" uid="uid://bqv1h04ledxmu" path="res://Scripts/MiniGames/BrickBreaker/BrickBreakerGenerator.cs" id="8_dmfm0"]
 [ext_resource type="PackedScene" uid="uid://c7ew7dgxqm7nt" path="res://Resources/MiniGames/BrickBreaker/Brick.tscn" id="10_umr0e"]
 
 [sub_resource type="Resource" id="Resource_ie6o7"]
 resource_name = "Movment"
 script = ExtResource("2_x3idu")
-MouseInput = 0
-Negative = ["Key A", "JoyAxis LeftX"]
-Positive = ["Key D", "JoyAxis RightX"]
+Negative = Array[String](["Key A", "JoyAxis LeftX"])
+Positive = Array[String](["Key D", "JoyAxis RightX"])
 NegativeName = "Left"
 PositiveName = "Right"
+MouseInput = 0
 Name = "Movment"
 DeadZone = 0.25
 Sleeping = false
@@ -26,8 +27,8 @@ Sleeping = false
 [sub_resource type="Resource" id="Resource_mu3rl"]
 resource_name = "Launchball"
 script = ExtResource("3_mdqhg")
+Events = Array[String](["Key Space", "JoyButton A"])
 MouseInput = 0
-Events = ["Key Space", "JoyButton A"]
 Name = "Launchball"
 DeadZone = 0.25
 Sleeping = false
@@ -36,14 +37,14 @@ Sleeping = false
 resource_name = "Paddle"
 script = ExtResource("3_nwx1a")
 Name = "Paddle"
-Actions = [SubResource("Resource_ie6o7"), SubResource("Resource_mu3rl")]
+Actions = Array[ExtResource("3_sy575")]([SubResource("Resource_ie6o7"), SubResource("Resource_mu3rl")])
 Sleeping = false
 
 [sub_resource type="Resource" id="Resource_wyh2x"]
 resource_name = "InputMap"
 script = ExtResource("4_ykrfl")
 Name = "InputMap"
-Groups = [SubResource("Resource_qi3i8")]
+Groups = Array[ExtResource("3_nwx1a")]([SubResource("Resource_qi3i8")])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jiohf"]
 size = Vector2(4, 1)
@@ -104,7 +105,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(15, 19)
 zoom = Vector2(26.62, 26.62)
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("Background", "rect", "Paddle", "WinText", "BrickBreakerController")]
+[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("Background", "rect", "Paddle", "BrickBreakerController")]
 position = Vector2(17, 32)
 disable_mode = 1
 physics_material_override = SubResource("PhysicsMaterial_vd0mw")
@@ -116,7 +117,6 @@ script = ExtResource("8_7t7us")
 Background = NodePath("../BackGround")
 rect = NodePath("ColorRect")
 Paddle = NodePath("../Area2D/ColorRect")
-WinText = NodePath("../WinText")
 BrickBreakerController = NodePath("../Container")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
@@ -138,7 +138,7 @@ script = ExtResource("8_dmfm0")
 BrickPrefab = ExtResource("10_umr0e")
 initialLines = 5
 WinText = NodePath("../WinText")
-colorPalette = [Color(1, 0, 0, 1), Color(0, 0.369132, 3.85046e-07, 1), Color(1, 1, 0, 1), Color(0, 0, 0.784314, 1), Color(0.470588, 0, 1, 1)]
+colorPalette = Array[Color]([Color(1, 0, 0, 1), Color(0, 0.369132, 3.85046e-07, 1), Color(1, 1, 0, 1), Color(0, 0, 0.784314, 1), Color(0.470588, 0, 1, 1)])
 metadata/_edit_use_anchors_ = true
 
 [node name="WinText" type="Node2D" parent="."]

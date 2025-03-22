@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cc67vq0a343ff"]
 
-[ext_resource type="Script" path="res://Scripts/MiniGames/Tetris/TetrisManager.cs" id="1_dreld"]
+[ext_resource type="Script" uid="uid://c8bh5ypjfn0wm" path="res://Scripts/MiniGames/Tetris/TetrisManager.cs" id="1_dreld"]
 [ext_resource type="PackedScene" uid="uid://bbuqjxb2m0k38" path="res://Resources/MiniGames/Tetris/BlockRect.tscn" id="2_mhfx4"]
 [ext_resource type="PackedScene" uid="uid://8wlg2cjxb6rm" path="res://Resources/MiniGames/Tetris/BlockSquad.tscn" id="3_xt7xm"]
 [ext_resource type="PackedScene" uid="uid://bodpm1n0q44hm" path="res://Resources/MiniGames/Tetris/BlockZigzag.tscn" id="4_wbiay"]
@@ -17,7 +17,7 @@ offset_bottom = 33.0
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_dreld")
 pieces = Array[PackedScene]([ExtResource("2_mhfx4"), ExtResource("3_xt7xm"), ExtResource("4_wbiay"), ExtResource("5_2543x"), ExtResource("6_g70ft")])
-colorPalette = [Color(1, 1, 0, 1), Color(1, 0, 0, 1), Color(0, 1, 0, 1), Color(0, 1, 1, 1), Color(1, 0.431373, 0, 1)]
+colorPalette = Array[Color]([Color(1, 1, 0, 1), Color(1, 0, 0, 1), Color(0, 1, 0, 1), Color(0, 1, 1, 1), Color(1, 0.431373, 0, 1)])
 metadata/_edit_use_anchors_ = true
 
 [node name="Camera2D" type="Camera2D" parent="BackGround"]

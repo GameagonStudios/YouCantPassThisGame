@@ -1,9 +1,43 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbuqjxb2m0k38"]
+[gd_scene load_steps=12 format=3 uid="uid://bbuqjxb2m0k38"]
 
-[ext_resource type="Script" path="res://Scripts/MiniGames/Tetris/Pieces.cs" id="1_7e24n"]
+[ext_resource type="Script" uid="uid://dsq5najxrb071" path="res://Scripts/MiniGames/Tetris/Pieces.cs" id="1_7e24n"]
+[ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="2_xmkqr"]
+[ext_resource type="Script" uid="uid://ba8gjttvae2wj" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector2InputAction.cs" id="3_x6vli"]
+[ext_resource type="Script" uid="uid://cyltkd572m4ig" path="res://addons/SKInputSystem/InputSystem/InputAction.cs" id="4_75b7l"]
+[ext_resource type="Script" uid="uid://t0cmlswemv15" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="4_py3js"]
+[ext_resource type="Script" uid="uid://caspgt78xg48h" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="5_d0t1c"]
+[ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="6_8dlj1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvla6"]
 size = Vector2(1, 4)
+
+[sub_resource type="Resource" id="Resource_40swc"]
+script = ExtResource("3_x6vli")
+AxisXNegative = Array[String]([])
+AxisXPositive = Array[String]([])
+AxisYNegative = Array[String]([])
+AxisYPositive = Array[String]([])
+XNegativeName = "XNegative"
+XPositiveName = "XPositive"
+YNegativeName = "YNegative"
+YPositiveName = "YPositive"
+MouseInput = 0
+Name = ""
+DeadZone = 0.25
+Sleeping = false
+
+[sub_resource type="Resource" id="Resource_rshdm"]
+resource_name = "Block"
+script = ExtResource("4_py3js")
+Name = "Block"
+Actions = Array[ExtResource("4_75b7l")]([SubResource("Resource_40swc")])
+Sleeping = false
+
+[sub_resource type="Resource" id="Resource_q65cp"]
+resource_name = "BlockMovment"
+script = ExtResource("5_d0t1c")
+Name = "BlockMovment"
+Groups = Array[ExtResource("4_py3js")]([SubResource("Resource_rshdm")])
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_7e24n")
@@ -14,25 +48,56 @@ script = ExtResource("1_7e24n")
 position = Vector2(0.5, 2)
 shape = SubResource("RectangleShape2D_bvla6")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="Area2D"]
 offset_right = 1.0
 offset_bottom = 1.0
 color = Color(1, 1, 0, 1)
 
-[node name="ColorRect4" type="ColorRect" parent="."]
+[node name="ColorRect4" type="ColorRect" parent="Area2D"]
 offset_top = 3.0
 offset_right = 1.0
 offset_bottom = 4.0
 color = Color(1, 1, 0, 1)
 
-[node name="ColorRect3" type="ColorRect" parent="."]
+[node name="ColorRect3" type="ColorRect" parent="Area2D"]
 offset_top = 2.0
 offset_right = 1.0
 offset_bottom = 3.0
 color = Color(1, 1, 0, 1)
 
-[node name="ColorRect2" type="ColorRect" parent="."]
+[node name="ColorRect2" type="ColorRect" parent="Area2D"]
 offset_top = 1.0
 offset_right = 1.0
 offset_bottom = 2.0
 color = Color(1, 1, 0, 1)
+
+[node name="InputEventHandler" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("2_xmkqr")
+inputMap = SubResource("Resource_q65cp")
+
+[node name="Block" type="Node" parent="InputEventHandler"]
+
+[node name="Node" type="Node" parent="InputEventHandler/Block"]
+script = ExtResource("6_8dlj1")
+
+[node name="Node2" type="Node" parent="InputEventHandler/Block"]
+script = ExtResource("6_8dlj1")
+
+[node name="Node3" type="Node" parent="InputEventHandler/Block"]
+script = ExtResource("6_8dlj1")
+
+[node name="Node4" type="Node" parent="InputEventHandler/Block"]
+script = ExtResource("6_8dlj1")
+
+[node name="Node5" type="Node" parent="InputEventHandler/Block"]
+script = ExtResource("6_8dlj1")
+
+[node name="Node6" type="Node" parent="InputEventHandler/Block"]
+script = ExtResource("6_8dlj1")
+
+[node name="Node7" type="Node" parent="InputEventHandler/Block"]
+script = ExtResource("6_8dlj1")
+
+[node name="Node8" type="Node" parent="InputEventHandler/Block"]
+script = ExtResource("6_8dlj1")

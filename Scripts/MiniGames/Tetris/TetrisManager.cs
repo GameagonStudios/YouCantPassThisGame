@@ -48,7 +48,7 @@ public partial class TetrisManager : ColorRect
     }
 
     // Método para generar una pieza aleatoria y colocarla en la parte superior del contenedor
-    private void SpawnPiece()
+    public void SpawnPiece()
     {
         // Seleccionar una pieza aleatoria del array 'pieces'
         int randomIndex = (int)GD.RandRange(0, pieces.Length - 1);

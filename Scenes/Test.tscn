@@ -419,11 +419,8 @@ debug_color = Color(1, 0, 0, 0.419608)
 mesh = SubResource("BoxMesh_x8mav")
 skeleton = NodePath("../..")
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("head", "floorDetector")]
+[node name="Player" type="CharacterBody3D" parent="."]
 script = ExtResource("6_irl46")
-head = NodePath("CameraMountTemp")
-minY = 75.0
-floorDetector = NodePath("ShapeCast3D")
 Acceleration = 50.0
 JumpVelocity = 6.0
 sensivilityKey = &"SENSITIVITY"

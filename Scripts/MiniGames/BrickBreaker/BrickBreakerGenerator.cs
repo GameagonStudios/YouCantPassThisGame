@@ -13,7 +13,7 @@ public partial class BrickBreakerGenerator : Container
 	[Export]
 	int brickWidth = 2;
 	[Export]
-	Node2D WinText;
+	public Node2D WinText;
 	[Export]
 	Array<Color> colorPalette = new Array<Color>() {new Color(1,1,1)};
 

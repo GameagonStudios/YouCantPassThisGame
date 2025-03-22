@@ -98,6 +98,10 @@ public partial class Ball : RigidBody2D
 
         // Aplicamos el factor de reducción si es necesario
         LinearVelocity = LinearVelocity * speedFactor;
+		if(BrickBreakerController.WinText.Visible == true)
+		{
+			this.QueueFree();
+		}
 	}
 	//public override void 
 

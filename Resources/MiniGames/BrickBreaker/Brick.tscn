@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c7ew7dgxqm7nt"]
 
-[ext_resource type="Script" path="res://Scripts/MiniGames/BrickBreaker/BrickBreakerBrick.cs" id="1_jfiy0"]
+[ext_resource type="Script" uid="uid://b10s5ut7dfqw3" path="res://Scripts/MiniGames/BrickBreaker/BrickBreakerBrick.cs" id="1_jfiy0"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_osbr1"]
 friction = 0.0
