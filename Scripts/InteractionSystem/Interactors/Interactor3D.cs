@@ -65,6 +65,5 @@ public partial class Interactor3D : Node3D
         {
             Release();
         }
-        
     }
 }

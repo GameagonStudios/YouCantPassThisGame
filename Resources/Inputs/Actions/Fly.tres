@@ -1,16 +1,16 @@
 [gd_resource type="Resource" script_class="Vector3InputAction" load_steps=2 format=3 uid="uid://h8jt2gqqs8qg"]
 
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector3InputAction.cs" id="1_fpohy"]
+[ext_resource type="Script" uid="uid://cdbueo4g1qh04" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector3InputAction.cs" id="1_fpohy"]
 
 [resource]
 resource_name = "Fly"
 script = ExtResource("1_fpohy")
-AxisXNegative = ["Key A", "JoyAxis LeftX"]
-AxisXPositive = ["Key D", "JoyAxis LeftX"]
-AxisYNegative = ["Key Ctrl", "JoyButton LeftStick"]
-AxisYPositive = ["Key Space", "JoyButton A"]
-AxisZNegative = ["Key S", "JoyAxis LeftY"]
-AxisZPositive = ["Key W", "JoyAxis LeftY"]
+AxisXNegative = Array[String](["Key A", "JoyAxis LeftX"])
+AxisXPositive = Array[String](["Key D", "JoyAxis LeftX"])
+AxisYNegative = Array[String](["Key Ctrl", "JoyButton LeftStick"])
+AxisYPositive = Array[String](["Key Space", "JoyButton A"])
+AxisZNegative = Array[String](["Key S", "JoyAxis LeftY"])
+AxisZPositive = Array[String](["Key W", "JoyAxis LeftY"])
 XNegativeName = "Left"
 XPositiveName = "Right"
 YNegativeName = "Down"

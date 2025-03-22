@@ -200,7 +200,7 @@ namespace InputSystem
                     { "type", (int)Variant.Type.Int },
                     { "usage", (int)PropertyUsageFlags.Default }, // See above assignment.
                     { "hint", (int)PropertyHint.Enum },
-                    { "hint_string", "None, Velocity, Delta, Position, Tilt" }
+                    { "hint_string", "None, PixelVelocity, ScreenVelocity, PixelDelta, ScreenDelta, Position, Tilt" }
                 }
             };
 

@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="ButtonInputAction" load_steps=2 format=3 uid="uid://dw1f6c4qf325r"]
 
-[ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="1_u1ga4"]
+[ext_resource type="Script" uid="uid://c1tu0afldgxa8" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="1_u1ga4"]
 
 [resource]
 resource_name = "Interact"
 script = ExtResource("1_u1ga4")
+Events = Array[String](["Key E", "JoyButton X"])
 MouseInput = 0
-Events = ["Key E", "JoyButton X"]
 Name = "Interact"
 DeadZone = 0.25
 Sleeping = false

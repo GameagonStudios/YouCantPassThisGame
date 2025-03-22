@@ -6,10 +6,10 @@
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="3_nwx1a"]
 [ext_resource type="Script" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="4_ykrfl"]
 [ext_resource type="Script" path="res://Scripts/Utils/EventActuator.cs" id="5_0h3tu"]
-[ext_resource type="Script" path="res://Scripts/MiniGames/BrickBreaker/PaddleController.cs" id="6_1uf5h"]
-[ext_resource type="Script" path="res://Scripts/MiniGames/BrickBreaker/Ball.cs" id="7_vhdvm"]
-[ext_resource type="Script" path="res://Scripts/MiniGames/BrickBreaker/BrickBreakerGenerator.cs" id="8_dmfm0"]
-[ext_resource type="PackedScene" uid="uid://c7ew7dgxqm7nt" path="res://Resources/MiniGames/BrickBreaker/Brick.tscn" id="9_4ieu4"]
+[ext_resource type="Script" path="res://Scripts/BrickBreaker/PaddleController.cs" id="6_1uf5h"]
+[ext_resource type="Script" path="res://Scripts/BrickBreaker/Ball.cs" id="8_7t7us"]
+[ext_resource type="Script" path="res://Scripts/BrickBreaker/BrickBreakerGenerator.cs" id="8_dmfm0"]
+[ext_resource type="PackedScene" uid="uid://c7ew7dgxqm7nt" path="res://Resources/MiniGames/BrickBreaker/Brick.tscn" id="10_umr0e"]
 
 [sub_resource type="Resource" id="Resource_ie6o7"]
 resource_name = "Movment"
@@ -104,7 +104,7 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(15, 19)
 zoom = Vector2(26.62, 26.62)
 
-[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("Background", "rect", "Paddle", "BrickBreakerController")]
+[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("Background", "rect", "Paddle", "WinText", "BrickBreakerController")]
 position = Vector2(17, 32)
 disable_mode = 1
 physics_material_override = SubResource("PhysicsMaterial_vd0mw")
@@ -112,10 +112,11 @@ gravity_scale = 0.0
 lock_rotation = true
 linear_velocity = Vector2(0, -10)
 linear_damp_mode = 1
-script = ExtResource("7_vhdvm")
+script = ExtResource("8_7t7us")
 Background = NodePath("../BackGround")
 rect = NodePath("ColorRect")
 Paddle = NodePath("../Area2D/ColorRect")
+WinText = NodePath("../WinText")
 BrickBreakerController = NodePath("../Container")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
@@ -128,15 +129,16 @@ offset_right = 1.0
 offset_bottom = 1.0
 metadata/_edit_use_anchors_ = true
 
-[node name="Container" type="Container" parent="."]
+[node name="Container" type="Container" parent="." node_paths=PackedStringArray("WinText")]
 offset_left = 4.0
 offset_top = 3.0
 offset_right = 34.0
 offset_bottom = 18.0
 script = ExtResource("8_dmfm0")
-BrickPrefab = ExtResource("9_4ieu4")
+BrickPrefab = ExtResource("10_umr0e")
 initialLines = 5
-colorPalette = [Color(0.627451, 0, 1, 1), Color(0.610279, 0.500843, 0.403241, 1), Color(0.71561, 0.869275, 0.79866, 1), Color(0.183765, 0.329878, 0.577888, 1), Color(0.956275, 0.969679, 0.87529, 1), Color(0.980532, 0.847008, 0.767188, 1)]
+WinText = NodePath("../WinText")
+colorPalette = [Color(1, 0, 0, 1), Color(0, 0.369132, 3.85046e-07, 1), Color(1, 1, 0, 1), Color(0, 0, 0.784314, 1), Color(0.470588, 0, 1, 1)]
 metadata/_edit_use_anchors_ = true
 
 [node name="WinText" type="Node2D" parent="."]
