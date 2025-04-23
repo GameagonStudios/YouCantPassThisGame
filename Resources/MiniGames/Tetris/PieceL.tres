@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PieceData" load_steps=2 format=3 uid="uid://dovbhwtfb5fce"]
+
+[ext_resource type="Script" uid="uid://dlburudp56myy" path="res://Scripts/MiniGames/Tetris/PieceData.cs" id="1_01o2t"]
+
+[resource]
+script = ExtResource("1_01o2t")
+col = Color(1, 0.890196, 0, 1)
+Pos = Array[Vector2]([Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(1, 2)])

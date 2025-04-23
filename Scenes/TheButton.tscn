@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=4 uid="uid://bdqwa4xy6xn5f"]
+[gd_scene load_steps=36 format=4 uid="uid://bdqwa4xy6xn5f"]
 
 [ext_resource type="PackedScene" uid="uid://d328gkmtwq8dd" path="res://3D/Maps/TheButton/TheButton.glb" id="1_016xd"]
 [ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_dqi1d"]
@@ -301,9 +301,6 @@ data = PackedVector3Array(100, 750, 0, -100, 0, 0, 100, 0, 0, 100, 750, 0, -100,
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w5ysr"]
 radius = 0.35
 height = 1.8
-
-[sub_resource type="Resource" id="Resource_xe4ns"]
-metadata/__load_path__ = "res://3D/Characters/Dummy/Dummy.tscn"
 
 [node name="TheButton" type="Node3D"]
 

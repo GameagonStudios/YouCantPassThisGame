@@ -1,25 +1,98 @@
-[gd_scene load_steps=7 format=3 uid="uid://cc67vq0a343ff"]
+[gd_scene load_steps=19 format=3 uid="uid://cc67vq0a343ff"]
 
 [ext_resource type="Script" uid="uid://c8bh5ypjfn0wm" path="res://Scripts/MiniGames/Tetris/TetrisManager.cs" id="1_dreld"]
-[ext_resource type="PackedScene" uid="uid://bbuqjxb2m0k38" path="res://Resources/MiniGames/Tetris/BlockRect.tscn" id="2_mhfx4"]
-[ext_resource type="PackedScene" uid="uid://8wlg2cjxb6rm" path="res://Resources/MiniGames/Tetris/BlockSquad.tscn" id="3_xt7xm"]
-[ext_resource type="PackedScene" uid="uid://bodpm1n0q44hm" path="res://Resources/MiniGames/Tetris/BlockZigzag.tscn" id="4_wbiay"]
-[ext_resource type="PackedScene" uid="uid://baqh3fgf6v4aj" path="res://Resources/MiniGames/Tetris/LBlock.tscn" id="5_2543x"]
-[ext_resource type="PackedScene" uid="uid://cmvt6e72icdym" path="res://Resources/MiniGames/Tetris/MiddBlock.tscn" id="6_g70ft"]
+[ext_resource type="Script" uid="uid://dlburudp56myy" path="res://Scripts/MiniGames/Tetris/PieceData.cs" id="2_durpn"]
+[ext_resource type="Resource" uid="uid://dovbhwtfb5fce" path="res://Resources/MiniGames/Tetris/PieceL.tres" id="3_etvuu"]
+[ext_resource type="Resource" uid="uid://bpmx5ccq0mpqx" path="res://Resources/MiniGames/Tetris/PieceQuad.tres" id="4_44ugv"]
+[ext_resource type="Resource" uid="uid://bbcb7nbstumb" path="res://Resources/MiniGames/Tetris/PieceRect.tres" id="5_cigtn"]
+[ext_resource type="Resource" uid="uid://bpvxyr5utln63" path="res://Resources/MiniGames/Tetris/PieceTree.tres" id="6_5vbpk"]
+[ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="7_urfqo"]
+[ext_resource type="Script" uid="uid://t0cmlswemv15" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="8_l4jvv"]
+[ext_resource type="Script" uid="uid://cyltkd572m4ig" path="res://addons/SKInputSystem/InputSystem/InputAction.cs" id="9_wf8jf"]
+[ext_resource type="Script" uid="uid://ba8gjttvae2wj" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector2InputAction.cs" id="10_ohmf6"]
+[ext_resource type="Script" uid="uid://caspgt78xg48h" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="11_eslrf"]
+[ext_resource type="Script" uid="uid://c1tu0afldgxa8" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="11_l4jvv"]
+[ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="12_urfqo"]
+
+[sub_resource type="Resource" id="Resource_h5prt"]
+resource_name = "Move"
+script = ExtResource("10_ohmf6")
+AxisXNegative = Array[String](["Key A", "JoyAxis LeftX"])
+AxisXPositive = Array[String](["Key D", "JoyAxis RightX"])
+AxisYNegative = Array[String]([])
+AxisYPositive = Array[String](["JoyAxis RightY", "Key S"])
+XNegativeName = "Right"
+XPositiveName = "Left"
+YNegativeName = "Down"
+YPositiveName = "Up"
+MouseInput = 0
+Name = "Move"
+DeadZone = 0.25
+Sleeping = false
+metadata/_custom_type_script = "uid://ba8gjttvae2wj"
+
+[sub_resource type="Resource" id="Resource_e65oa"]
+resource_name = "Move"
+script = ExtResource("8_l4jvv")
+Name = "Move"
+Actions = Array[ExtResource("9_wf8jf")]([SubResource("Resource_h5prt")])
+Sleeping = false
+metadata/_custom_type_script = "uid://t0cmlswemv15"
+
+[sub_resource type="Resource" id="Resource_wf8jf"]
+resource_name = "Rotation"
+script = ExtResource("11_l4jvv")
+Events = Array[String](["Key R"])
+MouseInput = 0
+Name = "Rotation"
+DeadZone = 0.25
+Sleeping = false
+metadata/_custom_type_script = "uid://c1tu0afldgxa8"
+
+[sub_resource type="Resource" id="Resource_ohmf6"]
+resource_name = "Rotation"
+script = ExtResource("8_l4jvv")
+Name = "Rotation"
+Actions = Array[ExtResource("9_wf8jf")]([SubResource("Resource_wf8jf")])
+Sleeping = false
+metadata/_custom_type_script = "uid://t0cmlswemv15"
+
+[sub_resource type="Resource" id="Resource_46k44"]
+resource_name = "InputMap"
+script = ExtResource("11_eslrf")
+Name = "InputMap"
+Groups = Array[ExtResource("8_l4jvv")]([SubResource("Resource_e65oa"), SubResource("Resource_ohmf6")])
+metadata/_custom_type_script = "uid://caspgt78xg48h"
 
 [node name="Tetris" type="Node2D"]
 
-[node name="BackGround" type="ColorRect" parent="."]
-offset_left = 2.0
-offset_top = 1.0
-offset_right = 34.0
-offset_bottom = 33.0
+[node name="BackGround" type="ColorRect" parent="." node_paths=PackedStringArray("BackGround")]
+offset_right = 32.0
+offset_bottom = 32.0
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_dreld")
-pieces = Array[PackedScene]([ExtResource("2_mhfx4"), ExtResource("3_xt7xm"), ExtResource("4_wbiay"), ExtResource("5_2543x"), ExtResource("6_g70ft")])
-colorPalette = Array[Color]([Color(1, 1, 0, 1), Color(1, 0, 0, 1), Color(0, 1, 0, 1), Color(0, 1, 1, 1), Color(1, 0.431373, 0, 1)])
+Piece = Array[ExtResource("2_durpn")]([ExtResource("3_etvuu"), ExtResource("4_44ugv"), ExtResource("5_cigtn"), ExtResource("6_5vbpk")])
+BackGround = NodePath(".")
 metadata/_edit_use_anchors_ = true
 
 [node name="Camera2D" type="Camera2D" parent="BackGround"]
 position = Vector2(15, 19)
 zoom = Vector2(26.62, 26.62)
+
+[node name="InputEventHandler" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("7_urfqo")
+inputMap = SubResource("Resource_46k44")
+
+[node name="Move" type="Node" parent="InputEventHandler"]
+
+[node name="Move" type="Node" parent="InputEventHandler/Move"]
+script = ExtResource("12_urfqo")
+
+[node name="Rotation" type="Node" parent="InputEventHandler"]
+
+[node name="Rotation" type="Node" parent="InputEventHandler/Rotation"]
+script = ExtResource("12_urfqo")
+
+[connection signal="onInvoke" from="InputEventHandler/Move/Move" to="BackGround" method="TryMovePiece"]
+[connection signal="onInvoke" from="InputEventHandler/Rotation/Rotation" to="BackGround" method="Rotate"]

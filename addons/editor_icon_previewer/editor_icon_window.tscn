@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://borp7xe2de2u0"]
 
-[ext_resource type="Script" uid="uid://cnqs2gnuhdht6" path="res://addons/editor_icon_previewer/editor_icon_window.gd" id="1"]
+[ext_resource type="Script" uid="uid://igo275frsw3v" path="res://addons/editor_icon_previewer/editor_icon_window.gd" id="1"]
 
 [sub_resource type="Image" id="Image_bsfgp"]
 data = {

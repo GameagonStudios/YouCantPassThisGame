@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://7782tkm11uco"]
 
 [ext_resource type="PackedScene" uid="uid://bme8twac4ick5" path="res://addons/panku_console/modules/interactive_shell/input_field/input_area.tscn" id="1_cerpp"]
-[ext_resource type="Script" uid="uid://ckej37wrnw0u0" path="res://addons/panku_console/modules/interactive_shell/mini_repl_2.gd" id="1_qrxrm"]
-[ext_resource type="Script" uid="uid://d1uvpywksfr31" path="res://addons/panku_console/modules/interactive_shell/console_ui/repl.gd" id="1_tygtx"]
+[ext_resource type="Script" uid="uid://bysx28thibdu8" path="res://addons/panku_console/modules/interactive_shell/mini_repl_2.gd" id="1_qrxrm"]
+[ext_resource type="Script" uid="uid://dgw8m00w35laa" path="res://addons/panku_console/modules/interactive_shell/console_ui/repl.gd" id="1_tygtx"]
 [ext_resource type="PackedScene" uid="uid://cbijhl1nhy64n" path="res://addons/panku_console/modules/interactive_shell/console_ui/help_bar.tscn" id="2_2k26n"]
-[ext_resource type="Shader" uid="uid://h2lnwiqx5srx" path="res://addons/panku_console/res/shader/simple_fast_blur.gdshader" id="4_djxpe"]
+[ext_resource type="Shader" uid="uid://di367e33a7qf5" path="res://addons/panku_console/res/shader/simple_fast_blur.gdshader" id="4_djxpe"]
 [ext_resource type="PackedScene" uid="uid://b3jf18wonocnv" path="res://addons/panku_console/modules/interactive_shell/hints_list/hints_list.tscn" id="5_i3ldx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xs7bl"]

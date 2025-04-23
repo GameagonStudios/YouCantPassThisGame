@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ctkjjob4p1c83"]
+[gd_scene load_steps=41 format=3 uid="uid://ctkjjob4p1c83"]
 
 [ext_resource type="PackedScene" uid="uid://dqwynxbg3ejn6" path="res://Resources/Nodes/pause_menu.tscn" id="1_j4yx3"]
 [ext_resource type="Texture2D" uid="uid://b6sp4vcirpc6e" path="res://2D/Textures/LightCheckerTexture.png" id="2_8hhec"]
@@ -11,9 +11,6 @@
 [ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="8_bj7c1"]
 [ext_resource type="Resource" uid="uid://bovdny6kjjej2" path="res://Resources/Inputs/InputMap.tres" id="9_tv32n"]
 [ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="10_gvm4v"]
-[ext_resource type="AudioStream" uid="uid://c7vf1jklhesg7" path="res://Audio/Music/super random playlist to dance to).mp3" id="11_r44na"]
-[ext_resource type="Script" path="res://Scripts/UI/Options/BaseController/AudioController.cs" id="12_apr4l"]
-[ext_resource type="AudioStream" uid="uid://clrdh4vqlwfbp" path="res://Audio/Sounds/mixkit-small-group-cheer-and-applause-518 (1).wav" id="13_um2r1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw65n"]
 sky_top_color = Color(0, 0.682353, 0.952941, 1)
@@ -116,6 +113,18 @@ height = 1.8
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8nc5n"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5ii7m"]
+
+[sub_resource type="Resource" id="Resource_q1wcb"]
+metadata/__load_path__ = "res://Audio/Music/super random playlist to dance to).mp3"
+
+[sub_resource type="Resource" id="Resource_ikgme"]
+metadata/__load_path__ = "res://Scripts/UI/Options/BaseController/AudioController.cs"
+
+[sub_resource type="Resource" id="Resource_kh0oj"]
+metadata/__load_path__ = "res://Audio/Sounds/mixkit-small-group-cheer-and-applause-518 (1).wav"
+
+[sub_resource type="Resource" id="Resource_vmfxn"]
+metadata/__load_path__ = "res://Scripts/UI/Options/BaseController/AudioController.cs"
 
 [node name="Node3D" type="Node3D"]
 
@@ -802,19 +811,19 @@ script = ExtResource("10_gvm4v")
 script = ExtResource("10_gvm4v")
 
 [node name="MusicAudio" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("11_r44na")
+stream = SubResource("Resource_q1wcb")
 volume_db = -20.0
 autoplay = true
 bus = &"Music"
-script = ExtResource("12_apr4l")
+script = SubResource("Resource_ikgme")
 BusName = "Music"
 VolumeKey = "VOLUME"
 
 [node name="Voices" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("13_um2r1")
+stream = SubResource("Resource_kh0oj")
 autoplay = true
 bus = &"VOCES"
-script = ExtResource("12_apr4l")
+script = SubResource("Resource_vmfxn")
 BusName = "VOCES"
 VolumeKey = "VOICES"
 

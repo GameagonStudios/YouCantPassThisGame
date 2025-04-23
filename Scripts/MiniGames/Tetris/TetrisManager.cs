@@ -3,84 +3,276 @@ using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using InputSystem;
 
-
-public partial class TetrisManager : ColorRect
+namespace Tetris
 {
-	[Export] 
-	public PackedScene[] pieces;
-
- 	private List<PackedScene> Blocks = new List<PackedScene>();
-
-    private float fallSpeed = 1.0f;  // Velocidad de caída de las piezas
-    private float timeSinceLastFall = 0.0f;  // Tiempo acumulado desde la última caída
-    // Llamado cuando el nodo entra en el árbol de nodos por primera vez.
-
-    [Export]
-	Array<Color> colorPalette = new Array<Color>() {new Color(1,1,1)};
-    public override void _Ready()
+    public partial class TetrisManager : ColorRect
     {
-        // Generar la primera pieza aleatoria
-        SpawnPiece();
-    }
 
-    // Llamado cada frame. 'delta' es el tiempo transcurrido desde el frame anterior.
-    public override void _Process(double delta)
-    {
-        /*timeSinceLastFall += (float)delta;
+        [Export]
+        public Godot.Collections.Array<PieceData> Piece = new();
 
-        // Si ha pasado el tiempo suficiente, hacemos caer la pieza
-        if (timeSinceLastFall >= fallSpeed)
+        [Export]
+        public ColorRect BackGround;
+        
+        [Export]
+        private float fallSpeed = 1.0f;  // Velocidad de caída de las piezas
+
+        [Export]
+        private float minFallSpeed = 0.1f;        // Límite mínimo
+
+        [Export]
+        private float speedDecreaseStep = 0.05f;  // Cuánto se reduce cada vez
+
+        [Export]
+        private float speedIncreaseInterval = 10f; // Cada cuántos segundos se acelera
+        private float totalGameTime = 0.0f;
+        private float timeSinceLastFall = 0.0f;  // Tiempo acumulado desde la última caída
+                                                 // Llamado cuando el nodo entra en el árbol de nodos por primera vez.
+        private Node2D currentPiece;  // Nodo que contiene las partes de la pieza actual
+        Vector2 direction;
+
+        private ColorRect[,] board;
+
+
+
+
+        public override void _Ready()
         {
-            timeSinceLastFall = 0.0f;
+            int width = (int)BackGround.Size.X;
+            int height = (int)BackGround.Size.Y;
+            board = new ColorRect[width, height];
 
-            // Mover todas las piezas hacia abajo
-            foreach (var block in Blocks)
+            // Inicializa todos los valores a 0 explícitamente (opcional, pero claro)
+            for (int x = 0; x < width; x++)
             {
-                if (block is PackedScene piece)
+                for (int y = 0; y < height; y++)
                 {
-                    piece += new Vector2(0, 1);  // Mueve la pieza hacia abajo
+                    board[x, y] = null;
+                }
+            }
+            // Generar la primera pieza aleatoria
+            SpawnPiece();
+        }
+
+        // Llamado cada frame. 'delta' es el tiempo transcurrido desde el frame anterior.
+        public override void _Process(double delta)
+        {
+            timeSinceLastFall += (float)delta;
+            totalGameTime += (float)delta;
+
+            // Aumentar la velocidad con el tiempo, con un límite
+            if (totalGameTime >= speedIncreaseInterval)
+            {
+                if (fallSpeed > minFallSpeed)
+                    fallSpeed = Math.Max(fallSpeed - speedDecreaseStep, minFallSpeed);
+
+                totalGameTime = 0f;
+            }
+
+            if (timeSinceLastFall >= fallSpeed)
+            {
+                timeSinceLastFall = 0.0f;
+
+                // Intentar mover hacia abajo
+                bool canMoveDown = true;
+                Vector2 direction = new Vector2(0, 1);
+
+                foreach (Node child in currentPiece.GetChildren())
+                {
+                    if (child is ColorRect colorRect)
+                    {
+                        Vector2 nextGlobalPos = colorRect.GlobalPosition + direction;
+                        int x = Mathf.RoundToInt(nextGlobalPos.X);
+                        int y = Mathf.RoundToInt(nextGlobalPos.Y);
+
+                        // Verificar si está fuera del fondo o colisiona con una celda ocupada
+                        if (y >= (int)BackGround.Size.Y || x < 0 || x >= (int)BackGround.Size.X || board[x, y] != null)
+                        {
+                            canMoveDown = false;
+                            break;
+                        }
+                    }
+                }
+
+                if (canMoveDown)
+                {
+                    currentPiece.Position += direction;
+                }
+                else
+                {
+                    // Marcar bloques como ocupados en el board
+                    foreach (Node child in currentPiece.GetChildren())
+                    {
+                        if (child is ColorRect colorRect)
+                        {
+                            int x = (int)colorRect.GlobalPosition.X;
+                            int y = (int)colorRect.GlobalPosition.Y;
+
+                            // Solo asignamos si está dentro del área del fondo para evitar errores
+                            if (x >= 0 && x < board.GetLength(0) && y >= 0 && y < board.GetLength(1))
+                            {
+                                board[x, y] = colorRect;
+                            }
+                        }
+                    }
+
+                    // Generar nueva pieza
+                    SpawnPiece();
                 }
             }
 
-            // Aquí deberías agregar más lógica para manejar la colisión con otras piezas o el fondo
-        }*/
-    }
-
-    // Método para generar una pieza aleatoria y colocarla en la parte superior del contenedor
-    public void SpawnPiece()
-    {
-        // Seleccionar una pieza aleatoria del array 'pieces'
-        int randomIndex = (int)GD.RandRange(0, pieces.Length - 1);
-        
-        PackedScene randomPieceScene = pieces[randomIndex];
-
-        // Instanciar la pieza
-        Pieces pieceInstance = (Pieces)randomPieceScene.Instantiate();
-
-        // Obtener el tamaño de la pieza (solo el valor en X para verificar que encaje en la pantalla)
-        float pieceWidth = NodeUtils.GetSize<ColorRect>(pieceInstance).X;
-
-        // Generar una posición aleatoria en el eje X (en el rango de la anchura de la pantalla)
-        int randomX = (int)GD.RandRange(0, this.Size.X);
-
-        // Ajustar la posición X solo si la pieza sobresale del límite derecho
-        if (randomX + pieceWidth > this.Size.X)
-        {
-            randomX = (int)this.Size.X - (int)pieceWidth;  // Ajustamos para que la pieza no se salga por la derecha
+            // Aquí puedes añadir controles de izquierda/derecha si quieres
         }
 
-        // Coloca la pieza en la parte superior de la pantalla, pero con la posición X ajustada
-        pieceInstance.Position = new Vector2(randomX, 0);  // Coloca la pieza en la parte superior
+        public void Rotate(InputActionState state)
+        {
+            if (state.state == InputActionState.PressState.JustPressed)
+            {
+                // Recoger bloques e inicializar
+                var blocks = currentPiece.GetChildren().OfType<ColorRect>().ToList();
+                var originalPositions = blocks.Select(b => b.Position).ToList();
 
-        // Asignar un color aleatorio
-        pieceInstance.setColor(colorPalette.PickRandom());
+                // Calcular el centro de rotación (pivote) como el centro promedio
+                Vector2 pivot = Vector2.Zero;
+                foreach (var pos in originalPositions)
+                    pivot += pos;
+                pivot /= originalPositions.Count;
 
-        // Agregar la pieza al contenedor para que se vea en pantalla
-        AddChild(pieceInstance);
+                // Rotar 90º horario respecto al pivote
+                for (int i = 0; i < blocks.Count; i++)
+                {
+                    Vector2 local = originalPositions[i] - pivot;
+                    Vector2 rotated = new Vector2(-local.Y, local.X);
+                    blocks[i].Position = rotated + pivot;
+                }
 
-        // Agregar la pieza a la lista de bloques
-        Blocks.Add(randomPieceScene);
+                // Validar si la rotación es válida
+                bool isValid = true;
+                foreach (var block in blocks)
+                {
+                    Vector2 global = currentPiece.Position + block.Position;
+                    int x = (int)global.X;
+                    int y = (int)global.Y;
+
+                    if (x < 0 || x >= BackGround.Size.X || y < 0 || y >= BackGround.Size.Y || board[x, y] != null)
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+
+                // Si no es válida, revertir
+                if (!isValid)
+                {
+                    for (int i = 0; i < blocks.Count; i++)
+                        blocks[i].Position = originalPositions[i];
+                }
+            }
+
+        }
+
+
+        private void TryMovePiece(InputActionState state)
+        {
+            // Solo permitir movimientos en un eje a la vez (no diagonal)
+            Vector2 rawDirection = (Vector2)state.strength;
+
+            if (Mathf.Abs(rawDirection.X) > Mathf.Abs(rawDirection.Y))
+                direction = new Vector2(Mathf.Sign(rawDirection.X), 0); // Movimiento horizontal
+            else
+                direction = new Vector2(0, Mathf.Sign(rawDirection.Y)); // Movimiento vertical
+
+            bool canMove = true;
+
+            foreach (Node child in currentPiece.GetChildren())
+            {
+                if (child is ColorRect colorRect)
+                {
+                    Vector2 nextGlobalPos = colorRect.GlobalPosition + direction;
+                    int x = Mathf.RoundToInt(nextGlobalPos.X);
+                    int y = Mathf.RoundToInt(nextGlobalPos.Y);
+                    GD.Print(y);
+                    GD.Print(BackGround.Size.Y );
+                    // Comprobación de límites
+                    if (x < 0 || x >= BackGround.Size.X || y < 0 || y >= BackGround.Size.Y)
+                    {
+                        canMove = false;
+                        break;
+                    }
+
+                    // Verificar colisión con otras piezas
+                    if (board[x, y] != null)
+                    {
+                        canMove = false;
+                        break;
+                    }
+                }
+            }
+
+            if (canMove)
+            {
+                currentPiece.Position += direction;
+            }
+        }
+
+        // Método para generar una pieza aleatoria y colocarla en la parte superior del contenedor
+        public void SpawnPiece()
+        {
+            // Escoger una pieza aleatoria desde el array de PieceData
+            var random = new Random();
+
+            PieceData randomPieceData = Piece[random.Next(Piece.Count)];
+
+
+            // Crear un nodo contenedor para las partes de la pieza
+            currentPiece = new Node2D();
+            AddChild(currentPiece);
+             
+            int randomX = (int)GD.RandRange(0, BackGround.Size.X -1); // Asegura que la pieza no se salga del fondo
+            //GD.Print(randomX);
+           currentPiece.Position = new Vector2(randomX, 0);
+
+            // Crear las partes de la pieza usando los datos de PieceData
+            for (int i = 0; i < randomPieceData.Pos.Count; i++)
+            {
+               // GD.Print(randomPieceData.Pos.Count);
+                
+                ColorRect colorRect = new ColorRect
+                {
+                    Color = randomPieceData.col,
+                    Size = new Vector2(1, 1),  // Tamaño de cada bloque (puedes ajustar)
+                    Position = randomPieceData.Pos[i],  // Ajustar la posición de las partes según el Vector2 de PieceData
+                };
+                currentPiece.AddChild(colorRect);
+            }
+
+            HashSet<int> posicionesXSobresalientes = new();
+
+            foreach (Node child in currentPiece.GetChildren())
+            {
+                if (child is ColorRect colorRect)
+                {
+
+                    if (colorRect.GlobalPosition.X >= BackGround.Position.X + BackGround.Size.X)
+                    {
+                        // Convertimos a int la posición X sobresaliente
+                        int x = (int)colorRect.GlobalPosition.X;
+
+                        posicionesXSobresalientes.Add(x); // HashSet evita duplicados automáticamente
+                        
+
+                    }
+                }
+            }
+
+
+            currentPiece.Position -= new Vector2((float)posicionesXSobresalientes.Count, 0);
+            
+
+        }
+
     }
-	
 }
+

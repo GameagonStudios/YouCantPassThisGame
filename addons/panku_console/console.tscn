@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cyftuo4syatlv"]
 
-[ext_resource type="Script" uid="uid://c0iaamb6khbuo" path="res://addons/panku_console/console.gd" id="1_dohs1"]
-[ext_resource type="Script" uid="uid://b72vlmjim06u5" path="res://addons/panku_console/common/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
+[ext_resource type="Script" uid="uid://bw35k074v056c" path="res://addons/panku_console/console.gd" id="1_dohs1"]
+[ext_resource type="Script" uid="uid://bpuwfqath6y4t" path="res://addons/panku_console/common/lynx_window2/lynx_windows_manager_2.gd" id="10_f7qaq"]
 
 [node name="Console" type="CanvasLayer"]
 process_mode = 3
