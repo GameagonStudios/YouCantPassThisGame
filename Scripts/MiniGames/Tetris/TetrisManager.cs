@@ -32,6 +32,7 @@ namespace Tetris
                                                  // Llamado cuando el nodo entra en el árbol de nodos por primera vez.
         private Node2D currentPiece;  // Nodo que contiene las partes de la pieza actual
         Vector2 direction;
+        private Vector2? pivotOverride = null; // <- Nuevo
 
         private ColorRect[,] board;
 
@@ -126,54 +127,82 @@ namespace Tetris
             // Aquí puedes añadir controles de izquierda/derecha si quieres
         }
 
-        public void Rotate(InputActionState state)
+
+
+        public void SetPivot(Vector2 pivot)
         {
-            if (state.state == InputActionState.PressState.JustPressed)
-            {
-                // Recoger bloques e inicializar
-                var blocks = currentPiece.GetChildren().OfType<ColorRect>().ToList();
-                var originalPositions = blocks.Select(b => b.Position).ToList();
-
-                // Calcular el centro de rotación (pivote) como el centro promedio
-                Vector2 pivot = Vector2.Zero;
-                foreach (var pos in originalPositions)
-                    pivot += pos;
-                pivot /= originalPositions.Count;
-
-                // Rotar 90º horario respecto al pivote
-                for (int i = 0; i < blocks.Count; i++)
-                {
-                    Vector2 local = originalPositions[i] - pivot;
-                    Vector2 rotated = new Vector2(-local.Y, local.X);
-                    blocks[i].Position = rotated + pivot;
-                }
-
-                // Validar si la rotación es válida
-                bool isValid = true;
-                foreach (var block in blocks)
-                {
-                    Vector2 global = currentPiece.Position + block.Position;
-                    int x = (int)global.X;
-                    int y = (int)global.Y;
-
-                    if (x < 0 || x >= BackGround.Size.X || y < 0 || y >= BackGround.Size.Y || board[x, y] != null)
-                    {
-                        isValid = false;
-                        break;
-                    }
-                }
-
-                // Si no es válida, revertir
-                if (!isValid)
-                {
-                    for (int i = 0; i < blocks.Count; i++)
-                        blocks[i].Position = originalPositions[i];
-                }
-            }
-
+            pivotOverride = pivot;
         }
 
+public void Rotate(InputSystem.InputActionState state)
+{
+    if (state.state != InputSystem.InputActionState.PressState.JustPressed || currentPiece == null)
+        return;
 
+    // 1) Recoger bloques y sus posiciones locales originales
+    List<ColorRect> blocks = currentPiece.GetChildren().OfType<ColorRect>().ToList();
+    List<Vector2> originalLocal = blocks.Select(b => b.Position).ToList();
+
+    // 2) Calcular pivote local (centro de masa)
+    Vector2 pivot = Vector2.Zero;
+    foreach (Vector2 pos in originalLocal)
+        pivot += pos;
+    pivot /= originalLocal.Count;
+
+    // 3) Simular rotación local 90° horario (con redondeo para grid)
+    List<Vector2> rotatedLocal = new List<Vector2>(blocks.Count);
+    foreach (Vector2 pos in originalLocal)
+    {
+        Vector2 d = pos - pivot;
+        Vector2 r = new Vector2(-d.Y, d.X) + pivot;
+        rotatedLocal.Add(new Vector2(Mathf.Round(r.X), Mathf.Round(r.Y)));
+    }
+
+    // 4) Corregir para que no salga por derecha o izquierda
+    //    Calculamos minX y maxX de los bloques rotados, en coordenadas de pieza
+    float minX = rotatedLocal.Min(p => p.X);
+    float maxX = rotatedLocal.Max(p => p.X);
+    float correctionX = 0;
+    // Si se sale por la izquierda (minX + pieceX < 0), empuja hacia la derecha
+    if (currentPiece.Position.X + minX < 0)
+        correctionX = -(currentPiece.Position.X + minX);
+    // Si se sale por la derecha (maxX + pieceX >= width), empuja hacia la izquierda
+    else if (currentPiece.Position.X + maxX >= board.GetLength(0))
+        correctionX = (board.GetLength(0) - 1) - (currentPiece.Position.X + maxX);
+
+    // 5) Aplicar corrección X a la rotación simulada
+    for (int i = 0; i < rotatedLocal.Count; i++)
+        rotatedLocal[i] += new Vector2(correctionX, 0);
+
+    // 6) Verificar colisión con otras piezas o suelo
+    bool valid = true;
+    for (int i = 0; i < blocks.Count; i++)
+    {
+        Vector2 global = currentPiece.Position + rotatedLocal[i];
+        int x = Mathf.RoundToInt(global.X);
+        int y = Mathf.RoundToInt(global.Y);
+        if (x < 0 || x >= board.GetLength(0) ||
+            y < 0 || y >= board.GetLength(1) ||
+            board[x, y] != null)
+        {
+            valid = false;
+            break;
+        }
+    }
+
+    // 7) Aplicar si es válido
+    if (valid)
+    {
+        for (int i = 0; i < blocks.Count; i++)
+            blocks[i].Position = rotatedLocal[i];
+    }
+    // Si no es válido (colisión con otra pieza), revertimos la rotación entera
+    else
+    {
+        for (int i = 0; i < blocks.Count; i++)
+            blocks[i].Position = originalLocal[i];
+    }
+}
         private void TryMovePiece(InputActionState state)
         {
             // Solo permitir movimientos en un eje a la vez (no diagonal)
