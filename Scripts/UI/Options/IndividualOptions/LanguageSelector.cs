@@ -1,7 +1,7 @@
 using Godot;
 namespace Options
 {
-	[GlobalClass, Tool]
+	[GlobalClass, GodotClassName("LanguageSelector"), Tool]
 	public partial class LanguageSelector : OptionButtonController
 	{
 		public override void CreateOptions()

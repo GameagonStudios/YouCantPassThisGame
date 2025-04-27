@@ -37,5 +37,14 @@ namespace Options
 		{
 			OptionsSavesHandler.Current.SetValue(key, data);
 		}
+
+		public void SelectNext()
+		{
+			var index = (Selected + 1) % ItemCount;
+
+			Select((Selected + 1) % ItemCount);
+
+			OnItemSelected(GetItemId(index));
+		}
 	}
 }

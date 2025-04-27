@@ -52,8 +52,8 @@ namespace Options
 			base.OnItemSelected(data);
 
 			Vector2I res = (Vector2I)data;
-			
-			DisplayServer.WindowSetSize(res,0);
+
+			DisplayServer.WindowSetSize(res, 0);
 			GetWindow().ContentScaleSize = res;
 		}
 	}

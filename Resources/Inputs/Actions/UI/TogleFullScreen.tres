@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ButtonInputAction" load_steps=2 format=3 uid="uid://bor4dehma6wyr"]
+
+[ext_resource type="Script" uid="uid://c1tu0afldgxa8" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="1_20x01"]
+
+[resource]
+resource_name = "TogleFullScreen"
+script = ExtResource("1_20x01")
+Events = Array[String](["Key F11"])
+MouseInput = 0
+Name = "TogleFullScreen"
+DeadZone = 0.25
+Sleeping = false
+metadata/_custom_type_script = "uid://c1tu0afldgxa8"

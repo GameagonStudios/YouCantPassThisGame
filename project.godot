@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 Panku="*res://addons/panku_console/console.tscn"
-GlobalWorldEnvironment="*res://Resources/Nodes/GlobalWorldEnvironment.tscn"
 
 [display]
 
@@ -35,7 +34,7 @@ project/assembly_name="YouCantFinishThisGame"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/panku_console/plugin.cfg")
+enabled=PackedStringArray("res://addons/SKInputSystem/plugin.cfg", "res://addons/panku_console/plugin.cfg")
 
 [file_customization]
 
@@ -48,6 +47,7 @@ folder_colors={
 "res://Resources/Nodes/": "orange",
 "res://Scenes/": "yellow",
 "res://Scripts/": "green",
+"res://Shaders/": "teal",
 "res://addons/": "gray"
 }
 
@@ -101,7 +101,9 @@ locale/translations=PackedStringArray("res://Translations/Translations.en.transl
 [rendering]
 
 occlusion_culling/bvh_build_quality=1
-textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=true
 scaling_3d/fsr_sharpness=0.2
 environment/defaults/default_clear_color=Color(0.301961, 0.301961, 0.301961, 1)
 occlusion_culling/use_occlusion_culling=true

@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cakoqq6nrchd3"
-path.bptc="res://.godot/imported/Dummy_DummyNormal4K.png-2e811aa8c2302c65156982fba03948bc.bptc.ctex"
+path.s3tc="res://.godot/imported/Dummy_DummyNormal4K.png-2e811aa8c2302c65156982fba03948bc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -15,12 +15,12 @@ generator_parameters={
 [deps]
 
 source_file="res://3D/Characters/Dummy/Dummy_DummyNormal4K.png"
-dest_files=["res://.godot/imported/Dummy_DummyNormal4K.png-2e811aa8c2302c65156982fba03948bc.bptc.ctex"]
+dest_files=["res://.godot/imported/Dummy_DummyNormal4K.png-2e811aa8c2302c65156982fba03948bc.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=true
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=0
 compress/normal_map=2

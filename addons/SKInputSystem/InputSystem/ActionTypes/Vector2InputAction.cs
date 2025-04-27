@@ -7,7 +7,7 @@ using static InputSystem.InputActionState;
 
 namespace InputSystem
 {
-    [GlobalClass, Tool]
+    [GlobalClass, GodotClassName("Vector2InputAction"), Tool]
     public partial class Vector2InputAction : InputAction
     {
         [Export] public Array<string> AxisXNegative
@@ -137,7 +137,7 @@ namespace InputSystem
 
         InputActionState CalculateTotalState()
         {
-            if (Math.Abs(((Vector2)_state.strength).Length()) > DeadZone)
+            if (Math.Abs(((Vector2)_state.strength).Length()) > DeadZone || _state.inputEvent is InputEventMouseMotion)
             {
                 if (_state.state < PressState.JustPressed)
                 {
@@ -200,7 +200,7 @@ namespace InputSystem
                     { "type", (int)Variant.Type.Int },
                     { "usage", (int)PropertyUsageFlags.Default }, // See above assignment.
                     { "hint", (int)PropertyHint.Enum },
-                    { "hint_string", "None, PixelVelocity, ScreenVelocity, PixelDelta, ScreenDelta, Position, Tilt" }
+                    { "hint_string", "None, PixelVelocity, ScreenVelocity, PixelDelta, ScreenDelta, SmoothScreenDelta, Position, Tilt" }
                 }
             };
 

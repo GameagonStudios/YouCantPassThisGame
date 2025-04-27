@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using InputSystem;
 using System;
 
@@ -9,7 +10,26 @@ public partial class WalkingController : CharacterBody3D
 	public Node3D head;
 
 	[Export(PropertyHint.Range, "0,180")]
-	public float minY = 90, maxY = 90;
+	public float MinY
+	{
+		get => Mathf.RadToDeg(minYrad);
+		set => minYrad = Mathf.DegToRad(value);
+	}
+
+	[Export(PropertyHint.Range, "0,180")]
+	public float MaxY
+	{
+		get => Mathf.RadToDeg(maxYrad);
+		set => maxYrad = Mathf.DegToRad(value);
+	}
+
+	public float minYrad = Mathf.Pi, maxYrad = Mathf.Pi;
+
+	[Export]
+	ulong RotationSmoothness = 10;
+
+	Vector2 LookDelta;
+	Vector2 rotationVelocity;
 
 	[ExportGroup("Movement")]
 	[Export]
@@ -27,22 +47,25 @@ public partial class WalkingController : CharacterBody3D
 	[Export]
 	public float JumpVelocity = 4.5f;
 
+	[Export]
+	public bool resetJump = true;
+
 	public float RotationSensitivity = 1;
 
 	[Export(PropertyHint.Range, "0,1")]
 	public float AirFrictioin = 0.1f;
 
 	[Export]
+	ulong terminalVelocity = 50;
+
+	[Export]
 	private StringName sensivilityKey;
 
-	Vector2 MovementDir;
+	public Vector2 MovementDir { get; private set; }
 
 	bool Running;
 
 	float Speed => Running ? runSpeed : walkSpeed;
-
-	Vector2 LookDelta;
-	Vector2 lastLookDelta;
 
 	bool isPersistentLookDelta = false;
 
@@ -59,6 +82,8 @@ public partial class WalkingController : CharacterBody3D
 	Vector3 FlorNormal = Vector3.Up;
 
 	bool OnFloor = false;
+
+	Vector3 lastVel = Vector3.Zero;
 
 	public override void _EnterTree()
 	{
@@ -98,17 +123,18 @@ public partial class WalkingController : CharacterBody3D
 
 	public void Look(InputActionState state)
 	{
+
 		if (state.inputEvent is InputEventMouseMotion)
 		{
-			LookDelta = (Vector2)state.strength;
+			var unhandledDelta = (Vector2)state.strength;
 
-			LookDelta = new(LookDelta.X, -LookDelta.Y);
+			LookDelta += new Vector2(unhandledDelta.X, -unhandledDelta.Y);
 
 			isPersistentLookDelta = false;
 		}
 		else
 		{
-			LookDelta = (Vector2)state.strength;
+			LookDelta = (Vector2)state.strength * 10;
 
 			isPersistentLookDelta = true;
 		}
@@ -126,37 +152,27 @@ public partial class WalkingController : CharacterBody3D
 		}
 	}
 
+	Vector2 lastMousePos = Vector2.Zero;
+
 	public override void _Process(double delta)
 	{
-		if (isPersistentLookDelta)
+		if (LookDelta != Vector2.Zero)
 		{
-			if (LookDelta != Vector2.Zero) UpdateRotation(LookDelta * RotationSensitivity * 360, delta);
-
-			lastLookDelta = LookDelta;
-		}
-		else
-		{
-			LookDelta = lastLookDelta.Lerp(LookDelta, (float)delta*20);
-
-			if (LookDelta != Vector2.Zero) UpdateRotation(LookDelta * RotationSensitivity * (1 / (float)delta / 2), delta);
-
-			lastLookDelta = LookDelta;
-
-			LookDelta = Vector2.Zero;
+			UpdateRotation(LookDelta * RotationSensitivity * MathF.PI, 0.001f);
+			if (!isPersistentLookDelta) LookDelta = Vector2.Zero;
 		}
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		DetectFloor();
-		Updatemovement(delta);
+		Updatemovement((float)delta);
 	}
 
-	void UpdateRotation(Vector2 degrees, double delta)
+	void UpdateRotation(Vector2 radians, float delta)
 	{
-		head.RotationDegrees = new(Math.Clamp(head.RotationDegrees.X - degrees.Y * (float)delta, -maxY, minY), 0, 0);
-
-		RotateY(Mathf.DegToRad(-degrees.X * (float)delta));
+		head.Rotation = new(Math.Clamp(head.Rotation.X - radians.Y * delta, -maxYrad, minYrad), 0, 0);
+		GlobalBasis = GlobalBasis.Rotated(GlobalBasis.Y, -radians.X * delta);
 	}
 
 	void DetectFloor()
@@ -180,14 +196,14 @@ public partial class WalkingController : CharacterBody3D
 			{
 				floorMaterial = (PhysicsMaterial)currentFloor?.GetType().GetProperty("PhysicsMaterialOverride")?.GetValue(currentFloor);
 
-				lastFloor = currentFloor;
+				lastFloor = currentFloor; 
 
-				CurrentFriction = MathF.Max(floorMaterial != null ? floorMaterial.Friction : AirFrictioin, AirFrictioin);
+				CurrentFriction = MathF.Max(floorMaterial?.Friction ?? AirFrictioin, AirFrictioin);
 			}
 		}
 	}
 
-	void Updatemovement(double delta)
+	void Updatemovement(float delta)
 	{
 		Vector3 dir3d = Basis.Z * MovementDir.Y + Basis.X * -MovementDir.X;
 		bool snap = true;
@@ -197,33 +213,41 @@ public partial class WalkingController : CharacterBody3D
 
 		float maxVel = CurrentFriction > 1 ? Speed * CurrentFriction : Speed;
 
+		Vector3? avoidStop = null;
+
 		if (OnFloor)
 		{
-			Vector3 newVel = Velocity.CalulateVelocity(dir3d.RotateFromToNormal(FlorNormal, Basis.Y), Acceleration, (float)delta, maxVel, CurrentFriction);
+			dir3d = dir3d.RotateFromToNormal(Basis.Y, FlorNormal);
+
+
+			Velocity = lastVel.Slide(FlorNormal).Lerp(lastVel.Bounce(FlorNormal), floorMaterial.Bounce);
+
+			snap = floorMaterial.Bounce <= 0;
 
 			if (Jumping)
 			{
-				newVel = newVel * (Vector3.One - FlorNormal.Abs()) + JumpVelocity * FlorNormal;
-				Jumping = false;
+				Velocity = Velocity + JumpVelocity * FlorNormal;
+				Jumping = !resetJump && Jumping;
 				snap = false;
+				avoidStop = Vector3.One;
 			}
-
-			Velocity = newVel;
 		}
 		else
 		{
-			Vector3 normalVel = (Velocity * (Vector3.One - gravityDir)).CalulateVelocity(dir3d, Acceleration, (float)delta, maxVel, CurrentFriction);
+			snap = (Velocity * gravityDir).Normalized().Dot(gravity.Normalized()) < 0;
 
-			Vector3 gravPerpVel = Velocity * gravityDir + (gravity * (float)delta);
-
-			Velocity = normalVel + gravPerpVel;
-
-			snap = gravPerpVel.Normalized().DistanceSquaredTo(gravity.Normalized()) < 1;
+			avoidStop = gravityDir;
 		}
+		
+		Velocity += gravity * delta;
+
+		Velocity = Velocity.CalulateVelocity(dir3d, Acceleration, delta, maxVel, CurrentFriction, avoidStop).LimitLength(terminalVelocity);
+
+		lastVel = Velocity;
 
 		MoveAndSlide();
 
-		if(snap) ApplyFloorSnap();
+		if (snap) ApplyFloorSnap();
 
 		if (-gravity != Vector3.Zero && Basis.Y != -gravity.Normalized())
 		{
@@ -233,14 +257,8 @@ public partial class WalkingController : CharacterBody3D
 
 	public void ChangeUp(Vector3 newUp, float weight)
 	{
-		Vector3 newUpNormalized = newUp.Normalized();
+		GlobalBasis = GlobalBasis.LookingAt(GlobalBasis.Y, newUp, weight);
 
-		Basis basis = new Basis(Basis.Column0, Basis.Column1, Basis.Column2);
-
-		basis.Y = basis.Y.Lerp(newUpNormalized, weight);
-
-		Basis = basis.Orthonormalized();
-
-		UpDirection = basis.Y;
+		UpDirection = newUp;
 	}
 }
