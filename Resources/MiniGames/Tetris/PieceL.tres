@@ -6,3 +6,4 @@
 script = ExtResource("1_01o2t")
 col = Color(1, 0.890196, 0, 1)
 Pos = Array[Vector2]([Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(1, 2)])
+Pivot = Vector2(0, 1)

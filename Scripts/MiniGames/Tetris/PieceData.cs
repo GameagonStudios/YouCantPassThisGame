@@ -7,6 +7,8 @@ namespace Tetris
     {
         [Export] public Color col; 
         [Export] public Godot.Collections.Array<Vector2> Pos = new(); 
+
+        [Export]public Vector2 Pivot = new(); 
     }
 }
      

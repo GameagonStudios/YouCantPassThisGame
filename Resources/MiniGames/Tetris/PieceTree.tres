@@ -6,3 +6,4 @@
 script = ExtResource("1_rrlph")
 col = Color(0, 0.929412, 1, 1)
 Pos = Array[Vector2]([Vector2(0, 0), Vector2(0, 1), Vector2(1, 1), Vector2(0, 2)])
+Pivot = Vector2(1, 1)
