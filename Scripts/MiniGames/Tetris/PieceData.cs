@@ -2,7 +2,7 @@ using Godot;
 
 namespace Tetris
 {
-    [GlobalClass]
+    [GlobalClass,  GodotClassName("PieceData") ]
     public partial class PieceData : Resource
     {
         [Export] public Color col; 
