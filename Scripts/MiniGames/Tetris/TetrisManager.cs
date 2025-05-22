@@ -128,6 +128,53 @@ namespace Tetris
             // Aquí puedes añadir controles de izquierda/derecha si quieres
         }
 
+        public void HardDrop(InputSystem.InputActionState state)
+        {
+            if (state.state == InputSystem.InputActionState.PressState.JustPressed)
+            {
+                List<ColorRect> blocks = currentPiece.GetChildren().OfType<ColorRect>().ToList();
+                int dropDistance = 0;
+                bool canMove = true;
+
+                while (canMove)
+                {
+                    dropDistance++;
+                    foreach (ColorRect block in blocks)
+                    {
+                        Vector2 currentGlobal = block.GlobalPosition;
+                        Vector2 nextGlobal = currentGlobal + new Vector2(0, dropDistance);
+                        int x = Mathf.RoundToInt(nextGlobal.X);
+                        int y = Mathf.RoundToInt(nextGlobal.Y);
+
+                        // Verificar límites del fondo y colisión con otras piezas
+                        if (y >= board.GetLength(1) || x < 0 || x >= board.GetLength(0) || board[x, y] != null)
+                        {
+                            dropDistance--; // Vuelve al último válido
+                            canMove = false;
+                            break;
+                        }
+                    }
+                }
+
+                // Aplicar el movimiento final
+                currentPiece.Position += new Vector2(0, dropDistance);
+
+                // Marcar en el tablero
+                foreach (ColorRect block in blocks)
+                {
+                    Vector2 global = block.GlobalPosition;
+                    int x = Mathf.RoundToInt(global.X);
+                    int y = Mathf.RoundToInt(global.Y);
+
+                    if (x >= 0 && x < board.GetLength(0) && y >= 0 && y < board.GetLength(1))
+                    {
+                        board[x, y] = block;
+                    }
+                }
+
+                SpawnPiece();
+            }
+        }
         public void SetPivot(Vector2 pivot)
         {
             pivotOverride = pivot;
@@ -142,7 +189,7 @@ namespace Tetris
             List<ColorRect> blocks = currentPiece.GetChildren().OfType<ColorRect>().ToList();
             List<Vector2> originalLocal = blocks.Select(b => b.Position).ToList();
 
-            // Redondeamos el centro al punto más cercano sobre la cuadrícula
+            // Pillamos el pivot de la pieza
             Vector2 pivot = currentPivot;
             GD.Print(pivot);
 
@@ -195,7 +242,7 @@ namespace Tetris
             else
             {
                 for (int i = 0; i < blocks.Count; i++)
-                    blocks[i].Position = originalLocal[i];
+                blocks[i].Position = originalLocal[i];
             }
         }
 
@@ -292,7 +339,7 @@ namespace Tetris
                 }
             }
 
-
+            
             currentPiece.Position -= new Vector2((float)posicionesXSobresalientes.Count, 0);
             
 

@@ -2,28 +2,24 @@ using Godot;
 using InputSystem;
 using System;
 
-public partial class PauseMenu : Control
+public partial class PauseMenu : IndepentlySizedContainer
 {
-    public override void _Ready()
-    {
-        base._Ready();
+	public override void _Ready()
+	{
+		base._Ready();
 
 		Input.MouseMode = Input.MouseModeEnum.Visible;
-    }
+	}
 
-    public void Toggle(InputActionState state)
-    {
-        if (state.state == InputActionState.PressState.JustPressed)
-		{
-            if (Visible) Unpause();
-            else Pause();
-		}
-
-    }
+	public void Toggle()
+	{
+		if (Visible) Unpause();
+		else Pause();
+	}
 
 	public void Pause()
 	{
-        Show();
+		Show();
 		GetTree().Paused = true;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
 	}
@@ -37,6 +33,6 @@ public partial class PauseMenu : Control
 
 	public void Quit()
 	{
-        GetTree().Quit();
-    }
+		GetTree().Quit();
+	}
 }

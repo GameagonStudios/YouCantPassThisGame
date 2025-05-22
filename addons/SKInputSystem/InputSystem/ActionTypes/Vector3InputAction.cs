@@ -7,7 +7,7 @@ using static InputSystem.InputActionState;
 
 namespace InputSystem
 {
-    [GlobalClass, Tool]
+    [GlobalClass, GodotClassName("Vector3InputAction"), Tool]
     public partial class Vector3InputAction : InputAction
     {
         [Export]

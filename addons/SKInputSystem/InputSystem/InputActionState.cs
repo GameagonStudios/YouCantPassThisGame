@@ -38,10 +38,11 @@ namespace InputSystem
 
         public InputEvent inputEvent;
 
+		[Flags]
         public enum PressState
-        {
-            None = -1, Released = 0, JustPressed = 1, Holding = 2
-        }
+		{
+			All = -1, None = 0, Released = 1, JustPressed = 2, Holding = 3
+		}
 
         public static PressState AddState(PressState a, PressState b)
         {

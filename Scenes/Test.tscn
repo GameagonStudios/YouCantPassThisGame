@@ -1,18 +1,35 @@
-[gd_scene load_steps=48 format=3 uid="uid://bf44tejcvwkx8"]
+[gd_scene load_steps=47 format=3 uid="uid://bf44tejcvwkx8"]
 
-[ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_bg54p"]
 [ext_resource type="Material" uid="uid://c2rlcwx53fo57" path="res://Materials/PlaceHolders/Grass.material" id="1_s0cw8"]
 [ext_resource type="PackedScene" uid="uid://dqwynxbg3ejn6" path="res://Resources/Nodes/pause_menu.tscn" id="1_uafe7"]
-[ext_resource type="Resource" uid="uid://bovdny6kjjej2" path="res://Resources/Inputs/InputMap.tres" id="2_trta6"]
-[ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="3_hyyl2"]
+[ext_resource type="Script" uid="uid://dmdqw70u37ij1" path="res://Scripts/Singletons/WoldEnvironmentManager.cs" id="1_wjxug"]
 [ext_resource type="Texture2D" uid="uid://b6sp4vcirpc6e" path="res://2D/Textures/LightCheckerTexture.png" id="5_rqlgy"]
 [ext_resource type="AudioStream" uid="uid://dhu8xoedxlq65" path="res://Audio/Music/TestLicenseless/game-8-bit-on-278083.mp3" id="5_wjxug"]
-[ext_resource type="Script" uid="uid://dcnk4ue17tbsg" path="res://Scripts/InteractionSystem/Interactors/RayInteractor3D.cs" id="5_xlhib"]
 [ext_resource type="AudioStream" uid="uid://uxx34mct2ijn" path="res://Audio/Music/TestLicenseless/voice prueba.ogg" id="6_8d4ee"]
-[ext_resource type="Script" uid="uid://cwe8coh0vamcs" path="res://Scripts/Controllers/WalkingController.cs" id="6_irl46"]
 [ext_resource type="Script" uid="uid://b2l8rw2y7qcb2" path="res://Scripts/InteractionSystem/Interactables/Interactable3D.cs" id="7_8d4ee"]
-[ext_resource type="PackedScene" uid="uid://drhanb7cc2lyj" path="res://3D/Characters/Dummy/Dummy.glb" id="11_yk3wi"]
+[ext_resource type="Shader" uid="uid://cf7i0eop8vwpb" path="res://Shaders/MirrorShader.tres" id="8_kq4yt"]
+[ext_resource type="PackedScene" uid="uid://h2brw3liv3t5" path="res://Resources/Nodes/Characters/PlayerDummy.tscn" id="8_rxb08"]
+[ext_resource type="Script" uid="uid://ckctjn221rdt8" path="res://Scripts/Misc/Mirror.cs" id="9_rarx8"]
 [ext_resource type="PackedScene" uid="uid://k6m7a22pajvr" path="res://3D/Props/Museum/ArcadeMachine/ArcadeMachine/TheLastOfFruitsArcade.tscn" id="12_kfvpf"]
+[ext_resource type="Script" uid="uid://ctkqtl0aw0rgf" path="res://Scripts/MapActions/TP.cs" id="14_3la1u"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sw65n"]
+sky_top_color = Color(0, 1, 0.952941, 1)
+sky_horizon_color = Color(0.682353, 0.878431, 0.898039, 1)
+sky_curve = 1.0
+ground_bottom_color = Color(0, 0, 0.196078, 1)
+ground_horizon_color = Color(0.682353, 0.878431, 0.898039, 1)
+ground_curve = 0.025
+sun_curve = 0.184673
+
+[sub_resource type="Sky" id="Sky_ii4t5"]
+sky_material = SubResource("ProceduralSkyMaterial_sw65n")
+
+[sub_resource type="Environment" id="Environment_be8nn"]
+background_mode = 2
+sky = SubResource("Sky_ii4t5")
+ambient_light_source = 3
+volumetric_fog_density = 0.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hvvax"]
 friction = 0.0
@@ -100,6 +117,7 @@ material = SubResource("StandardMaterial3D_5dgje")
 size = Vector3(4, 1, 10)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8d4ee"]
+bounce = 1.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c5xim"]
 size = Vector3(2, 1, 10)
@@ -116,33 +134,30 @@ texture_filter = 2
 material = SubResource("StandardMaterial3D_b07cf")
 size = Vector3(2, 1, 10)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rfcl2"]
-radius = 0.35
-height = 1.8
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8nc5n"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_5ii7m"]
-radius = 0.35
-height = 1.7
-radial_segments = 16
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_rarx8"]
-radius = 0.3
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_b0j2p"]
-viewport_path = NodePath("MeshInstance3D/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjpb7"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_b0j2p")
-uv1_scale = Vector3(-1, 1, 1)
-
 [sub_resource type="QuadMesh" id="QuadMesh_52in0"]
 resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_fjpb7")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kq4yt"]
+viewport_path = NodePath("MeshInstance3D/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rarx8"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("8_kq4yt")
+shader_parameter/Albedo = SubResource("ViewportTexture_kq4yt")
+shader_parameter/Tint = Color(0, 0.423529, 0, 0.117647)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_8d4ee"]
 
 [node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_be8nn")
+script = ExtResource("1_wjxug")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 20, 0)
+directional_shadow_mode = 0
 
 [node name="PauseMenu" parent="." instance=ExtResource("1_uafe7")]
 visible = false
@@ -150,7 +165,7 @@ visible = false
 [node name="World" type="Node3D" parent="."]
 
 [node name="Ice" type="StaticBody3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5583, -0.3965, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -0.49, 0)
 physics_material_override = SubResource("PhysicsMaterial_hvvax")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ice"]
@@ -161,7 +176,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_pykac")
 
 [node name="Accelerator" type="StaticBody3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44172, -0.3965, 19)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49, 19)
 physics_material_override = SubResource("PhysicsMaterial_gswut")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/Accelerator"]
@@ -206,6 +221,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00676, 0, -8.46303)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0.1)
 stream = ExtResource("5_wjxug")
 autoplay = true
+max_distance = 40.0
 bus = &"Music"
 parameters/looping = true
 
@@ -407,9 +423,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
 [node name="Conveyor" type="StaticBody3D" parent="World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.4, 14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.49, 14)
 physics_material_override = SubResource("PhysicsMaterial_8d4ee")
-constant_linear_velocity = Vector3(0, 0, 5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="World/Conveyor"]
 shape = SubResource("BoxShape3D_c5xim")
@@ -419,275 +434,34 @@ debug_color = Color(1, 0, 0, 0.419608)
 mesh = SubResource("BoxMesh_x8mav")
 skeleton = NodePath("../..")
 
-[node name="Player" type="CharacterBody3D" parent="."]
-script = ExtResource("6_irl46")
-Acceleration = 50.0
-JumpVelocity = 6.0
-sensivilityKey = &"SENSITIVITY"
-
-[node name="InputEventHandler" type="Node" parent="Player"]
-process_mode = 3
-script = ExtResource("1_bg54p")
-inputMap = ExtResource("2_trta6")
-MouseMode = 2
-
-[node name="Player" type="Node" parent="Player/InputEventHandler"]
-
-[node name="Jump" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Interact" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Crouch" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Movement" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Look" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Run" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node2" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node3" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node4" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node5" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node6" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node7" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node8" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node9" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node10" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node11" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node12" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node13" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node14" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node15" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node16" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node17" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node18" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node19" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="Node20" type="Node" parent="Player/InputEventHandler/Player"]
-script = ExtResource("3_hyyl2")
-
-[node name="UI" type="Node" parent="Player/InputEventHandler"]
-
-[node name="Pause" type="Node" parent="Player/InputEventHandler/UI"]
-script = ExtResource("3_hyyl2")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
-shape = SubResource("CapsuleShape3D_rfcl2")
-
-[node name="Dummy" parent="Player/CollisionShape3D" instance=ExtResource("11_yk3wi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0)
-
-[node name="Skeleton3D" parent="Player/CollisionShape3D/Dummy/metarig" index="0"]
-bones/0/scale = Vector3(1, 1, 1)
-bones/2/rotation = Quaternion(-0.0178812, 1.42115e-07, 1.58387e-10, 0.99984)
-bones/2/scale = Vector3(1, 1, 1)
-bones/4/rotation = Quaternion(0.0420358, -3.51458e-09, 2.6534e-09, 0.999116)
-bones/4/scale = Vector3(1, 1, 0.999999)
-bones/5/rotation = Quaternion(0.0894125, -4.82348e-08, 9.99261e-10, 0.995995)
-bones/5/scale = Vector3(1, 1, 0.999999)
-bones/6/rotation = Quaternion(0.0234276, -6.05577e-08, -2.29186e-09, 0.999726)
-bones/7/rotation = Quaternion(0.0211655, 4.93874e-08, -2.3071e-09, 0.999776)
-bones/7/scale = Vector3(1, 1, 1)
-bones/8/rotation = Quaternion(-0.0366322, 0.102955, -0.776939, 0.620019)
-bones/8/scale = Vector3(1, 1, 1)
-bones/9/rotation = Quaternion(0.0448632, 0.07324, -0.528559, 0.84454)
-bones/10/rotation = Quaternion(0.0843976, -6.12813e-08, 2.78407e-05, 0.996432)
-bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(-0.0520768, -0.000275336, -0.0085289, 0.998607)
-bones/11/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(0.0538475, 5.42282e-05, 0.00159415, 0.998548)
-bones/12/scale = Vector3(1, 1, 1)
-bones/13/rotation = Quaternion(0.0769621, -0.00111528, -0.00669946, 0.997011)
-bones/13/scale = Vector3(1, 1, 1)
-bones/15/rotation = Quaternion(0.00188955, 0.00727078, 0.0292179, 0.999545)
-bones/15/scale = Vector3(1, 1, 1)
-bones/16/rotation = Quaternion(0.350272, -0.00347834, -0.00727861, 0.936613)
-bones/16/scale = Vector3(1, 1, 1)
-bones/17/rotation = Quaternion(-0.00190918, -0.00409601, -0.00396431, 0.999982)
-bones/17/scale = Vector3(1, 1, 1)
-bones/18/rotation = Quaternion(0.0016799, 0.0294397, 0.028505, 0.999159)
-bones/18/scale = Vector3(1, 1, 1)
-bones/19/scale = Vector3(1, 1, 1)
-bones/20/rotation = Quaternion(0.054361, 0.000265414, 0.0085226, 0.998485)
-bones/20/scale = Vector3(1, 1, 1)
-bones/22/rotation = Quaternion(-0.000582334, 0.00249275, 0.029275, 0.999568)
-bones/22/scale = Vector3(1, 1, 1)
-bones/23/scale = Vector3(1, 1, 1)
-bones/24/rotation = Quaternion(0.0380545, -0.00288164, 0.0258927, 0.998936)
-bones/24/scale = Vector3(1, 1, 1)
-bones/26/rotation = Quaternion(-0.00291035, -0.00220919, 0.0291389, 0.999569)
-bones/28/rotation = Quaternion(-0.0791725, -0.0149041, 0.0489942, 0.995545)
-bones/28/scale = Vector3(1, 1, 1)
-bones/30/rotation = Quaternion(-0.00306481, -0.0115522, 0.0291144, 0.999505)
-bones/31/rotation = Quaternion(0.0903398, -0.0215948, 0.219643, 0.971148)
-bones/31/scale = Vector3(1, 1, 1)
-bones/32/rotation = Quaternion(-1.01817e-06, -0.00329192, 0.627318, 0.778756)
-bones/32/scale = Vector3(1, 1, 1)
-bones/33/rotation = Quaternion(-6.33739e-05, -0.00155471, 0.292649, 0.956219)
-bones/34/rotation = Quaternion(0.00177715, -0.00192943, 0.735542, 0.677475)
-bones/34/scale = Vector3(1, 1, 1)
-bones/35/rotation = Quaternion(-0.0366322, -0.102955, 0.776939, 0.620019)
-bones/35/scale = Vector3(1, 1, 1)
-bones/36/rotation = Quaternion(0.0448632, -0.0732399, 0.528559, 0.84454)
-bones/36/scale = Vector3(1, 1, 1)
-bones/37/rotation = Quaternion(0.0843975, 3.55553e-08, -2.78425e-05, 0.996432)
-bones/38/rotation = Quaternion(-0.052077, 0.000275326, 0.00852958, 0.998607)
-bones/38/scale = Vector3(1, 1, 1)
-bones/39/rotation = Quaternion(0.0538477, -5.42509e-05, -0.00159474, 0.998548)
-bones/39/scale = Vector3(1, 1, 1)
-bones/40/rotation = Quaternion(0.0769621, 0.00111531, 0.00669937, 0.997011)
-bones/40/scale = Vector3(1, 1, 1)
-bones/42/rotation = Quaternion(0.00188959, -0.00727067, -0.0292167, 0.999545)
-bones/42/scale = Vector3(1, 1, 1)
-bones/43/rotation = Quaternion(0.350272, 0.00347835, 0.00727853, 0.936613)
-bones/43/scale = Vector3(1, 1, 1)
-bones/44/rotation = Quaternion(-0.00190922, 0.00409615, 0.0039643, 0.999982)
-bones/45/rotation = Quaternion(0.00167987, -0.0294398, -0.0285049, 0.999159)
-bones/46/rotation = Quaternion(-0.0017171, -0.000147789, 0.00686191, 0.999975)
-bones/46/scale = Vector3(1, 1, 1)
-bones/47/rotation = Quaternion(0.0543609, -0.000265395, -0.00852304, 0.998485)
-bones/47/scale = Vector3(1, 1, 1)
-bones/49/rotation = Quaternion(-0.00058235, -0.00249254, -0.0292756, 0.999568)
-bones/49/scale = Vector3(1, 1, 1)
-bones/50/rotation = Quaternion(-0.0644898, -0.00145619, 0.0172201, 0.997769)
-bones/50/scale = Vector3(1, 1, 1)
-bones/53/rotation = Quaternion(-0.00291045, 0.00220913, -0.0291376, 0.999569)
-bones/54/rotation = Quaternion(-0.0977987, -0.0053747, 0.0453821, 0.994156)
-bones/54/scale = Vector3(1, 1, 1)
-bones/55/rotation = Quaternion(-0.0791724, 0.014904, -0.0489948, 0.995545)
-bones/55/scale = Vector3(1, 1, 1)
-bones/57/rotation = Quaternion(-0.0030646, 0.0115523, -0.0291144, 0.999505)
-bones/58/rotation = Quaternion(0.0903398, 0.0215949, -0.219643, 0.971148)
-bones/58/scale = Vector3(1, 1, 1)
-bones/59/rotation = Quaternion(-1.00247e-06, 0.00329192, -0.627318, 0.778756)
-bones/59/scale = Vector3(1, 1, 1)
-bones/60/rotation = Quaternion(-6.33633e-05, 0.0015547, -0.292649, 0.956219)
-bones/61/scale = Vector3(1, 1, 1)
-bones/62/rotation = Quaternion(0.0363582, -5.95652e-08, -2.88849e-15, 0.999339)
-bones/62/scale = Vector3(1, 1, 0.999999)
-bones/63/rotation = Quaternion(0.0220653, 7.54795e-08, -1.66588e-09, 0.999757)
-bones/63/scale = Vector3(1, 1, 1)
-bones/65/rotation = Quaternion(-0.0903671, -0.0239794, -0.501382, 0.86016)
-bones/66/rotation = Quaternion(-0.0148929, 0.000317909, -0.00442226, 0.999879)
-bones/66/scale = Vector3(1, 1, 1)
-bones/67/rotation = Quaternion(0.470693, -0.00160493, -0.00376005, 0.882287)
-bones/67/scale = Vector3(1, 1, 1)
-bones/68/scale = Vector3(1, 1, 1)
-bones/70/rotation = Quaternion(-0.0903671, 0.0239794, 0.501382, 0.86016)
-bones/71/rotation = Quaternion(-0.0148929, -0.000317909, 0.00442226, 0.999879)
-bones/71/scale = Vector3(1, 1, 1)
-bones/72/rotation = Quaternion(0.470693, 0.00160493, 0.00376005, 0.882287)
-bones/72/scale = Vector3(1, 1, 1)
-bones/73/scale = Vector3(1, 1, 1)
-bones/74/rotation = Quaternion(-0.00473165, 0.707091, 0.707091, -0.00473165)
-bones/74/scale = Vector3(1, 1, 1)
-bones/75/rotation = Quaternion(0.00473165, 0.707091, 0.707091, 0.00473165)
-bones/75/scale = Vector3(1, 1, 1)
-bones/76/rotation = Quaternion(0.000790848, 0.432031, 0.901857, 0.00165077)
-bones/78/rotation = Quaternion(-0.000790848, 0.432031, 0.901857, -0.00165077)
-bones/80/rotation = Quaternion(-0.000977487, -0.00986398, 0.995077, 0.0986116)
-bones/80/scale = Vector3(1, 1, 1)
-bones/81/rotation = Quaternion(0.715306, 2.23082e-07, -0.698812, 1.76685e-08)
-bones/82/rotation = Quaternion(0.000977487, -0.00986398, 0.995077, -0.0986116)
-bones/82/scale = Vector3(1, 1, 1)
-bones/83/rotation = Quaternion(0.715306, -2.23082e-07, 0.698812, 1.76685e-08)
-
-[node name="Body" parent="Player/CollisionShape3D/Dummy/metarig/Skeleton3D" index="0"]
-layers = 1025
-
-[node name="Head" parent="Player/CollisionShape3D/Dummy/metarig/Skeleton3D" index="1"]
-layers = 1024
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player/CollisionShape3D"]
-visible = false
-material_override = SubResource("StandardMaterial3D_8nc5n")
-mesh = SubResource("CapsuleMesh_5ii7m")
-
-[node name="CameraMountTemp" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47101, -0.0252505)
-
-[node name="Camera3D" type="Camera3D" parent="Player/CameraMountTemp"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.25267e-08, 0.173994, 0.0716445)
-cull_mask = 1047551
-
-[node name="RayCast3D" type="RayCast3D" parent="Player/CameraMountTemp/Camera3D"]
-target_position = Vector3(0, 0, -2)
-collision_mask = 2
-collide_with_areas = true
-debug_shape_custom_color = Color(1, 0, 0, 1)
-script = ExtResource("5_xlhib")
-
-[node name="AudioListener3D" type="AudioListener3D" parent="Player/CameraMountTemp/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.66045e-08, -0.00399411, 0.0466445)
-current = true
-
-[node name="ShapeCast3D" type="ShapeCast3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("SphereShape3D_rarx8")
-max_results = 4
-debug_shape_custom_color = Color(1, 1, 1, 1)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.5, 3)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." node_paths=PackedStringArray("camera", "viewport")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 1.5, 3)
+rotation_edit_mode = 2
 mesh = SubResource("QuadMesh_52in0")
+surface_material_override/0 = SubResource("ShaderMaterial_rarx8")
+script = ExtResource("9_rarx8")
+camera = NodePath("SubViewport/Camera3D")
+viewport = NodePath("SubViewport")
+viewportResolutionFactor = 1.0
 
 [node name="SubViewport" type="SubViewport" parent="MeshInstance3D"]
+size = Vector2i(1920, 1009)
 
 [node name="Camera3D" type="Camera3D" parent="MeshInstance3D/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3.64527)
+transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.959822, 1.645, 4.41463)
+rotation_edit_mode = 2
+fov = 90.0
+
+[node name="Player" parent="." instance=ExtResource("8_rxb08")]
+transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, -1, 0, 1.56217)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0)
+script = ExtResource("14_3la1u")
+TPTo = Vector3(0, 10, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("WorldBoundaryShape3D_8d4ee")
 
 [connection signal="Activated" from="World/Machine_v2/StaticBody3D" to="World/Machine_v2/AudioStreamPlayer3D2" method="play" unbinds=1]
-[connection signal="onInvoke" from="Player/InputEventHandler/Player/Jump" to="Player" method="Jump"]
-[connection signal="onInvoke" from="Player/InputEventHandler/Player/Interact" to="Player/CameraMountTemp/Camera3D/RayCast3D" method="Interact"]
-[connection signal="onInvoke" from="Player/InputEventHandler/Player/Movement" to="Player" method="Move"]
-[connection signal="onInvoke" from="Player/InputEventHandler/Player/Look" to="Player" method="Look"]
-[connection signal="onInvoke" from="Player/InputEventHandler/Player/Run" to="Player" method="Run"]
-[connection signal="onInvoke" from="Player/InputEventHandler/UI/Pause" to="PauseMenu" method="Toggle"]
-
-[editable path="Player/CollisionShape3D/Dummy"]
+[connection signal="body_entered" from="Area3D" to="Area3D" method="TPBody"]

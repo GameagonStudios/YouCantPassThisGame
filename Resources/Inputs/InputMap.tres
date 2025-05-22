@@ -1,15 +1,16 @@
-[gd_resource type="Resource" script_class="InputMap" load_steps=13 format=3 uid="uid://bovdny6kjjej2"]
+[gd_resource type="Resource" script_class="InputMap" load_steps=14 format=3 uid="uid://bovdny6kjjej2"]
 
-[ext_resource type="Resource" uid="uid://bts4hgwllyavp" path="res://Resources/Inputs/Actions/Jump.tres" id="1_fthub"]
+[ext_resource type="Resource" uid="uid://bts4hgwllyavp" path="res://Resources/Inputs/Actions/Player/Jump.tres" id="1_fthub"]
 [ext_resource type="Script" uid="uid://cyltkd572m4ig" path="res://addons/SKInputSystem/InputSystem/InputAction.cs" id="2_xnvw8"]
-[ext_resource type="Resource" uid="uid://dw1f6c4qf325r" path="res://Resources/Inputs/Actions/Interact.tres" id="2_y5d0v"]
+[ext_resource type="Resource" uid="uid://dw1f6c4qf325r" path="res://Resources/Inputs/Actions/Player/Interact.tres" id="2_y5d0v"]
 [ext_resource type="Script" uid="uid://t0cmlswemv15" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="4_2s7hm"]
-[ext_resource type="Resource" uid="uid://cu1srxjne8cxk" path="res://Resources/Inputs/Actions/Crouch.tres" id="4_4o0ed"]
-[ext_resource type="Resource" uid="uid://bbrpccay4rxx6" path="res://Resources/Inputs/Actions/Movement.tres" id="4_udqwh"]
+[ext_resource type="Resource" uid="uid://cu1srxjne8cxk" path="res://Resources/Inputs/Actions/Player/Crouch.tres" id="4_4o0ed"]
+[ext_resource type="Resource" uid="uid://bbrpccay4rxx6" path="res://Resources/Inputs/Actions/Player/Movement.tres" id="4_udqwh"]
 [ext_resource type="Script" uid="uid://caspgt78xg48h" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="5_r2ep5"]
-[ext_resource type="Resource" uid="uid://c37pk7xhyw753" path="res://Resources/Inputs/Actions/Run.tres" id="6_sb1gn"]
-[ext_resource type="Resource" uid="uid://j3g0wqycbpe6" path="res://Resources/Inputs/Actions/Look.tres" id="6_u7sdq"]
-[ext_resource type="Resource" uid="uid://bkf6fqu2milak" path="res://Resources/Inputs/Actions/Pause.tres" id="8_g75ei"]
+[ext_resource type="Resource" uid="uid://c37pk7xhyw753" path="res://Resources/Inputs/Actions/Player/Run.tres" id="6_sb1gn"]
+[ext_resource type="Resource" uid="uid://j3g0wqycbpe6" path="res://Resources/Inputs/Actions/Player/Look.tres" id="6_u7sdq"]
+[ext_resource type="Resource" uid="uid://bkf6fqu2milak" path="res://Resources/Inputs/Actions/UI/Pause.tres" id="8_g75ei"]
+[ext_resource type="Resource" uid="uid://bor4dehma6wyr" path="res://Resources/Inputs/Actions/UI/TogleFullScreen.tres" id="10_ycces"]
 
 [sub_resource type="Resource" id="Resource_ta5yr"]
 resource_name = "Player"
@@ -22,7 +23,7 @@ Sleeping = false
 resource_name = "UI"
 script = ExtResource("4_2s7hm")
 Name = "UI"
-Actions = Array[ExtResource("2_xnvw8")]([ExtResource("8_g75ei")])
+Actions = Array[ExtResource("2_xnvw8")]([ExtResource("8_g75ei"), ExtResource("10_ycces")])
 Sleeping = false
 
 [resource]

@@ -7,7 +7,7 @@ using static InputSystem.InputActionState;
 
 namespace InputSystem
 {
-    [GlobalClass, Tool]
+    [GlobalClass, GodotClassName("ButtonInputAction"), Tool]
     public partial class ButtonInputAction : InputAction
     {
         [Export]
@@ -63,7 +63,7 @@ namespace InputSystem
 
             if (@event.IsPressed() && stg > DeadZone)
             {
-                if (_state.state > 0)
+                if (_state.state > PressState.Released)
                 {
                     _state.state = PressState.Holding;
                     _state.timeHeld = Time.GetTicksMsec() - TimeSinceLastPress;
@@ -78,7 +78,7 @@ namespace InputSystem
                 _state.strength = stg;
 
             }
-            else if (_state.state <= 0)
+            else if (_state.state < PressState.Released)
             {
                 _state.state = PressState.None;
                 _state.strength = 0;

@@ -7,7 +7,7 @@ using static InputSystem.InputActionState;
 
 namespace InputSystem
 {
-    [GlobalClass, Tool]
+    [GlobalClass, GodotClassName("Vector1InputAction"), Tool]
     public partial class Vector1InputAction : InputAction
     {
         [Export] public Array<string> Negative

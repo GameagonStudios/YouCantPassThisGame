@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cc67vq0a343ff"]
+[gd_scene load_steps=21 format=3 uid="uid://cc67vq0a343ff"]
 
 [ext_resource type="Script" uid="uid://c8bh5ypjfn0wm" path="res://Scripts/MiniGames/Tetris/TetrisManager.cs" id="1_dreld"]
 [ext_resource type="Script" uid="uid://dlburudp56myy" path="res://Scripts/MiniGames/Tetris/PieceData.cs" id="2_durpn"]
@@ -57,11 +57,29 @@ Actions = Array[ExtResource("9_wf8jf")]([SubResource("Resource_wf8jf")])
 Sleeping = false
 metadata/_custom_type_script = "uid://t0cmlswemv15"
 
+[sub_resource type="Resource" id="Resource_l4jvv"]
+resource_name = "Hard Drop"
+script = ExtResource("11_l4jvv")
+Events = Array[String](["Key Space", "JoyButton A"])
+MouseInput = 0
+Name = "Hard Drop"
+DeadZone = 0.25
+Sleeping = false
+metadata/_custom_type_script = "uid://c1tu0afldgxa8"
+
+[sub_resource type="Resource" id="Resource_eslrf"]
+resource_name = "Hard Drop"
+script = ExtResource("8_l4jvv")
+Name = "Hard Drop"
+Actions = Array[ExtResource("9_wf8jf")]([SubResource("Resource_l4jvv")])
+Sleeping = false
+metadata/_custom_type_script = "uid://t0cmlswemv15"
+
 [sub_resource type="Resource" id="Resource_46k44"]
 resource_name = "InputMap"
 script = ExtResource("11_eslrf")
 Name = "InputMap"
-Groups = Array[ExtResource("8_l4jvv")]([SubResource("Resource_e65oa"), SubResource("Resource_ohmf6")])
+Groups = Array[ExtResource("8_l4jvv")]([SubResource("Resource_e65oa"), SubResource("Resource_ohmf6"), SubResource("Resource_eslrf")])
 metadata/_custom_type_script = "uid://caspgt78xg48h"
 
 [node name="Tetris" type="Node2D"]
@@ -94,5 +112,11 @@ script = ExtResource("12_urfqo")
 [node name="Rotation" type="Node" parent="InputEventHandler/Rotation"]
 script = ExtResource("12_urfqo")
 
+[node name="Hard Drop" type="Node" parent="InputEventHandler"]
+
+[node name="Hard Drop" type="Node" parent="InputEventHandler/Hard Drop"]
+script = ExtResource("12_urfqo")
+
 [connection signal="onInvoke" from="InputEventHandler/Move/Move" to="BackGround" method="TryMovePiece"]
 [connection signal="onInvoke" from="InputEventHandler/Rotation/Rotation" to="BackGround" method="Rotate"]
+[connection signal="onInvoke" from="InputEventHandler/Hard Drop/Hard Drop" to="BackGround" method="HardDrop"]

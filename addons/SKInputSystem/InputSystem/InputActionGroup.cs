@@ -3,7 +3,7 @@ using Godot.Collections;
 
 namespace InputSystem
 {
-	[GlobalClass, Tool]
+	[GlobalClass, GodotClassName("InputActionGroup"), Tool]
 	public partial class InputActionGroup : Resource
 	{
 		[Export]

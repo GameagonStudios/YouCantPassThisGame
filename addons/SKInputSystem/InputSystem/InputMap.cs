@@ -4,7 +4,7 @@ using Godot.Collections;
 
 namespace InputSystem
 {
-	[GlobalClass, Tool]
+	[GlobalClass, GodotClassName("InputMap"), Tool]
 	public partial class InputMap : Resource
 	{
 		[Export]
