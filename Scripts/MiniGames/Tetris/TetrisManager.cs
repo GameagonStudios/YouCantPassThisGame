@@ -4,67 +4,82 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using InputSystem;
+using System.Threading.Tasks;
 
 namespace Tetris
 {
     public partial class TetrisManager : ColorRect
     {
+        public struct Cell
+        {
+            public bool IsOccupied;
+            public Color Color;
+
+            public Cell(bool isOccupied, Color color)
+            {
+                IsOccupied = isOccupied;
+                Color = color;
+            }
+        }
 
         [Export]
         public Godot.Collections.Array<PieceData> Piece = new();
 
         [Export]
         public ColorRect BackGround;
-        
-        [Export]
-        private float fallSpeed = 1.0f;  // Velocidad de caída de las piezas
 
         [Export]
-        private float minFallSpeed = 0.1f;        // Límite mínimo
+        private float fallSpeed = 1.0f;
 
         [Export]
-        private float speedDecreaseStep = 0.05f;  // Cuánto se reduce cada vez
+        private float minFallSpeed = 0.1f;
 
         [Export]
-        private float speedIncreaseInterval = 10f; // Cada cuántos segundos se acelera
+        private float speedDecreaseStep = 0.05f;
+
+        [Export]
+        private float speedIncreaseInterval = 10f;
+
         private float totalGameTime = 0.0f;
-        private float timeSinceLastFall = 0.0f;  // Tiempo acumulado desde la última caída
-                                                 // Llamado cuando el nodo entra en el árbol de nodos por primera vez.
-        private Node2D currentPiece;  // Nodo que contiene las partes de la pieza actual
+        private float timeSinceLastFall = 0.0f;
+
+        private Node2D currentPiece;
         private Vector2 currentPivot;
-        Vector2 direction;
-        private Vector2? pivotOverride = null; // <- Nuevo
+        private Vector2 direction;
+        private Vector2? pivotOverride = null;
 
-        private ColorRect[,] board;
+        private Cell[,] board;
+        private List<ColorRect> activeVisualBlocks = new();
 
-
-
+        private ObjectPulling<ColorRect> blockPool;
 
         public override void _Ready()
         {
+            blockPool = new ObjectPulling<ColorRect>(() =>
+            {
+                var rect = new ColorRect();
+                return rect;
+            }, 50);
+
             int width = (int)BackGround.Size.X;
             int height = (int)BackGround.Size.Y;
-            board = new ColorRect[width, height];
+            board = new Cell[width, height];
 
-            // Inicializa todos los valores a 0 explícitamente (opcional, pero claro)
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
-                    board[x, y] = null;
+                    board[x, y] = new Cell(false, new Color(0, 0, 0, 0));
                 }
             }
-            // Generar la primera pieza aleatoria
             SpawnPiece();
         }
 
-        // Llamado cada frame. 'delta' es el tiempo transcurrido desde el frame anterior.
         public override void _Process(double delta)
         {
             timeSinceLastFall += (float)delta;
             totalGameTime += (float)delta;
 
-            // Aumentar la velocidad con el tiempo, con un límite
             if (totalGameTime >= speedIncreaseInterval)
             {
                 if (fallSpeed > minFallSpeed)
@@ -76,21 +91,18 @@ namespace Tetris
             if (timeSinceLastFall >= fallSpeed)
             {
                 timeSinceLastFall = 0.0f;
-
-                // Intentar mover hacia abajo
                 bool canMoveDown = true;
-                Vector2 direction = new Vector2(0, 1);
+                Vector2 dir = new Vector2(0, 1);
 
                 foreach (Node child in currentPiece.GetChildren())
                 {
                     if (child is ColorRect colorRect)
                     {
-                        Vector2 nextGlobalPos = colorRect.GlobalPosition + direction;
-                        int x = Mathf.RoundToInt(nextGlobalPos.X);
-                        int y = Mathf.RoundToInt(nextGlobalPos.Y);
+                        Vector2 next = colorRect.GlobalPosition + dir;
+                        int x = Mathf.RoundToInt(next.X);
+                        int y = Mathf.RoundToInt(next.Y);
 
-                        // Verificar si está fuera del fondo o colisiona con una celda ocupada
-                        if (y >= (int)BackGround.Size.Y || x < 0 || x >= (int)BackGround.Size.X || board[x, y] != null)
+                        if (y >= board.GetLength(1) || x < 0 || x >= board.GetLength(0) || board[x, y].IsOccupied)
                         {
                             canMoveDown = false;
                             break;
@@ -100,37 +112,138 @@ namespace Tetris
 
                 if (canMoveDown)
                 {
-                    currentPiece.Position += direction;
+                    currentPiece.Position += dir;
                 }
                 else
                 {
-                    // Marcar bloques como ocupados en el board
-                    foreach (Node child in currentPiece.GetChildren())
+                    foreach (ColorRect block in currentPiece.GetChildren().OfType<ColorRect>())
                     {
-                        if (child is ColorRect colorRect)
-                        {
-                            int x = (int)colorRect.GlobalPosition.X;
-                            int y = (int)colorRect.GlobalPosition.Y;
+                        int x = Mathf.RoundToInt(block.GlobalPosition.X);
+                        int y = Mathf.RoundToInt(block.GlobalPosition.Y);
 
-                            // Solo asignamos si está dentro del área del fondo para evitar errores
-                            if (x >= 0 && x < board.GetLength(0) && y >= 0 && y < board.GetLength(1))
+                        if (x >= 0 && x < board.GetLength(0) && y >= 0 && y < board.GetLength(1))
+                        {
+                            board[x, y] = new Cell(true, block.Color);
+                            ColorRect visual = new ColorRect
                             {
-                                board[x, y] = colorRect;
+                                Color = block.Color,
+                                Size = new Vector2(1, 1),
+                                Position = new Vector2(x, y)
+                            };
+                            AddChild(visual);
+                            activeVisualBlocks.Add(visual);
+                        }
+                    }
+
+                    currentPiece.QueueFree();
+                    ClearLines(); // <--- LLAMADA AQUÍ
+                    SpawnPiece();
+                }
+            }
+        }
+
+        public void ClearLines()
+        {
+            int width = board.GetLength(0);
+            int height = board.GetLength(1);
+
+            for (int y = height - 1; y >= 0; y--)
+            {
+                bool isFull = true;
+                for (int x = 0; x < width; x++)
+                {
+                    if (!board[x, y].IsOccupied)
+                    {
+                        isFull = false;
+                        break;
+                    }
+                }
+
+                if (isFull)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        board[x, y] = new Cell(false, new Color(0, 0, 0, 0));
+
+                        var blockToRemove = activeVisualBlocks.FirstOrDefault(b =>
+                            Mathf.RoundToInt(b.Position.X) == x &&
+                            Mathf.RoundToInt(b.Position.Y) == y);
+
+                        if (blockToRemove != null)
+                        {
+                            StartFadeToWhiteThenReturn(blockToRemove);
+                        }
+                    }
+
+                    // Bajar todo lo que está por encima
+                    for (int yy = y - 1; yy >= 0; yy--)
+                    {
+                        for (int x = 0; x < width; x++)
+                        {
+                            board[x, yy + 1] = board[x, yy];
+
+                            var blockToMove = activeVisualBlocks.FirstOrDefault(b =>
+                                Mathf.RoundToInt(b.Position.X) == x &&
+                                Mathf.RoundToInt(b.Position.Y) == yy);
+
+                            if (blockToMove != null)
+                            {
+                                blockToMove.Position += Vector2.Down;
                             }
                         }
                     }
 
-                    // Generar nueva pieza
-                    SpawnPiece();
+                    // Limpiar fila superior
+                    for (int x = 0; x < width; x++)
+                    {
+                        board[x, 0] = new Cell(false, new Color(0, 0, 0, 0));
+                    }
+
+                    y++; // Rechequear esta fila tras mover bloques
                 }
             }
-
-            // Aquí puedes añadir controles de izquierda/derecha si quieres
         }
 
-        public void HardDrop(InputSystem.InputActionState state)
+        private void StartFadeToWhiteThenReturn(ColorRect block)
         {
-            if (state.state == InputSystem.InputActionState.PressState.JustPressed)
+            _ = FadeCoroutine(block);
+        }
+
+        private async Task FadeCoroutine(ColorRect block)
+        {
+            float duration = 0.3f;
+            float elapsed = 0f;
+            Color startColor = block.Color;
+            Color targetColor = Colors.White;
+
+            while (elapsed < duration)
+            {
+                float t = elapsed / duration;
+                block.Color = LerpColor(startColor, targetColor, t);
+                await ToSignal(GetTree().CreateTimer(0.016f), "timeout");
+                elapsed += 0.016f;
+            }
+
+            block.Color = targetColor;
+
+            block.GetParent()?.RemoveChild(block); // mantener esto como pediste
+            activeVisualBlocks.Remove(block);
+            blockPool.Return(block); // esto ya hace Visible = false
+        }
+
+        private Color LerpColor(Color a, Color b, float t)
+        {
+            return new Color(
+                Mathf.Lerp(a.R, b.R, t),
+                Mathf.Lerp(a.G, b.G, t),
+                Mathf.Lerp(a.B, b.B, t),
+                Mathf.Lerp(a.A, b.A, t)
+            );
+        }
+
+        public void HardDrop(InputActionState state)
+        {
+            if (state.state == InputActionState.PressState.JustPressed)
             {
                 List<ColorRect> blocks = currentPiece.GetChildren().OfType<ColorRect>().ToList();
                 int dropDistance = 0;
@@ -141,68 +254,69 @@ namespace Tetris
                     dropDistance++;
                     foreach (ColorRect block in blocks)
                     {
-                        Vector2 currentGlobal = block.GlobalPosition;
-                        Vector2 nextGlobal = currentGlobal + new Vector2(0, dropDistance);
+                        Vector2 nextGlobal = block.GlobalPosition + new Vector2(0, dropDistance);
                         int x = Mathf.RoundToInt(nextGlobal.X);
                         int y = Mathf.RoundToInt(nextGlobal.Y);
 
-                        // Verificar límites del fondo y colisión con otras piezas
-                        if (y >= board.GetLength(1) || x < 0 || x >= board.GetLength(0) || board[x, y] != null)
+                        if (y >= board.GetLength(1) || x < 0 || x >= board.GetLength(0) || board[x, y].IsOccupied)
                         {
-                            dropDistance--; // Vuelve al último válido
+                            dropDistance--;
                             canMove = false;
                             break;
                         }
                     }
                 }
 
-                // Aplicar el movimiento final
                 currentPiece.Position += new Vector2(0, dropDistance);
 
-                // Marcar en el tablero
                 foreach (ColorRect block in blocks)
                 {
-                    Vector2 global = block.GlobalPosition;
-                    int x = Mathf.RoundToInt(global.X);
-                    int y = Mathf.RoundToInt(global.Y);
+                    int x = Mathf.RoundToInt(block.GlobalPosition.X);
+                    int y = Mathf.RoundToInt(block.GlobalPosition.Y);
 
                     if (x >= 0 && x < board.GetLength(0) && y >= 0 && y < board.GetLength(1))
                     {
-                        board[x, y] = block;
+                        board[x, y] = new Cell(true, block.Color);
+                        ColorRect visual = new ColorRect
+                        {
+                            Color = block.Color,
+                            Size = new Vector2(1, 1),
+                            Position = new Vector2(x, y)
+                        };
+                        AddChild(visual);
+                        activeVisualBlocks.Add(visual);
                     }
                 }
 
+                currentPiece.QueueFree();
+                ClearLines(); // <--- LLAMADA TAMBIÉN AQUÍ SI QUIERES QUE FUNCIONE CON HARD DROP
                 SpawnPiece();
             }
         }
+
         public void SetPivot(Vector2 pivot)
         {
             pivotOverride = pivot;
         }
 
-        public void Rotate(InputSystem.InputActionState state)
+        public void Rotate(InputActionState state)
         {
-            if (state.state != InputSystem.InputActionState.PressState.JustPressed || currentPiece == null)
+            if (state.state != InputActionState.PressState.JustPressed || currentPiece == null)
                 return;
 
-            // 1) Recoger bloques y sus posiciones locales originales
             List<ColorRect> blocks = currentPiece.GetChildren().OfType<ColorRect>().ToList();
             List<Vector2> originalLocal = blocks.Select(b => b.Position).ToList();
 
-            // Pillamos el pivot de la pieza
             Vector2 pivot = currentPivot;
-            GD.Print(pivot);
 
-            // 3) Simular rotación local 90° horario
             List<Vector2> rotatedLocal = new List<Vector2>(blocks.Count);
             foreach (Vector2 pos in originalLocal)
             {
                 Vector2 d = pos - pivot;
                 Vector2 r = new Vector2(-d.Y, d.X) + pivot;
-                rotatedLocal.Add(new Vector2(r.X, r.Y));
+                rotatedLocal.Add(r);
             }
 
-            // 4) Corregir si se sale del tablero por izquierda o derecha
             float rotatedMinX = rotatedLocal.Min(p => p.X);
             float rotatedMaxX = rotatedLocal.Max(p => p.X);
             float correctionX = 0;
@@ -214,9 +328,8 @@ namespace Tetris
             for (int i = 0; i < rotatedLocal.Count; i++)
                 rotatedLocal[i] += new Vector2(correctionX, 0);
 
-            // 5) Verificar colisiones
             bool valid = true;
-            HashSet<Vector2> uniquePositions = new HashSet<Vector2>();
+            HashSet<Vector2> uniquePositions = new();
             for (int i = 0; i < blocks.Count; i++)
             {
                 Vector2 global = currentPiece.Position + rotatedLocal[i];
@@ -226,14 +339,13 @@ namespace Tetris
                 if (!uniquePositions.Add(global) ||
                     x < 0 || x >= board.GetLength(0) ||
                     y < 0 || y >= board.GetLength(1) ||
-                    board[x, y] != null)
+                    board[x, y].IsOccupied)
                 {
                     valid = false;
                     break;
                 }
             }
 
-            // 6) Aplicar si es válido
             if (valid)
             {
                 for (int i = 0; i < blocks.Count; i++)
@@ -242,39 +354,27 @@ namespace Tetris
             else
             {
                 for (int i = 0; i < blocks.Count; i++)
-                blocks[i].Position = originalLocal[i];
+                    blocks[i].Position = originalLocal[i];
             }
         }
 
         private void TryMovePiece(InputActionState state)
         {
-            // Solo permitir movimientos en un eje a la vez (no diagonal)
             Vector2 rawDirection = (Vector2)state.strength;
-
-            if (Mathf.Abs(rawDirection.X) > Mathf.Abs(rawDirection.Y))
-                direction = new Vector2(Mathf.Sign(rawDirection.X), 0); // Movimiento horizontal
-            else
-                direction = new Vector2(0, Mathf.Sign(rawDirection.Y)); // Movimiento vertical
+            direction = Mathf.Abs(rawDirection.X) > Mathf.Abs(rawDirection.Y)
+                ? new Vector2(Mathf.Sign(rawDirection.X), 0)
+                : new Vector2(0, Mathf.Sign(rawDirection.Y));
 
             bool canMove = true;
-
             foreach (Node child in currentPiece.GetChildren())
             {
                 if (child is ColorRect colorRect)
                 {
-                    Vector2 nextGlobalPos = colorRect.GlobalPosition + direction;
-                    int x = Mathf.RoundToInt(nextGlobalPos.X);
-                    int y = Mathf.RoundToInt(nextGlobalPos.Y);
+                    Vector2 nextPos = colorRect.GlobalPosition + direction;
+                    int x = Mathf.RoundToInt(nextPos.X);
+                    int y = Mathf.RoundToInt(nextPos.Y);
 
-                    // Comprobación de límites
-                    if (x < 0 || x >= BackGround.Size.X || y < 0 || y >= BackGround.Size.Y)
-                    {
-                        canMove = false;
-                        break;
-                    }
-
-                    // Verificar colisión con otras piezas
-                    if (board[x, y] != null)
+                    if (x < 0 || x >= BackGround.Size.X || y < 0 || y >= BackGround.Size.Y || board[x, y].IsOccupied)
                     {
                         canMove = false;
                         break;
@@ -283,68 +383,40 @@ namespace Tetris
             }
 
             if (canMove)
-            {
                 currentPiece.Position += direction;
-            }
         }
 
-        // Método para generar una pieza aleatoria y colocarla en la parte superior del contenedor
         public void SpawnPiece()
         {
-            // Escoger una pieza aleatoria desde el array de PieceData
             var random = new Random();
+            PieceData randomPiece = Piece[random.Next(Piece.Count)];
 
-            PieceData randomPieceData = Piece[random.Next(Piece.Count)];
-
-
-            // Crear un nodo contenedor para las partes de la pieza
             currentPiece = new Node2D();
             AddChild(currentPiece);
-             
-            int randomX = (int)GD.RandRange(0, BackGround.Size.X -1); // Asegura que la pieza no se salga del fondo
-            //GD.Print(randomX);
-           currentPiece.Position = new Vector2(randomX, 0);
 
-            // Crear las partes de la pieza usando los datos de PieceData
-            for (int i = 0; i < randomPieceData.Pos.Count; i++)
+            int randomX = (int)GD.RandRange(0, BackGround.Size.X - 1);
+            currentPiece.Position = new Vector2(randomX, 0);
+
+            foreach (var pos in randomPiece.Pos)
             {
-               // GD.Print(randomPieceData.Pos.Count);
-                
-                ColorRect colorRect = new ColorRect
-                {
-                    Color = randomPieceData.col,
-                    Size = new Vector2(1, 1),  // Tamaño de cada bloque (puedes ajustar)
-                    Position = randomPieceData.Pos[i],  // Ajustar la posición de las partes según el Vector2 de PieceData
-                };
-                currentPiece.AddChild(colorRect);
-            }
-            currentPivot = randomPieceData.Pivot;
+                ColorRect block = blockPool != null ? blockPool.Get() : null;
 
-            HashSet<int> posicionesXSobresalientes = new();
-
-            foreach (Node child in currentPiece.GetChildren())
-            {
-                if (child is ColorRect colorRect)
-                {
-
-                    if (colorRect.GlobalPosition.X >= BackGround.Position.X + BackGround.Size.X)
-                    {
-                        // Convertimos a int la posición X sobresaliente
-                        int x = (int)colorRect.GlobalPosition.X;
-
-                        posicionesXSobresalientes.Add(x); // HashSet evita duplicados automáticamente
-                        
-
-                    }
-                }
+                block.Color = randomPiece.col;
+                block.Size = new Vector2(1, 1);
+                block.Position = pos;
+                currentPiece.AddChild(block);
             }
 
-            
-            currentPiece.Position -= new Vector2((float)posicionesXSobresalientes.Count, 0);
-            
+            currentPivot = randomPiece.Pivot;
 
+            HashSet<int> xOverflow = new();
+            foreach (ColorRect block in currentPiece.GetChildren().OfType<ColorRect>())
+            {
+                if (block.GlobalPosition.X >= BackGround.Position.X + BackGround.Size.X)
+                    xOverflow.Add((int)block.GlobalPosition.X);
+            }
+
+            currentPiece.Position -= new Vector2(xOverflow.Count, 0);
         }
-
     }
 }
-

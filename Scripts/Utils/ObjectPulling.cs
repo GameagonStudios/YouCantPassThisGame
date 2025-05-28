@@ -1,59 +1,43 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-public partial class ObjectPulling <T> where T : Node
+
+public class ObjectPulling<T> where T : Node
 {
-    private readonly PackedScene scene;
-    private readonly Node parent;
+    private readonly Func<T> createFunc;
     private readonly Queue<T> pool;
 
-    public ObjectPulling(PackedScene scene, Node parent, int initialSize = 10)
+    public ObjectPulling(Func<T> createFunc, int initialSize = 10)
     {
-        this.scene = scene;
-        this.parent = parent;
+        this.createFunc = createFunc;
         pool = new Queue<T>();
 
-        // Crear los objetos iniciales
         for (int i = 0; i < initialSize; i++)
         {
-            T obj = scene.Instantiate<T>();
-            obj.Name = $"{typeof(T).Name}_Pooled_{i}";
+            T obj = createFunc();
+            SetVisibleIfPossible(obj, false);
             pool.Enqueue(obj);
         }
     }
 
     public T Get()
     {
-        T obj;
-
-        if (pool.Count > 0)
-        {
-            obj = pool.Dequeue();
-        }
-        else
-        {
-            obj = scene.Instantiate<T>();
-            parent.AddChild(obj);
-        }
-
-        // Reiniciar el estado del objeto si es necesario (como un Timer)
-        if (obj is Timer timer)
-        {
-            timer.Stop();
-            timer.Start();  // Reiniciar el timer
-        }
-
+        T obj = pool.Count > 0 ? pool.Dequeue() : createFunc();
+        SetVisibleIfPossible(obj, true);
         return obj;
     }
 
     public void Return(T obj)
     {
-        // Si el objeto es un Timer, detenerlo antes de devolverlo
-        if (obj is Timer timer)
-        {
-            timer.Stop();
-        }
-
+        SetVisibleIfPossible(obj, false);
         pool.Enqueue(obj);
+    }
+
+    private void SetVisibleIfPossible(T obj, bool visible)
+    {
+        if (obj is CanvasItem canvasItem)
+        {
+            canvasItem.Visible = visible;
+        }
     }
 }
