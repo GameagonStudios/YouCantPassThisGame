@@ -136,13 +136,13 @@ namespace Tetris
                     }
 
                     currentPiece.QueueFree();
-                    ClearLines(); // <--- LLAMADA AQUÍ
+                    _ = ClearLines();
                     SpawnPiece();
                 }
             }
         }
 
-        public void ClearLines()
+        public async Task ClearLines()
         {
             int width = board.GetLength(0);
             int height = board.GetLength(1);
@@ -161,6 +161,9 @@ namespace Tetris
 
                 if (isFull)
                 {
+                    // Lista para esperar a que todos los fades terminen
+                    List<Task> fadeTasks = new List<Task>();
+
                     for (int x = 0; x < width; x++)
                     {
                         board[x, y] = new Cell(false, new Color(0, 0, 0, 0));
@@ -171,9 +174,12 @@ namespace Tetris
 
                         if (blockToRemove != null)
                         {
-                            StartFadeToWhiteThenReturn(blockToRemove);
+                            fadeTasks.Add(StartFadeToWhiteThenReturn(blockToRemove));
                         }
                     }
+
+                    // Esperar a que terminen todos los fades antes de bajar bloques
+                    await Task.WhenAll(fadeTasks);
 
                     // Bajar todo lo que está por encima
                     for (int yy = y - 1; yy >= 0; yy--)
@@ -204,9 +210,9 @@ namespace Tetris
             }
         }
 
-        private void StartFadeToWhiteThenReturn(ColorRect block)
+        private async Task StartFadeToWhiteThenReturn(ColorRect block)
         {
-            _ = FadeCoroutine(block);
+            await FadeCoroutine(block);
         }
 
         private async Task FadeCoroutine(ColorRect block)
@@ -226,9 +232,9 @@ namespace Tetris
 
             block.Color = targetColor;
 
-            block.GetParent()?.RemoveChild(block); // mantener esto como pediste
+            block.GetParent()?.RemoveChild(block); // Eliminar parent antes de meterlo al poool
             activeVisualBlocks.Remove(block);
-            blockPool.Return(block); // esto ya hace Visible = false
+            blockPool.Return(block); // Visible = false
         }
 
         private Color LerpColor(Color a, Color b, float t)
@@ -289,7 +295,7 @@ namespace Tetris
                 }
 
                 currentPiece.QueueFree();
-                ClearLines(); // <--- LLAMADA TAMBIÉN AQUÍ SI QUIERES QUE FUNCIONE CON HARD DROP
+                _ = ClearLines();
                 SpawnPiece();
             }
         }
