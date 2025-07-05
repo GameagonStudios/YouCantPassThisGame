@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://6abnjqxqvuns"]
+
+[ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="1_ox8fp"]
+[ext_resource type="Resource" uid="uid://bovdny6kjjej2" path="res://Resources/Inputs/InputMap.tres" id="2_wkpi6"]
+[ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="3_m14sn"]
+
+[node name="InputEventHandler" type="Node"]
+process_mode = 3
+script = ExtResource("1_ox8fp")
+inputMap = ExtResource("2_wkpi6")
+MouseMode = 2
+UseInputAcumulation = true
+metadata/_custom_type_script = "uid://cnlgu1l6setym"
+
+[node name="Player" type="Node" parent="."]
+
+[node name="Jump" type="Node" parent="Player"]
+script = ExtResource("3_m14sn")
+
+[node name="Interact" type="Node" parent="Player"]
+script = ExtResource("3_m14sn")
+
+[node name="Crouch" type="Node" parent="Player"]
+script = ExtResource("3_m14sn")
+
+[node name="Movement" type="Node" parent="Player"]
+script = ExtResource("3_m14sn")
+
+[node name="Look" type="Node" parent="Player"]
+script = ExtResource("3_m14sn")
+
+[node name="Run" type="Node" parent="Player"]
+script = ExtResource("3_m14sn")
+
+[node name="UI" type="Node" parent="."]
+
+[node name="Pause" type="Node" parent="UI"]
+script = ExtResource("3_m14sn")
+
+[node name="TogleFullScreen" type="Node" parent="UI"]
+script = ExtResource("3_m14sn")
+
+[node name="MiniGames" type="Node" parent="."]
+
+[node name="MoveMiniGame" type="Node" parent="MiniGames"]
+script = ExtResource("3_m14sn")
+
+[node name="Action1" type="Node" parent="MiniGames"]
+script = ExtResource("3_m14sn")
+
+[node name="Action2" type="Node" parent="MiniGames"]
+script = ExtResource("3_m14sn")

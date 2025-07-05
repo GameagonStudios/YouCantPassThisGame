@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cc67vq0a343ff"]
+[gd_scene load_steps=11 format=3 uid="uid://cc67vq0a343ff"]
 
 [ext_resource type="Script" uid="uid://c8bh5ypjfn0wm" path="res://Scripts/MiniGames/Tetris/TetrisManager.cs" id="1_dreld"]
 [ext_resource type="Script" uid="uid://dlburudp56myy" path="res://Scripts/MiniGames/Tetris/PieceData.cs" id="2_durpn"]
@@ -6,117 +6,47 @@
 [ext_resource type="Resource" uid="uid://bpmx5ccq0mpqx" path="res://Resources/MiniGames/Tetris/PieceQuad.tres" id="4_44ugv"]
 [ext_resource type="Resource" uid="uid://bbcb7nbstumb" path="res://Resources/MiniGames/Tetris/PieceRect.tres" id="5_cigtn"]
 [ext_resource type="Resource" uid="uid://bpvxyr5utln63" path="res://Resources/MiniGames/Tetris/PieceTree.tres" id="6_5vbpk"]
-[ext_resource type="Script" uid="uid://cnlgu1l6setym" path="res://addons/SKInputSystem/InputSystem/InputEventHandler.cs" id="7_urfqo"]
-[ext_resource type="Script" uid="uid://t0cmlswemv15" path="res://addons/SKInputSystem/InputSystem/InputActionGroup.cs" id="8_l4jvv"]
-[ext_resource type="Script" uid="uid://cyltkd572m4ig" path="res://addons/SKInputSystem/InputSystem/InputAction.cs" id="9_wf8jf"]
-[ext_resource type="Script" uid="uid://ba8gjttvae2wj" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector2InputAction.cs" id="10_ohmf6"]
-[ext_resource type="Script" uid="uid://caspgt78xg48h" path="res://addons/SKInputSystem/InputSystem/InputMap.cs" id="11_eslrf"]
-[ext_resource type="Script" uid="uid://c1tu0afldgxa8" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="11_l4jvv"]
-[ext_resource type="Script" uid="uid://d2mqi6oy55a0q" path="res://Scripts/Utils/EventActuator.cs" id="12_urfqo"]
+[ext_resource type="Resource" uid="uid://ca5yks1ifc00b" path="res://Resources/Inputs/Actions/MiniGames/Action2.tres" id="10_e65oa"]
+[ext_resource type="Resource" uid="uid://b0rhpyawtoar5" path="res://Resources/Inputs/Actions/MiniGames/MoveMiniGame.tres" id="10_wf8jf"]
+[ext_resource type="Resource" uid="uid://daooa5fbkpkgn" path="res://Resources/Inputs/Actions/MiniGames/Action1.tres" id="11_ohmf6"]
+[ext_resource type="Script" uid="uid://dtllrfjn8535m" path="res://addons/SKInputSystem/InputSystem/InputEventSubHandler.cs" id="15_ohmf6"]
 
-[sub_resource type="Resource" id="Resource_h5prt"]
-resource_name = "Move"
-script = ExtResource("10_ohmf6")
-AxisXNegative = Array[String](["Key A", "JoyAxis LeftX"])
-AxisXPositive = Array[String](["Key D", "JoyAxis RightX"])
-AxisYNegative = Array[String]([])
-AxisYPositive = Array[String](["JoyAxis RightY", "Key S"])
-XNegativeName = "Right"
-XPositiveName = "Left"
-YNegativeName = "Down"
-YPositiveName = "Up"
-MouseInput = 0
-Name = "Move"
-DeadZone = 0.25
-Sleeping = false
-metadata/_custom_type_script = "uid://ba8gjttvae2wj"
-
-[sub_resource type="Resource" id="Resource_e65oa"]
-resource_name = "Move"
-script = ExtResource("8_l4jvv")
-Name = "Move"
-Actions = Array[ExtResource("9_wf8jf")]([SubResource("Resource_h5prt")])
-Sleeping = false
-metadata/_custom_type_script = "uid://t0cmlswemv15"
-
-[sub_resource type="Resource" id="Resource_wf8jf"]
-resource_name = "Rotation"
-script = ExtResource("11_l4jvv")
-Events = Array[String](["Key R"])
-MouseInput = 0
-Name = "Rotation"
-DeadZone = 0.25
-Sleeping = false
-metadata/_custom_type_script = "uid://c1tu0afldgxa8"
-
-[sub_resource type="Resource" id="Resource_ohmf6"]
-resource_name = "Rotation"
-script = ExtResource("8_l4jvv")
-Name = "Rotation"
-Actions = Array[ExtResource("9_wf8jf")]([SubResource("Resource_wf8jf")])
-Sleeping = false
-metadata/_custom_type_script = "uid://t0cmlswemv15"
-
-[sub_resource type="Resource" id="Resource_l4jvv"]
-resource_name = "Hard Drop"
-script = ExtResource("11_l4jvv")
-Events = Array[String](["Key Space", "JoyButton A"])
-MouseInput = 0
-Name = "Hard Drop"
-DeadZone = 0.25
-Sleeping = false
-metadata/_custom_type_script = "uid://c1tu0afldgxa8"
-
-[sub_resource type="Resource" id="Resource_eslrf"]
-resource_name = "Hard Drop"
-script = ExtResource("8_l4jvv")
-Name = "Hard Drop"
-Actions = Array[ExtResource("9_wf8jf")]([SubResource("Resource_l4jvv")])
-Sleeping = false
-metadata/_custom_type_script = "uid://t0cmlswemv15"
-
-[sub_resource type="Resource" id="Resource_46k44"]
-resource_name = "InputMap"
-script = ExtResource("11_eslrf")
-Name = "InputMap"
-Groups = Array[ExtResource("8_l4jvv")]([SubResource("Resource_e65oa"), SubResource("Resource_ohmf6"), SubResource("Resource_eslrf")])
-metadata/_custom_type_script = "uid://caspgt78xg48h"
-
-[node name="Tetris" type="Node2D"]
-
-[node name="BackGround" type="ColorRect" parent="." node_paths=PackedStringArray("BackGround")]
-offset_right = 32.0
-offset_bottom = 32.0
-color = Color(0, 0, 0, 1)
+[node name="Tetris" type="Node2D" node_paths=PackedStringArray("BackGround")]
 script = ExtResource("1_dreld")
 Piece = Array[ExtResource("2_durpn")]([ExtResource("3_etvuu"), ExtResource("4_44ugv"), ExtResource("5_cigtn"), ExtResource("6_5vbpk")])
-BackGround = NodePath(".")
-metadata/_edit_use_anchors_ = true
+BackGround = NodePath("BackGround")
+LinesCondition = 5
+firstGame = false
 
-[node name="Camera2D" type="Camera2D" parent="BackGround"]
+[node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(15, 19)
 zoom = Vector2(26.62, 26.62)
 
-[node name="InputEventHandler" type="Node" parent="."]
-process_mode = 3
-script = ExtResource("7_urfqo")
-inputMap = SubResource("Resource_46k44")
+[node name="BackGround" type="ColorRect" parent="."]
+clip_contents = true
+offset_right = 32.0
+offset_bottom = 32.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="Move" type="Node" parent="InputEventHandler"]
+[node name="Inputs" type="Node" parent="."]
 
-[node name="Move" type="Node" parent="InputEventHandler/Move"]
-script = ExtResource("12_urfqo")
+[node name="Move" type="Node" parent="Inputs"]
+script = ExtResource("15_ohmf6")
+inputAction = ExtResource("10_wf8jf")
+metadata/_custom_type_script = "uid://dtllrfjn8535m"
 
-[node name="Rotation" type="Node" parent="InputEventHandler"]
+[node name="RotateLeft" type="Node" parent="Inputs"]
+script = ExtResource("15_ohmf6")
+inputAction = ExtResource("11_ohmf6")
+metadata/_custom_type_script = "uid://dtllrfjn8535m"
 
-[node name="Rotation" type="Node" parent="InputEventHandler/Rotation"]
-script = ExtResource("12_urfqo")
+[node name="RotateRight" type="Node" parent="Inputs"]
+script = ExtResource("15_ohmf6")
+inputAction = ExtResource("10_e65oa")
+metadata/_custom_type_script = "uid://dtllrfjn8535m"
 
-[node name="Hard Drop" type="Node" parent="InputEventHandler"]
-
-[node name="Hard Drop" type="Node" parent="InputEventHandler/Hard Drop"]
-script = ExtResource("12_urfqo")
-
-[connection signal="onInvoke" from="InputEventHandler/Move/Move" to="BackGround" method="TryMovePiece"]
-[connection signal="onInvoke" from="InputEventHandler/Rotation/Rotation" to="BackGround" method="Rotate"]
-[connection signal="onInvoke" from="InputEventHandler/Hard Drop/Hard Drop" to="BackGround" method="HardDrop"]
+[connection signal="onInvoke" from="Inputs/Move" to="." method="TryMovePiece"]
+[connection signal="onInvoke" from="Inputs/RotateLeft" to="." method="Rotate" binds= [false]]
+[connection signal="onInvoke" from="Inputs/RotateRight" to="." method="Rotate" binds= [true]]

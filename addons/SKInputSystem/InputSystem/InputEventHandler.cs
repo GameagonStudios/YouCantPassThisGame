@@ -158,7 +158,7 @@ public partial class InputEventHandler : Node
 		Remap();
 
 		if (!Engine.IsEditorHint())
-			CurrentChanged.Invoke();
+			CurrentChanged?.Invoke();
 	}
 
 	public override void _ExitTree()

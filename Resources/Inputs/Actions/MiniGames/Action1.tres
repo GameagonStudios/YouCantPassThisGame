@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ButtonInputAction" load_steps=2 format=3 uid="uid://daooa5fbkpkgn"]
+
+[ext_resource type="Script" uid="uid://c1tu0afldgxa8" path="res://addons/SKInputSystem/InputSystem/ActionTypes/ButtonInputAction.cs" id="1_fb6a5"]
+
+[resource]
+resource_name = "Action1"
+script = ExtResource("1_fb6a5")
+Events = Array[String](["JoyButton LeftShoulder", "MouseButton Left"])
+MouseInput = 0
+Name = "Action1"
+DeadZone = 0.25
+Sleeping = false
+metadata/_custom_type_script = "uid://c1tu0afldgxa8"

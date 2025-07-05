@@ -6,7 +6,8 @@ using Godot.NativeInterop;
 
 public partial class PaddleController : Area2D
 {
-  public float Direction;
+  public Vector2 Direction;
+
   [Export]
   float speed = 1.0f;
 
@@ -30,20 +31,22 @@ public partial class PaddleController : Area2D
   {
     this.BodyEntered += BounceBall;
   }
+  
   public void Move(InputActionState state)
   {
-    Direction = ((float)state.strength);
+    Direction = ((Vector2)state.strength);
 
   }
+  
   public override void _PhysicsProcess(double delta)
-{
-    // Calculamos la velocidad de la pala
-    Velocity = Direction * speed * (float)delta;
-    this.Position = new Vector2(Mathf.Clamp(Velocity + Position.X, Min, Max), Position.Y);
-}
+  {
+      // Calculamos la velocidad de la pala
+      Velocity = Direction.X * speed * (float)delta;
+      this.Position = new Vector2(Mathf.Clamp(Velocity + Position.X, Min, Max), Position.Y);
+  }
 
-public void BounceBall(Node2D node)
-{
+  public void BounceBall(Node2D node)
+  {
     if (node is Ball ball)
     {
       // Usamos la fórmula que ajusta la dirección y magnitud 

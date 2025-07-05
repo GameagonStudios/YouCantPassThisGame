@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Panku="*res://addons/panku_console/console.tscn"
+MainInputEventHandler="*res://Resources/Nodes/InputEventHandler.tscn"
 
 [display]
 

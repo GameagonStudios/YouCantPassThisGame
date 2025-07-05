@@ -62,7 +62,7 @@ public partial class Ball : RigidBody2D
 	{
 		if (ControllerPaddle is PaddleController controllerP)
 		{
-			diirectionPaddle = controllerP.Direction;
+			diirectionPaddle = controllerP.Direction.X;
 		}
 		Vector2 lv = LinearVelocity;
 		KinematicCollision2D collission = MoveAndCollide(LinearVelocity * (float)delta, false, 0, true);

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Vector2InputAction" load_steps=2 format=3 uid="uid://b0rhpyawtoar5"]
+
+[ext_resource type="Script" uid="uid://ba8gjttvae2wj" path="res://addons/SKInputSystem/InputSystem/ActionTypes/Vector2InputAction.cs" id="1_c6fxp"]
+
+[resource]
+resource_name = "MoveMiniGame"
+script = ExtResource("1_c6fxp")
+AxisXNegative = Array[String](["Key A", "JoyAxis LeftX"])
+AxisXPositive = Array[String](["Key D", "JoyAxis RightX"])
+AxisYNegative = Array[String]([])
+AxisYPositive = Array[String](["JoyAxis RightY", "Key S"])
+XNegativeName = "Right"
+XPositiveName = "Left"
+YNegativeName = "Down"
+YPositiveName = "Up"
+MouseInput = 0
+Name = "MoveMiniGame"
+DeadZone = 0.25
+Sleeping = false
+metadata/_custom_type_script = "uid://ba8gjttvae2wj"
