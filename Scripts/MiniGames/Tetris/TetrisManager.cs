@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using InputSystem;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Tetris
 {
@@ -45,7 +46,10 @@ namespace Tetris
 
 		[Export]
 		public bool firstGame = true;
-		
+
+		[Export]
+		public string SaveString = "FirstGame";
+
 
 		private float totalGameTime = 0.0f;
 		private float timeSinceLastFall = 0.0f;
@@ -72,6 +76,7 @@ namespace Tetris
 
 		public override void _Ready()
 		{
+			LoadFirstGameValue();
 			blockPool = new ObjectPulling<ColorRect>(() =>
 			{
 				var rect = new ColorRect();
@@ -293,7 +298,7 @@ namespace Tetris
 
 			await Task.WhenAll(fadeTasks);
 		}
-		
+
 		private async Task StartFadeToWhiteThenReturn(ColorRect block)
 		{
 			await FadeCoroutine(block);
@@ -448,7 +453,7 @@ namespace Tetris
 
 				verifyPiece();
 			}
-			
+
 		}
 
 		public void SpawnPiece()
@@ -507,7 +512,6 @@ namespace Tetris
 		}
 		void verifyPiece()
 		{
-			bool hasEntered = false;
 
 
 			foreach (ColorRect child in currentPiece.GetChildren())
@@ -531,10 +535,22 @@ namespace Tetris
 			{
 				firstGame = false; // Marca como ya no primera partida
 				_ = ClearBoardWithFade(); // Espera a que se limpien los bloques con fade
+				SaveIsFirstGame(firstGame);
 			}
 			GD.Print("Game Over");
 			GetTree().Paused = true;
 			// Puedes también mostrar una UI de derrota aquí
+		}
+
+		private void SaveIsFirstGame(bool isFirstGame)
+		{
+			OptionsSavesHandler.Current.SetValue(SaveString, isFirstGame);
+		}
+
+		private void LoadFirstGameValue()
+		{
+			firstGame = OptionsSavesHandler.Current.GetValue(SaveString)?.As<bool>() ?? firstGame;
+
 		}
 
 	}
