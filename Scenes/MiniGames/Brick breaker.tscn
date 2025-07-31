@@ -511,7 +511,3 @@ metadata/_custom_type_script = "uid://dtllrfjn8535m"
 script = ExtResource("12_sq0ww")
 inputAction = ExtResource("14_qqepa")
 metadata/_custom_type_script = "uid://dtllrfjn8535m"
-
-[connection signal="WinGame" from="BackGround/Container" to="BackGround/Container" method="Win"]
-[connection signal="onInvoke" from="Inputs/Move" to="Area2D" method="Move"]
-[connection signal="onInvoke" from="Inputs/LaunchBall" to="RigidBody2D" method="LaunchBall"]

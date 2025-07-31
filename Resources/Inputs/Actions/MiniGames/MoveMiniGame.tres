@@ -6,9 +6,9 @@
 resource_name = "MoveMiniGame"
 script = ExtResource("1_c6fxp")
 AxisXNegative = Array[String](["Key A", "JoyAxis LeftX"])
-AxisXPositive = Array[String](["Key D", "JoyAxis RightX"])
+AxisXPositive = Array[String](["Key D", "JoyAxis LeftX"])
 AxisYNegative = Array[String]([])
-AxisYPositive = Array[String](["JoyAxis RightY", "Key S"])
+AxisYPositive = Array[String](["Key S", "JoyAxis LeftY"])
 XNegativeName = "Right"
 XPositiveName = "Left"
 YNegativeName = "Down"

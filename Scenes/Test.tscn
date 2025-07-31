@@ -463,5 +463,4 @@ TPTo = Vector3(0, 10, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("WorldBoundaryShape3D_8d4ee")
 
-[connection signal="Activated" from="World/Machine_v2/StaticBody3D" to="World/Machine_v2/AudioStreamPlayer3D2" method="play" unbinds=1]
 [connection signal="body_entered" from="Area3D" to="Area3D" method="TPBody"]

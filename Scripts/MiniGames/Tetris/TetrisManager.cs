@@ -50,7 +50,7 @@ namespace Tetris
 		[Export]
 		public string SaveString = "FirstGame";
 
-
+		Vector2 raw;
 		private float totalGameTime = 0.0f;
 		private float timeSinceLastFall = 0.0f;
 
@@ -73,10 +73,13 @@ namespace Tetris
 		int width;
 		int height;
 
-
-		public override void _Ready()
+		public override void _EnterTree()
 		{
 			LoadFirstGameValue();
+		}
+		public override void _Ready()
+		{
+
 			blockPool = new ObjectPulling<ColorRect>(() =>
 			{
 				var rect = new ColorRect();
@@ -405,44 +408,61 @@ namespace Tetris
 					blocks[i].Position = originalLocal[i];
 			}
 		}
-
+		float x;
+		float y;
 		private void TryMovePiece(InputActionState state)
 		{
 			if (!GetTree().Paused)
 			{
-				Vector2 rawDirection = (Vector2)state.strength;
-				direction = Mathf.Abs(rawDirection.X) > Mathf.Abs(rawDirection.Y)
-					? new Vector2(Mathf.Sign(rawDirection.X), 0)
-					: new Vector2(0, Mathf.Sign(rawDirection.Y));
+				Vector2 raw = ((Vector2)state.strength).Normalized();
+
+				// DEADZONE - convertimos a -1, 0 o 1
+				float deadzone = 0.5f;
+
+				 x = Mathf.Abs(raw.X) > deadzone ? Mathf.Sign(raw.X) : 0;
+				 y = Mathf.Abs(raw.Y) > deadzone ? Mathf.Sign(raw.Y) : 0;
+
+				// Determinar dirección predominante
+				if (Mathf.Abs(raw.X) > Mathf.Abs(raw.Y))
+				{
+					direction = new Vector2(x, 0);
+				}
+				else if (y == 1) // Solo permitimos BAJAR (nunca subir)
+				{
+					direction = new Vector2(0, 1);
+				}
+
+				GD.Print($"Joystick direction: {direction}");
+
+				if (direction == Vector2.Zero)
+					return;
+
+				if (!GodotObject.IsInstanceValid(currentPiece))
+					return;
 
 				bool canMove = true;
-
-				if (!Godot.GodotObject.IsInstanceValid(currentPiece))
-					return;
 
 				foreach (Node child in currentPiece.GetChildren())
 				{
 					if (child is ColorRect colorRect)
 					{
 						Vector2 nextPos = colorRect.GlobalPosition + direction;
-						int x = Mathf.RoundToInt(nextPos.X);
-						int y = Mathf.RoundToInt(nextPos.Y);
+						int xPos = Mathf.RoundToInt(nextPos.X);
+						int yPos = Mathf.RoundToInt(nextPos.Y);
 
-						if (y >= 0 && x >= 0 && x < board.GetLength(0) && y < board.GetLength(1) - TopY)
+						if (yPos >= 0 && xPos >= 0 && xPos < board.GetLength(0) && yPos < board.GetLength(1) - TopY)
 						{
-							if (x < 0 || x >= BackGround.Size.X || board[x, y].IsOccupied)
+							if (xPos < 0 || xPos >= BackGround.Size.X || board[xPos, yPos].IsOccupied)
 							{
 								canMove = false;
 								break;
 							}
 						}
-						else if (y >= board.GetLength(1) - TopY || x < 0 || x >= BackGround.Size.X)
+						else if (yPos >= board.GetLength(1) - TopY || xPos < 0 || xPos >= BackGround.Size.X)
 						{
 							canMove = false;
 							break;
 						}
-
-
 					}
 				}
 
@@ -453,7 +473,18 @@ namespace Tetris
 
 				verifyPiece();
 			}
+		}
 
+		public override void _PhysicsProcess(double delta)
+		{
+							if (Mathf.Abs(raw.X) > Mathf.Abs(raw.Y))
+				{
+					direction = new Vector2(x, 0);
+				}
+				else if (y == 1) // Solo permitimos BAJAR (nunca subir)
+				{
+					direction = new Vector2(0, 1);
+				}
 		}
 
 		public void SpawnPiece()
@@ -549,7 +580,10 @@ namespace Tetris
 
 		private void LoadFirstGameValue()
 		{
-			firstGame = OptionsSavesHandler.Current.GetValue(SaveString)?.As<bool>() ?? firstGame;
+			firstGame = true;
+			firstGame = OptionsSavesHandler.Current.GetValue(SaveString)?.As<bool>() ?? true;
+			GD.Print(firstGame);
+
 
 		}
 

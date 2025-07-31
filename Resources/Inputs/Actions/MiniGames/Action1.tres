@@ -5,7 +5,7 @@
 [resource]
 resource_name = "Action1"
 script = ExtResource("1_fb6a5")
-Events = Array[String](["JoyButton LeftShoulder", "MouseButton Left"])
+Events = Array[String](["MouseButton Left", "JoyAxis TriggerLeft"])
 MouseInput = 0
 Name = "Action1"
 DeadZone = 0.25
