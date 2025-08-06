@@ -408,84 +408,126 @@ namespace Tetris
 					blocks[i].Position = originalLocal[i];
 			}
 		}
-		float x;
-		float y;
-		private void TryMovePiece(InputActionState state)
-		{
-			if (!GetTree().Paused)
-			{
-				Vector2 raw = ((Vector2)state.strength).Normalized();
+// ---------------------------------------------------------------------
+  // ───────────────── AJUSTES ─────────────────
+    const float DAS  = 0.15f;   // retraso antes de auto-shift
+    const float ARR  = 0.05f;   // intervalo entre pasos repetidos
+    const float DEAD = 0.45f;   // dead-zone analógica
 
-				// DEADZONE - convertimos a -1, 0 o 1
-				float deadzone = 0.5f;
+    // ───────────────── CAMPOS ──────────────────
+    private Vector2 _rawInput  = Vector2.Zero;  // fuerza analógica bruta
+    private Vector2 _direction = Vector2.Zero;  // vector discreto final
+    private float   _holdTime  = 0f;            // tiempo manteniendo lateral
+    private float   _nextMove  = 0f;            // instante del próximo paso
+    private int     _sideLast  = 0;             // -1,0,1 último lateral
 
-				 x = Mathf.Abs(raw.X) > deadzone ? Mathf.Sign(raw.X) : 0;
-				 y = Mathf.Abs(raw.Y) > deadzone ? Mathf.Sign(raw.Y) : 0;
+    // 1) SE LLAMA DESDE TU EVENTO (Vector2InputAction)
+    public void TryMovePiece(InputActionState state)
+    {
+        _rawInput = (Vector2)state.strength;
 
-				// Determinar dirección predominante
-				if (Mathf.Abs(raw.X) > Mathf.Abs(raw.Y))
-				{
-					direction = new Vector2(x, 0);
-				}
-				else if (y == 1) // Solo permitimos BAJAR (nunca subir)
-				{
-					direction = new Vector2(0, 1);
-				}
+        /*  ──────────────── CAMBIO CLAVE ────────────────
+         * Solo si el evento es de joypad invertimos Y,
+         * porque los ejes Y de Godot son:
+         *   ↑  = -1   ↓  = +1
+         * …mientras que tu JoyAxisMapping los deja
+         * invertidos (↓ = -1).  Con el teclado ya
+         * llega ↓ = +1, así no lo tocamos.
+         */
+        if (state.inputEvent is InputEventJoypadMotion ||
+            state.inputEvent is InputEventJoypadButton)
+            _rawInput.Y *= -1f;
 
-				GD.Print($"Joystick direction: {direction}");
+        _rawInput = _rawInput.Normalized();
+    }
 
-				if (direction == Vector2.Zero)
-					return;
+    // 2) LÓGICA POR FRAME: DAS, ARR, SOFT DROP, COLISIONES
+    public override void _PhysicsProcess(double delta)
+    {
+        // ── Discretizamos a -1/0/1 ──────────────────────
+        int x = Mathf.Abs(_rawInput.X) > DEAD ? Mathf.Sign(_rawInput.X) : 0;
+        int y = Mathf.Abs(_rawInput.Y) > DEAD ? Mathf.Sign(_rawInput.Y) : 0;
 
-				if (!GodotObject.IsInstanceValid(currentPiece))
-					return;
+        // ── Eje predominante (solo bajamos en Y) ────────
+        if (Mathf.Abs(_rawInput.X) > Mathf.Abs(_rawInput.Y))
+            _direction = new Vector2(x, 0);
+        else if (y == 1)                        // ↓ = +1
+            _direction = Vector2.Down;
+        else
+            _direction = Vector2.Zero;
 
-				bool canMove = true;
+        // ── LATERAL con DAS / ARR ───────────────────────
+        if (_direction.X != 0)
+        {
+            if (_sideLast != _direction.X)
+            {
+                AttemptMove(_direction);        // paso instantáneo
+                _holdTime = 0f;
+                _nextMove = DAS;
+                _sideLast = (int)_direction.X;
+            }
+            else
+            {
+                _holdTime += (float)delta;
+                if (_holdTime >= _nextMove)
+                {
+                    AttemptMove(_direction);    // pasos repetidos
+                    _nextMove += ARR;
+                }
+            }
+        }
+        else
+        {
+            _sideLast = 0;
+            _holdTime = 0f;
+        }
 
-				foreach (Node child in currentPiece.GetChildren())
-				{
-					if (child is ColorRect colorRect)
-					{
-						Vector2 nextPos = colorRect.GlobalPosition + direction;
-						int xPos = Mathf.RoundToInt(nextPos.X);
-						int yPos = Mathf.RoundToInt(nextPos.Y);
+        // ── SOFT-DROP (una casilla por frame) ───────────
+        if (_direction == Vector2.Down)
+            AttemptMove(Vector2.Down);
+    }
 
-						if (yPos >= 0 && xPos >= 0 && xPos < board.GetLength(0) && yPos < board.GetLength(1) - TopY)
-						{
-							if (xPos < 0 || xPos >= BackGround.Size.X || board[xPos, yPos].IsOccupied)
-							{
-								canMove = false;
-								break;
-							}
-						}
-						else if (yPos >= board.GetLength(1) - TopY || xPos < 0 || xPos >= BackGround.Size.X)
-						{
-							canMove = false;
-							break;
-						}
-					}
-				}
+    // 3) COLISIONES + DESPLAZAMIENTO (sin cambios)
+    private void AttemptMove(Vector2 dir)
+    {
+        if (dir == Vector2.Zero || !GodotObject.IsInstanceValid(currentPiece))
+            return;
 
-				if (canMove)
-				{
-					currentPiece.Position += direction;
-				}
+        bool canMove = true;
 
-				verifyPiece();
-			}
-		}
+        foreach (Node child in currentPiece.GetChildren())
+        {
+            if (child is ColorRect c)
+            {
+                Vector2 next = c.GlobalPosition + dir;
+                int xPos = Mathf.RoundToInt(next.X);
+                int yPos = Mathf.RoundToInt(next.Y);
 
-		public override void _PhysicsProcess(double delta)
-		{
-							if (Mathf.Abs(raw.X) > Mathf.Abs(raw.Y))
-				{
-					direction = new Vector2(x, 0);
-				}
-				else if (y == 1) // Solo permitimos BAJAR (nunca subir)
-				{
-					direction = new Vector2(0, 1);
-				}
-		}
+                if (yPos >= 0 && xPos >= 0 &&
+                    xPos < board.GetLength(0) &&
+                    yPos < board.GetLength(1) - TopY)
+                {
+                    if (xPos < 0 || xPos >= BackGround.Size.X ||
+                        board[xPos, yPos].IsOccupied)
+                    {
+                        canMove = false;
+                        break;
+                    }
+                }
+                else if (yPos >= board.GetLength(1) - TopY ||
+                         xPos < 0 || xPos >= BackGround.Size.X)
+                {
+                    canMove = false;
+                    break;
+                }
+            }
+        }
+
+        if (canMove)
+            currentPiece.Position += dir;
+
+        verifyPiece();
+    }
 
 		public void SpawnPiece()
 		{
