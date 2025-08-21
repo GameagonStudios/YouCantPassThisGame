@@ -15,7 +15,7 @@
 script = ExtResource("1_dreld")
 Piece = Array[ExtResource("2_durpn")]([ExtResource("3_etvuu"), ExtResource("4_44ugv"), ExtResource("5_cigtn"), ExtResource("6_5vbpk")])
 BackGround = NodePath("BackGround")
-LinesCondition = 5
+LinesCondition = 10
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(15, 19)
