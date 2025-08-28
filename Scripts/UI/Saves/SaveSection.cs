@@ -9,7 +9,9 @@ public partial class SaveSection : Resource
     public void SetValue(StringName key, Variant value) => Data[key] = value;
 
     public Variant? GetValue(StringName key)
-        => Data.TryGetValue(key, out var v) ? v : null;
+    {
+        return Data.TryGetValue(key, out var v) ? (Variant?)v : (Variant?)null;
+    }
 
     public bool HasKey(StringName key) => Data.ContainsKey(key);
 

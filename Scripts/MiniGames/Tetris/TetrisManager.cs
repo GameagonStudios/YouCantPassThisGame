@@ -50,6 +50,15 @@ namespace Tetris
 		[Export]
 		public string SaveString = "FirstGame";
 
+		[Export]
+		public string SaveSection = "tetris";   // sección dentro del save por slot
+
+		[Export]
+		public string AutoSlotName = "autoslot"; // slot provisional para tests
+
+		[Export]
+		public bool BootstrapSaveForTests = true; // activar/desactivar bootstrap
+
 		Vector2 raw;
 		private float totalGameTime = 0.0f;
 		private float timeSinceLastFall = 0.0f;
@@ -91,8 +100,27 @@ namespace Tetris
 		public override void _EnterTree()
 		{
 		}
+
+		private void EnsureSaveManager()
+		{
+			if (!BootstrapSaveForTests) return;
+			if (GameSavesHandler.Current != null) return; // ya hay uno (por autoload o escena)
+
+			// Crear un GameSavesHandler temporal solo para este minijuego
+			var handler = new GameSavesHandler
+			{
+				Name = "GameSavesHandler_Auto",
+				SlotName = AutoSlotName, // importante: asignar antes de AddChild
+			};
+
+			AddChild(handler); // al entrar al árbol, _EnterTree cargará 'autoslot'
+			// Opcionalmente, podrías forzar: handler.LoadSlot(AutoSlotName);
+		}
+
 		public override void _Ready()
 		{
+			EnsureSaveManager();   // crea/asegura un handler y slot temporal si hace falta
+			LoadFirstGameValue();
 
 			blockPool = new ObjectPulling<ColorRect>(() =>
 			{
@@ -610,6 +638,7 @@ namespace Tetris
 			if (firstGame)
 			{
 				firstGame = false; // Marca como ya no primera partida
+				SaveIsFirstGame(firstGame);  
 				
 			}
 			_ = ClearBoardWithFade(); // Espera a que se limpien los bloques con fade
@@ -620,16 +649,30 @@ namespace Tetris
 
 		private void SaveIsFirstGame(bool isFirstGame)
 		{
-			OptionsSavesHandler.Current.SetValue(SaveString, isFirstGame);
+			if (GameSavesHandler.Current == null)
+			{
+				GD.PushWarning("GameSavesHandler no está disponible. ¿Está en escena/autoload?");
+				return;
+			}
+
+			// Guarda el bool en el save del slot actual, sección "tetris" (o la que exportes)
+			GameSavesHandler.Current.SetValue(SaveSection, SaveString, isFirstGame);
 		}
 
 		private void LoadFirstGameValue()
 		{
-			firstGame = true;
-			firstGame = OptionsSavesHandler.Current.GetValue(SaveString)?.As<bool>() ?? true;
-			GD.Print(firstGame);
+			if (GameSavesHandler.Current == null)
+			{
+				GD.PushWarning("GameSavesHandler no está disponible. Usando valor por defecto (true).");
+				firstGame = true; // por defecto, si no hay save cargado
+				return;
+			}
 
+			// Lee el bool del save del slot actual; si no existe, por defecto true (primera partida)
+			var v = GameSavesHandler.Current.GetValue(SaveSection, SaveString);
+			firstGame = v?.As<bool>() ?? true;
 
+			GD.Print($"[Tetris] firstGame = {firstGame}");
 		}
 
 	}
