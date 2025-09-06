@@ -17,6 +17,16 @@ Piece = Array[ExtResource("2_durpn")]([ExtResource("3_etvuu"), ExtResource("4_44
 BackGround = NodePath("BackGround")
 LinesCondition = 1
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(0.1, 0.1)
+transform = Transform2D(0.1, 0, 0, 0.1, 0, 0)
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_right = 45.0
+offset_bottom = 23.0
+text = "Score: 0"
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(15, 19)
 zoom = Vector2(26.62, 26.62)
