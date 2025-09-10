@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cc67vq0a343ff"]
+[gd_scene load_steps=13 format=3 uid="uid://cc67vq0a343ff"]
 
 [ext_resource type="Script" uid="uid://c8bh5ypjfn0wm" path="res://Scripts/MiniGames/Tetris/TetrisManager.cs" id="1_dreld"]
 [ext_resource type="Script" uid="uid://dlburudp56myy" path="res://Scripts/MiniGames/Tetris/PieceData.cs" id="2_durpn"]
@@ -6,6 +6,8 @@
 [ext_resource type="Resource" uid="uid://bpmx5ccq0mpqx" path="res://Resources/MiniGames/Tetris/PieceQuad.tres" id="4_44ugv"]
 [ext_resource type="Resource" uid="uid://bbcb7nbstumb" path="res://Resources/MiniGames/Tetris/PieceRect.tres" id="5_cigtn"]
 [ext_resource type="Resource" uid="uid://bpvxyr5utln63" path="res://Resources/MiniGames/Tetris/PieceTree.tres" id="6_5vbpk"]
+[ext_resource type="Script" uid="uid://bxm6msgfmxbru" path="res://Scripts/MiniGames/Tetris/Score.cs" id="7_urfqo"]
+[ext_resource type="Script" uid="uid://bex8ekw1n8jtb" path="res://Scripts/MiniGames/Tetris/PixelFont.cs" id="8_l4jvv"]
 [ext_resource type="Resource" uid="uid://ca5yks1ifc00b" path="res://Resources/Inputs/Actions/MiniGames/Action2.tres" id="10_e65oa"]
 [ext_resource type="Resource" uid="uid://b0rhpyawtoar5" path="res://Resources/Inputs/Actions/MiniGames/MoveMiniGame.tres" id="10_wf8jf"]
 [ext_resource type="Resource" uid="uid://daooa5fbkpkgn" path="res://Resources/Inputs/Actions/MiniGames/Action1.tres" id="11_ohmf6"]
@@ -17,15 +19,13 @@ Piece = Array[ExtResource("2_durpn")]([ExtResource("3_etvuu"), ExtResource("4_44
 BackGround = NodePath("BackGround")
 LinesCondition = 1
 
+[node name="Score" type="Node2D" parent="."]
+script = ExtResource("7_urfqo")
+Font = ExtResource("8_l4jvv")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(0.1, 0.1)
 transform = Transform2D(0.1, 0, 0, 0.1, 0, 0)
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-offset_left = 10.0
-offset_right = 45.0
-offset_bottom = 23.0
-text = "Score: 0"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(15, 19)
@@ -56,6 +56,7 @@ script = ExtResource("15_ohmf6")
 inputAction = ExtResource("10_e65oa")
 metadata/_custom_type_script = "uid://dtllrfjn8535m"
 
+[connection signal="LinesCleared" from="." to="Score" method="OnLinesCleared"]
 [connection signal="onInvoke" from="Inputs/Move" to="." method="TryMovePiece"]
 [connection signal="onInvoke" from="Inputs/RotateLeft" to="." method="Rotate" binds= [false]]
 [connection signal="onInvoke" from="Inputs/RotateRight" to="." method="Rotate" binds= [true]]

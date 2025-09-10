@@ -97,10 +97,9 @@ namespace Tetris
 		int width;
 		int height;
 
-		public override void _EnterTree()
-		{
-		}
-
+		//Counter
+		[Signal]
+		public delegate void LinesClearedEventHandler(int count);
 		private void EnsureSaveManager()
 		{
 			if (!BootstrapSaveForTests) return;
@@ -114,7 +113,7 @@ namespace Tetris
 			};
 
 			AddChild(handler); // al entrar al árbol, _EnterTree cargará 'autoslot'
-			// Opcionalmente, podrías forzar: handler.LoadSlot(AutoSlotName);
+							   // Opcionalmente, podrías forzar: handler.LoadSlot(AutoSlotName);
 		}
 
 		public override void _Ready()
@@ -236,6 +235,8 @@ namespace Tetris
 			width = board.GetLength(0);
 			height = board.GetLength(1);
 
+			int clearedThisPass = 0;
+
 			for (int y = height - 1; y >= 0; y--)
 			{
 				bool isFull = true;
@@ -330,6 +331,9 @@ namespace Tetris
 					y++; // Rechequear fila después de bajada o subida
 				}
 			}
+
+			    if (clearedThisPass > 0)
+					EmitSignal("LinesCleared", clearedThisPass);
 		}
 
 		private async Task ClearBoardWithFade()

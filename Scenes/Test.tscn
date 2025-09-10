@@ -445,7 +445,7 @@ viewport = NodePath("SubViewport")
 viewportResolutionFactor = 1.0
 
 [node name="SubViewport" type="SubViewport" parent="MeshInstance3D"]
-size = Vector2i(1920, 991)
+size = Vector2i(1920, 1009)
 
 [node name="Camera3D" type="Camera3D" parent="MeshInstance3D/SubViewport"]
 transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.959822, 1.645, 4.41463)
