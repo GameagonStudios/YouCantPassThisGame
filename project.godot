@@ -8,17 +8,21 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="YouCantFinishThisGame"
 run/main_scene="res://Scenes/Test.tscn"
-config/features=PackedStringArray("4.4", "C#", "Forward Plus")
+config/features=PackedStringArray("4.6", "C#", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
 
-Panku="*res://addons/panku_console/console.tscn"
+Panku="*uid://cyftuo4syatlv"
 MainInputEventHandler="*res://Resources/Nodes/InputEventHandler.tscn"
 
 [display]

@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwcwpr1os2dra"]
+[gd_scene format=3 uid="uid://cwcwpr1os2dra"]
 
 [ext_resource type="Script" uid="uid://cdxrxqiiosvrn" path="res://Scripts/UI/Options/BaseController/SliderController.cs" id="1_g51yr"]
 
-[node name="Controller" type="VBoxContainer" node_paths=PackedStringArray("spinBox", "slider")]
+[node name="Controller" type="VBoxContainer" unique_id=278842900 node_paths=PackedStringArray("spinBox", "slider")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 51.0
@@ -14,13 +14,13 @@ spinBox = NodePath("SpinBox")
 slider = NodePath("HSlider")
 step = 0.01
 
-[node name="SpinBox" type="SpinBox" parent="."]
+[node name="SpinBox" type="SpinBox" parent="." unique_id=1591123988]
 layout_mode = 2
 size_flags_horizontal = 0
 max_value = 0.0
 allow_greater = true
 
-[node name="HSlider" type="HSlider" parent="."]
+[node name="HSlider" type="HSlider" parent="." unique_id=1392644357]
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 2.0

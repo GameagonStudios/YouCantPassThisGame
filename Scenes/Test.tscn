@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bf44tejcvwkx8"]
+[gd_scene format=3 uid="uid://bf44tejcvwkx8"]
 
 [ext_resource type="Material" uid="uid://c2rlcwx53fo57" path="res://Materials/PlaceHolders/Grass.material" id="1_s0cw8"]
 [ext_resource type="PackedScene" uid="uid://dqwynxbg3ejn6" path="res://Resources/Nodes/pause_menu.tscn" id="1_uafe7"]
@@ -149,75 +149,75 @@ shader_parameter/Tint = Color(0, 0.423529, 0, 0.117647)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_8d4ee"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node3D" unique_id=152239450]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=623899513]
 environment = SubResource("Environment_be8nn")
 script = ExtResource("1_wjxug")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1036683268]
 transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 20, 0)
 directional_shadow_mode = 0
 
-[node name="PauseMenu" parent="." instance=ExtResource("1_uafe7")]
+[node name="PauseMenu" parent="." unique_id=409031086 instance=ExtResource("1_uafe7")]
 visible = false
 
-[node name="World" type="Node3D" parent="."]
+[node name="World" type="Node3D" parent="." unique_id=942286109]
 
-[node name="Ice" type="StaticBody3D" parent="World"]
+[node name="Ice" type="StaticBody3D" parent="World" unique_id=879442063]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -0.49, 0)
 physics_material_override = SubResource("PhysicsMaterial_hvvax")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ice"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ice" unique_id=1618399396]
 shape = SubResource("BoxShape3D_f8c2c")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ice/CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ice/CollisionShape3D" unique_id=1859928411]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_pykac")
 
-[node name="Accelerator" type="StaticBody3D" parent="World"]
+[node name="Accelerator" type="StaticBody3D" parent="World" unique_id=768484129]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.49, 19)
 physics_material_override = SubResource("PhysicsMaterial_gswut")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Accelerator"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Accelerator" unique_id=564240385]
 shape = SubResource("BoxShape3D_f8c2c")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Accelerator/CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Accelerator/CollisionShape3D" unique_id=1050889850]
 mesh = SubResource("BoxMesh_d1jyl")
 
-[node name="Bridge" type="StaticBody3D" parent="World"]
+[node name="Bridge" type="StaticBody3D" parent="World" unique_id=1763949601]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05828, -0.4965, -55)
 physics_material_override = SubResource("PhysicsMaterial_gswut")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Bridge"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Bridge" unique_id=192986936]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
 shape = SubResource("BoxShape3D_wjxug")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Bridge/CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Bridge/CollisionShape3D" unique_id=9067990]
 mesh = SubResource("BoxMesh_8d4ee")
 
-[node name="Ground" type="StaticBody3D" parent="World"]
+[node name="Ground" type="StaticBody3D" parent="World" unique_id=665478784]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, 0)
 physics_material_override = SubResource("PhysicsMaterial_m2nfa")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ground"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Ground" unique_id=274553231]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 45, 0)
 shape = SubResource("BoxShape3D_ls2ij")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ground/CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ground/CollisionShape3D" unique_id=2110158130]
 mesh = SubResource("BoxMesh_2p277")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Ground"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/Ground" unique_id=1821146527]
 transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 24.6145, 47.2067, 0)
 shape = SubResource("BoxShape3D_6hulc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ground/CollisionShape3D2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Ground/CollisionShape3D2" unique_id=1177461501]
 mesh = SubResource("BoxMesh_j0fuq")
 
-[node name="Machine_v2" parent="World" instance=ExtResource("12_kfvpf")]
+[node name="Machine_v2" parent="World" unique_id=1706560789 instance=ExtResource("12_kfvpf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.00676, 0, -8.46303)
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="World/Machine_v2"]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="World/Machine_v2" unique_id=33782216]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0.1)
 stream = ExtResource("5_wjxug")
 autoplay = true
@@ -225,216 +225,216 @@ max_distance = 40.0
 bus = &"Music"
 parameters/looping = true
 
-[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="World/Machine_v2"]
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="World/Machine_v2" unique_id=612836960]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0.1)
 stream = ExtResource("6_8d4ee")
 bus = &"Voices"
 
-[node name="StaticBody3D" type="StaticBody3D" parent="World/Machine_v2"]
+[node name="StaticBody3D" type="StaticBody3D" parent="World/Machine_v2" unique_id=1222117632]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("7_8d4ee")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Machine_v2/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Machine_v2/StaticBody3D" unique_id=1486944152]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, -0.0247345)
 shape = SubResource("BoxShape3D_3la1u")
 
-[node name="Planetoid" type="StaticBody3D" parent="World"]
+[node name="Planetoid" type="StaticBody3D" parent="World" unique_id=978477897]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -19.5433, -89.2641)
 physics_material_override = SubResource("PhysicsMaterial_rarx8")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Planetoid"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Planetoid" unique_id=667093786]
 mesh = SubResource("SphereMesh_rarx8")
 skeleton = NodePath("../Area3D")
 
-[node name="Area3D" type="Area3D" parent="World/Planetoid"]
+[node name="Area3D" type="Area3D" parent="World/Planetoid" unique_id=1033550147]
 gravity_space_override = 3
 gravity_point = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Planetoid/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Planetoid/Area3D" unique_id=1545952084]
 shape = SubResource("SphereShape3D_wjxug")
 debug_color = Color(1, 0, 0, 1)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Planetoid"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Planetoid" unique_id=1514133519]
 shape = SubResource("SphereShape3D_8d4ee")
 
-[node name="IceSlide" type="StaticBody3D" parent="World"]
+[node name="IceSlide" type="StaticBody3D" parent="World" unique_id=1544252711]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.4417, 4.0035, 0)
 physics_material_override = SubResource("PhysicsMaterial_hvvax")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/IceSlide" unique_id=499131432]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.5, 0)
 shape = SubResource("BoxShape3D_f8c2c")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D" unique_id=6503044]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_pykac")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="World/IceSlide" unique_id=151303075]
 transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, 34.6, -43.5711, 0)
 shape = SubResource("BoxShape3D_rarx8")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D2" unique_id=1203731330]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_wjxug")
 
-[node name="CollisionShape3D10" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D10" type="CollisionShape3D" parent="World/IceSlide" unique_id=1730226425]
 transform = Transform3D(0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 0, 0, 1, 60.1933, -87.7319, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D10"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D10" unique_id=1545775646]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D9" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="World/IceSlide" unique_id=2018575288]
 transform = Transform3D(0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 0, 0, 1, 62.0044, -90.1663, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D9"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D9" unique_id=1972844937]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D11" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D11" type="CollisionShape3D" parent="World/IceSlide" unique_id=1097766119]
 transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 64.028, -92.4407, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D11"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D11" unique_id=1912769469]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D12" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D12" type="CollisionShape3D" parent="World/IceSlide" unique_id=176854350]
 transform = Transform3D(0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 0, 0, 1, 66.2371, -94.5186, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D12"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D12" unique_id=1095417845]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D13" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D13" type="CollisionShape3D" parent="World/IceSlide" unique_id=1811719855]
 transform = Transform3D(0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 0, 0, 1, 68.6165, -96.4013, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D13"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D13" unique_id=1186008329]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D14" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D14" type="CollisionShape3D" parent="World/IceSlide" unique_id=1405908301]
 transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, 71.1599, -98.0745, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D14"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D14" unique_id=592193819]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D15" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D15" type="CollisionShape3D" parent="World/IceSlide" unique_id=2006096658]
 transform = Transform3D(0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 0, 0, 1, 73.8347, -99.5217, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D15"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D15" unique_id=1562408566]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D16" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D16" type="CollisionShape3D" parent="World/IceSlide" unique_id=882660741]
 transform = Transform3D(0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0, 1, 76.6204, -100.724, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D16"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D16" unique_id=1272172817]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D17" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D17" type="CollisionShape3D" parent="World/IceSlide" unique_id=178933553]
 transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 79.5101, -101.682, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D17"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D17" unique_id=1686253260]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D18" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D18" type="CollisionShape3D" parent="World/IceSlide" unique_id=681302916]
 transform = Transform3D(0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0, 0, 1, 82.4711, -102.381, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D18"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D18" unique_id=842925881]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D19" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D19" type="CollisionShape3D" parent="World/IceSlide" unique_id=424314325]
 transform = Transform3D(0.996195, 0.0871558, 0, -0.0871558, 0.996195, 0, 0, 0, 1, 85.4731, -102.822, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D19"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D19" unique_id=483228163]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D20" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D20" type="CollisionShape3D" parent="World/IceSlide" unique_id=1944016379]
 transform = Transform3D(1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0, 1, 88.5123, -103, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D20"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D20" unique_id=1105631284]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D21" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D21" type="CollisionShape3D" parent="World/IceSlide" unique_id=1960705671]
 transform = Transform3D(0.996195, -0.0871557, 0, 0.0871557, 0.996195, 0, 0, 0, 1, 91.5436, -102.907, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D21"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D21" unique_id=1293472742]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D22" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D22" type="CollisionShape3D" parent="World/IceSlide" unique_id=172555879]
 transform = Transform3D(0.984808, -0.173648, 0, 0.173648, 0.984808, 0, 0, 0, 1, 94.5573, -102.555, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D22"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D22" unique_id=1951914230]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D23" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D23" type="CollisionShape3D" parent="World/IceSlide" unique_id=243375255]
 transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 97.5389, -101.94, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D23"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D23" unique_id=1303129980]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D24" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D24" type="CollisionShape3D" parent="World/IceSlide" unique_id=2023934311]
 transform = Transform3D(0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0, 1, 100.454, -101.072, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D24"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D24" unique_id=200609860]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D25" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D25" type="CollisionShape3D" parent="World/IceSlide" unique_id=1244260074]
 transform = Transform3D(0.906308, -0.422618, 0, 0.422618, 0.906308, 0, 0, 0, 1, 103.274, -99.9528, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D25"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D25" unique_id=1750915302]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="CollisionShape3D26" type="CollisionShape3D" parent="World/IceSlide"]
+[node name="CollisionShape3D26" type="CollisionShape3D" parent="World/IceSlide" unique_id=1611477419]
 transform = Transform3D(0.866026, -0.5, 0, 0.5, 0.866026, 0, 0, 0, 1, 105.995, -98.5868, 0)
 shape = SubResource("BoxShape3D_8d4ee")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D26"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/IceSlide/CollisionShape3D26" unique_id=1835074341]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.98023e-08, 0)
 mesh = SubResource("BoxMesh_3la1u")
 
-[node name="Conveyor" type="StaticBody3D" parent="World"]
+[node name="Conveyor" type="StaticBody3D" parent="World" unique_id=1342064320]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, -0.49, 14)
 physics_material_override = SubResource("PhysicsMaterial_8d4ee")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Conveyor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World/Conveyor" unique_id=1796462882]
 shape = SubResource("BoxShape3D_c5xim")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Conveyor/CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World/Conveyor/CollisionShape3D" unique_id=1121819550]
 mesh = SubResource("BoxMesh_x8mav")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." node_paths=PackedStringArray("camera", "viewport")]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=232482809 node_paths=PackedStringArray("camera", "viewport")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 1.5, 3)
 rotation_edit_mode = 2
 mesh = SubResource("QuadMesh_52in0")
@@ -444,23 +444,23 @@ camera = NodePath("SubViewport/Camera3D")
 viewport = NodePath("SubViewport")
 viewportResolutionFactor = 1.0
 
-[node name="SubViewport" type="SubViewport" parent="MeshInstance3D"]
+[node name="SubViewport" type="SubViewport" parent="MeshInstance3D" unique_id=855456024]
 size = Vector2i(1920, 1009)
 
-[node name="Camera3D" type="Camera3D" parent="MeshInstance3D/SubViewport"]
-transform = Transform3D(0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, 0.5, -0.959822, 1.645, 4.41463)
+[node name="Camera3D" type="Camera3D" parent="MeshInstance3D/SubViewport" unique_id=708309298]
+transform = Transform3D(0.5000003, 0, -0.86602527, 0, 1, 0, 0.86602527, 0, 0.5000003, -0.9598216, 1.645004, 4.414633)
 rotation_edit_mode = 2
 fov = 90.0
 
-[node name="Player" parent="." instance=ExtResource("8_rxb08")]
+[node name="Player" parent="." unique_id=11859182 instance=ExtResource("8_rxb08")]
 transform = Transform3D(0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, 0.5, -1, 0, 1.56217)
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." unique_id=1181413076]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0)
 script = ExtResource("14_3la1u")
 TPTo = Vector3(0, 10, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1028384819]
 shape = SubResource("WorldBoundaryShape3D_8d4ee")
 
 [connection signal="body_entered" from="Area3D" to="Area3D" method="TPBody"]
